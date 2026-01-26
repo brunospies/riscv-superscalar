@@ -24,7 +24,7 @@ architecture arch1 of BranchDetection_unit is
 
 begin
 
-    branch_prediction <= '0'; -- move to input when to implement branch predictor
+    branch_prediction <= '0'; -- move to input when implement branch predictor
 
     branch_decision <= '1' when instruction = JAL or instruction = JALR or 
                                 (instruction = BEQ and Data1_ID = Data2_ID) or
