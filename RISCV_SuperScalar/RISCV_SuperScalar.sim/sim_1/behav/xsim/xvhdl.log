@@ -1,0 +1,40 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/RISCV_package.vhd" into library xil_defaultlib
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/shift_unit.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'shift_unit'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/ALU.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'ALU'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/BTB.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'BTB'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/BranchDetection_unit.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'BranchDetection_unit'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/ControlPath.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'ControlPath'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/RegisterNbits.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'RegisterNbits'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/RegisterFile.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'RegisterFile'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/ImmediateDataExtractor.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'ImmediateDataExtractor'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/Stage_ID.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Stage_ID'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/Stage_EX.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Stage_EX'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/Stage_MEM.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Stage_MEM'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/Stage_WB.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Stage_WB'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/Forwarding_unit.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Forwarding_unit'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/HazardDetection_unit.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'HazardDetection_unit'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/DataPath.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'DataPath'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.sim/Util_package.vhd" into library xil_defaultlib
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.sim/Memory.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Memory'
+WARNING: [VRFC 10-393] cannot access 'imagefile' from inside pure function 'memoryload'. [C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.sim/Memory.vhd:63]
+WARNING: [VRFC 10-393] cannot access 'imagefile' from inside pure function 'memoryload'. [C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.sim/Memory.vhd:66]
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.srcs/sources_1/new/RISCV_pipeline.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'RISCV_pipeline'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/mathi/Documents/Mathias/Enseirb_France/S8/Projet_Thematique/RISCV_SuperScalar/RISCV_SuperScalar.sim/RISCV_pipeline_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'RISCV_pipeline_tb'

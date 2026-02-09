@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="RISCV_pipeline_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="RISCV_pipeline_tb" />
+            <top_module name="riscv_package" />
+            <top_module name="util_package" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="152.500 ns"></ZoomStartTime>
+      <ZoomEndTime time="211.215 ns"></ZoomEndTime>
+      <Cursor1Time time="187.208 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="109"></NameColumnWidth>
+      <ValueColumnWidth column_width="72"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="16" />
+   <wvobject fp_name="/RISCV_pipeline_tb/clock" type="logic">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_pipeline_tb/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="group13" type="group">
+      <obj_property name="label">TB_top</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RISCV_pipeline_tb/MARS_DATA_OFFSET" type="array">
+         <obj_property name="ElementShortName">MARS_DATA_OFFSET[31:0]</obj_property>
+         <obj_property name="ObjectShortName">MARS_DATA_OFFSET[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/MARS_INSTRUCTION_OFFSET" type="array">
+         <obj_property name="ElementShortName">MARS_INSTRUCTION_OFFSET[31:0]</obj_property>
+         <obj_property name="ObjectShortName">MARS_INSTRUCTION_OFFSET[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/data_o" type="array">
+         <obj_property name="ElementShortName">data_o[31:0]</obj_property>
+         <obj_property name="ObjectShortName">data_o[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/uins" type="array">
+         <obj_property name="ElementShortName">uins</obj_property>
+         <obj_property name="ObjectShortName">uins</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/data_i" type="array">
+         <obj_property name="ElementShortName">data_i[31:0]</obj_property>
+         <obj_property name="ObjectShortName">data_i[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/instruction" type="array">
+         <obj_property name="ElementShortName">instruction[31:0]</obj_property>
+         <obj_property name="ObjectShortName">instruction[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/dataAddress" type="array">
+         <obj_property name="ElementShortName">dataAddress[31:0]</obj_property>
+         <obj_property name="ObjectShortName">dataAddress[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/instructionAddress" type="array">
+         <obj_property name="ElementShortName">instructionAddress[31:0]</obj_property>
+         <obj_property name="ObjectShortName">instructionAddress[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/MemWrite" type="array">
+         <obj_property name="ElementShortName">MemWrite[3:0]</obj_property>
+         <obj_property name="ObjectShortName">MemWrite[3:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group18" type="group">
+      <obj_property name="label">Instructions</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/decodedInstruction_IF" type="other">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">decodedInstruction_IF</obj_property>
+         <obj_property name="ObjectShortName">decodedInstruction_IF</obj_property>
+         <obj_property name="label">Inst_IF</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/uins_ID.instruction" type="other">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">.instruction</obj_property>
+         <obj_property name="ObjectShortName">.instruction</obj_property>
+         <obj_property name="label">inst_ID</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/uins_out.instruction" type="other">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">.instruction</obj_property>
+         <obj_property name="ObjectShortName">.instruction</obj_property>
+         <obj_property name="label">inst_EX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_MEM/uins_out.instruction" type="other">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">.instruction</obj_property>
+         <obj_property name="ObjectShortName">.instruction</obj_property>
+         <obj_property name="label">inst_MEM</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_WB/uins_out.instruction" type="other">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">.instruction</obj_property>
+         <obj_property name="ObjectShortName">.instruction</obj_property>
+         <obj_property name="label">inst_WB</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/cycles" type="other">
+         <obj_property name="ElementShortName">cycles</obj_property>
+         <obj_property name="ObjectShortName">cycles</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group19" type="group">
+      <obj_property name="label">PC</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/PROGRAM_COUNTER/clock" type="logic">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/PROGRAM_COUNTER/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/PROGRAM_COUNTER/ce" type="logic">
+         <obj_property name="ElementShortName">ce</obj_property>
+         <obj_property name="ObjectShortName">ce</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/PROGRAM_COUNTER/d" type="array">
+         <obj_property name="ElementShortName">d[31:0]</obj_property>
+         <obj_property name="ObjectShortName">d[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/PROGRAM_COUNTER/LENGTH" type="other">
+         <obj_property name="ElementShortName">LENGTH</obj_property>
+         <obj_property name="ObjectShortName">LENGTH</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/PROGRAM_COUNTER/INIT_VALUE" type="other">
+         <obj_property name="ElementShortName">INIT_VALUE</obj_property>
+         <obj_property name="ObjectShortName">INIT_VALUE</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/PROGRAM_COUNTER/q" type="array">
+         <obj_property name="ElementShortName">q[31:0]</obj_property>
+         <obj_property name="ObjectShortName">q[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group20" type="group">
+      <obj_property name="label">ID</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_ID/clock" type="logic">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_ID/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_ID/ce" type="logic">
+         <obj_property name="ElementShortName">ce</obj_property>
+         <obj_property name="ObjectShortName">ce</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_ID/pc_in" type="array">
+         <obj_property name="ElementShortName">pc_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pc_in[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_ID/pc_out" type="array">
+         <obj_property name="ElementShortName">pc_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pc_out[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_ID/instruction_in" type="array">
+         <obj_property name="ElementShortName">instruction_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">instruction_in[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_ID/instruction_out" type="array">
+         <obj_property name="ElementShortName">instruction_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">instruction_out[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_ID/INIT" type="other">
+         <obj_property name="ElementShortName">INIT</obj_property>
+         <obj_property name="ObjectShortName">INIT</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group21" type="group">
+      <obj_property name="label">EX</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/clock" type="logic">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/pc_in" type="array">
+         <obj_property name="ElementShortName">pc_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pc_in[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/pc_out" type="array">
+         <obj_property name="ElementShortName">pc_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pc_out[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/read_data_1_in" type="array">
+         <obj_property name="ElementShortName">read_data_1_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">read_data_1_in[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/read_data_1_out" type="array">
+         <obj_property name="ElementShortName">read_data_1_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">read_data_1_out[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/read_data_2_in" type="array">
+         <obj_property name="ElementShortName">read_data_2_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">read_data_2_in[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/read_data_2_out" type="array">
+         <obj_property name="ElementShortName">read_data_2_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">read_data_2_out[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/imm_data_in" type="array">
+         <obj_property name="ElementShortName">imm_data_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">imm_data_in[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/imm_data_out" type="array">
+         <obj_property name="ElementShortName">imm_data_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">imm_data_out[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/rs1_in" type="array">
+         <obj_property name="ElementShortName">rs1_in[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs1_in[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/rs1_out" type="array">
+         <obj_property name="ElementShortName">rs1_out[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs1_out[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/rs2_in" type="array">
+         <obj_property name="ElementShortName">rs2_in[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs2_in[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/rs2_out" type="array">
+         <obj_property name="ElementShortName">rs2_out[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs2_out[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/rd_in" type="array">
+         <obj_property name="ElementShortName">rd_in[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_in[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/rd_out" type="array">
+         <obj_property name="ElementShortName">rd_out[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_out[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/uins_in" type="array">
+         <obj_property name="ElementShortName">uins_in</obj_property>
+         <obj_property name="ObjectShortName">uins_in</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/uins_out" type="array">
+         <obj_property name="ElementShortName">uins_out</obj_property>
+         <obj_property name="ObjectShortName">uins_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_EX/INIT" type="other">
+         <obj_property name="ElementShortName">INIT</obj_property>
+         <obj_property name="ObjectShortName">INIT</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group22" type="group">
+      <obj_property name="label">MEM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_MEM/clock" type="logic">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_MEM/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_MEM/alu_result_in" type="array">
+         <obj_property name="ElementShortName">alu_result_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">alu_result_in[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_MEM/alu_result_out" type="array">
+         <obj_property name="ElementShortName">alu_result_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">alu_result_out[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_MEM/write_data_in" type="array">
+         <obj_property name="ElementShortName">write_data_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">write_data_in[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_MEM/write_data_out" type="array">
+         <obj_property name="ElementShortName">write_data_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">write_data_out[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_MEM/rd_in" type="array">
+         <obj_property name="ElementShortName">rd_in[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_in[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_MEM/rd_out" type="array">
+         <obj_property name="ElementShortName">rd_out[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_out[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_MEM/uins_in" type="array">
+         <obj_property name="ElementShortName">uins_in</obj_property>
+         <obj_property name="ObjectShortName">uins_in</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_MEM/uins_out" type="array">
+         <obj_property name="ElementShortName">uins_out</obj_property>
+         <obj_property name="ObjectShortName">uins_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_MEM/INIT" type="other">
+         <obj_property name="ElementShortName">INIT</obj_property>
+         <obj_property name="ObjectShortName">INIT</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group23" type="group">
+      <obj_property name="label">WB</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_WB/clock" type="logic">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_WB/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_WB/rd_in" type="array">
+         <obj_property name="ElementShortName">rd_in[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_in[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_WB/rd_out" type="array">
+         <obj_property name="ElementShortName">rd_out[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_out[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_WB/read_data_in" type="array">
+         <obj_property name="ElementShortName">read_data_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">read_data_in[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_WB/read_data_out" type="array">
+         <obj_property name="ElementShortName">read_data_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">read_data_out[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_WB/alu_result_in" type="array">
+         <obj_property name="ElementShortName">alu_result_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">alu_result_in[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_WB/alu_result_out" type="array">
+         <obj_property name="ElementShortName">alu_result_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">alu_result_out[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_WB/uins_in" type="array">
+         <obj_property name="ElementShortName">uins_in</obj_property>
+         <obj_property name="ObjectShortName">uins_in</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_WB/uins_out" type="array">
+         <obj_property name="ElementShortName">uins_out</obj_property>
+         <obj_property name="ObjectShortName">uins_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Stage_WB/INIT" type="other">
+         <obj_property name="ElementShortName">INIT</obj_property>
+         <obj_property name="ObjectShortName">INIT</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group80" type="group">
+      <obj_property name="label">ULA</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/ALU/operand1" type="array">
+         <obj_property name="ElementShortName">operand1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">operand1[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/ALU/operand2" type="array">
+         <obj_property name="ElementShortName">operand2[31:0]</obj_property>
+         <obj_property name="ObjectShortName">operand2[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/ALU/pc" type="array">
+         <obj_property name="ElementShortName">pc[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pc[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/ALU/result" type="array">
+         <obj_property name="ElementShortName">result[31:0]</obj_property>
+         <obj_property name="ObjectShortName">result[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/ALU/operation" type="other">
+         <obj_property name="ElementShortName">operation</obj_property>
+         <obj_property name="ObjectShortName">operation</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/ALU/op1_u" type="array">
+         <obj_property name="ElementShortName">op1_u[31:0]</obj_property>
+         <obj_property name="ObjectShortName">op1_u[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/ALU/op2_u" type="array">
+         <obj_property name="ElementShortName">op2_u[31:0]</obj_property>
+         <obj_property name="ObjectShortName">op2_u[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/ALU/op1_s" type="array">
+         <obj_property name="ElementShortName">op1_s[31:0]</obj_property>
+         <obj_property name="ObjectShortName">op1_s[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/ALU/op2_s" type="array">
+         <obj_property name="ElementShortName">op2_s[31:0]</obj_property>
+         <obj_property name="ObjectShortName">op2_s[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/ALU/result_shift" type="array">
+         <obj_property name="ElementShortName">result_shift[31:0]</obj_property>
+         <obj_property name="ObjectShortName">result_shift[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/ALU/zero" type="array">
+         <obj_property name="ElementShortName">zero[31:0]</obj_property>
+         <obj_property name="ObjectShortName">zero[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/ALU/one" type="array">
+         <obj_property name="ElementShortName">one[31:0]</obj_property>
+         <obj_property name="ObjectShortName">one[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/ALU/four" type="array">
+         <obj_property name="ElementShortName">four[31:0]</obj_property>
+         <obj_property name="ObjectShortName">four[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group94" type="group">
+      <obj_property name="label">RegisterFile</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/REGISTER_FILE/clock" type="logic">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/REGISTER_FILE/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/REGISTER_FILE/write" type="logic">
+         <obj_property name="ElementShortName">write</obj_property>
+         <obj_property name="ObjectShortName">write</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/REGISTER_FILE/readRegister1" type="array">
+         <obj_property name="ElementShortName">readRegister1[4:0]</obj_property>
+         <obj_property name="ObjectShortName">readRegister1[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/REGISTER_FILE/readRegister2" type="array">
+         <obj_property name="ElementShortName">readRegister2[4:0]</obj_property>
+         <obj_property name="ObjectShortName">readRegister2[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/REGISTER_FILE/writeRegister" type="array">
+         <obj_property name="ElementShortName">writeRegister[4:0]</obj_property>
+         <obj_property name="ObjectShortName">writeRegister[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/REGISTER_FILE/writeData" type="array">
+         <obj_property name="ElementShortName">writeData[31:0]</obj_property>
+         <obj_property name="ObjectShortName">writeData[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/REGISTER_FILE/readData1" type="array">
+         <obj_property name="ElementShortName">readData1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">readData1[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/REGISTER_FILE/readData2" type="array">
+         <obj_property name="ElementShortName">readData2[31:0]</obj_property>
+         <obj_property name="ObjectShortName">readData2[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/REGISTER_FILE/reg" type="array">
+         <obj_property name="ElementShortName">reg[0:31][31:0]</obj_property>
+         <obj_property name="ObjectShortName">reg[0:31][31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/REGISTER_FILE/writeEnable" type="array">
+         <obj_property name="ElementShortName">writeEnable[31:0]</obj_property>
+         <obj_property name="ObjectShortName">writeEnable[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group140" type="group">
+      <obj_property name="label">Forwarding</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/RegWrite_stage_MEM" type="logic">
+         <obj_property name="ElementShortName">RegWrite_stage_MEM</obj_property>
+         <obj_property name="ObjectShortName">RegWrite_stage_MEM</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/RegWrite_stage_WB" type="logic">
+         <obj_property name="ElementShortName">RegWrite_stage_WB</obj_property>
+         <obj_property name="ObjectShortName">RegWrite_stage_WB</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/RegWrite_stage_EX" type="logic">
+         <obj_property name="ElementShortName">RegWrite_stage_EX</obj_property>
+         <obj_property name="ObjectShortName">RegWrite_stage_EX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/rs1_stage_EX" type="array">
+         <obj_property name="ElementShortName">rs1_stage_EX[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs1_stage_EX[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/rs2_stage_EX" type="array">
+         <obj_property name="ElementShortName">rs2_stage_EX[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs2_stage_EX[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/rs1_stage_ID" type="array">
+         <obj_property name="ElementShortName">rs1_stage_ID[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs1_stage_ID[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/rs2_stage_ID" type="array">
+         <obj_property name="ElementShortName">rs2_stage_ID[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs2_stage_ID[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/rd_stage_MEM" type="array">
+         <obj_property name="ElementShortName">rd_stage_MEM[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_stage_MEM[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/rd_stage_WB" type="array">
+         <obj_property name="ElementShortName">rd_stage_WB[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_stage_WB[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/rd_stage_EX" type="array">
+         <obj_property name="ElementShortName">rd_stage_EX[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_stage_EX[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/MemToReg_MEM" type="logic">
+         <obj_property name="ElementShortName">MemToReg_MEM</obj_property>
+         <obj_property name="ObjectShortName">MemToReg_MEM</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/ForwardA" type="array">
+         <obj_property name="ElementShortName">ForwardA[1:0]</obj_property>
+         <obj_property name="ObjectShortName">ForwardA[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/ForwardB" type="array">
+         <obj_property name="ElementShortName">ForwardB[1:0]</obj_property>
+         <obj_property name="ObjectShortName">ForwardB[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/Forward1" type="array">
+         <obj_property name="ElementShortName">Forward1[1:0]</obj_property>
+         <obj_property name="ObjectShortName">Forward1[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/Forward2" type="array">
+         <obj_property name="ElementShortName">Forward2[1:0]</obj_property>
+         <obj_property name="ObjectShortName">Forward2[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/MuxLoad1_Comp" type="logic">
+         <obj_property name="ElementShortName">MuxLoad1_Comp</obj_property>
+         <obj_property name="ObjectShortName">MuxLoad1_Comp</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/MuxLoad2_Comp" type="logic">
+         <obj_property name="ElementShortName">MuxLoad2_Comp</obj_property>
+         <obj_property name="ObjectShortName">MuxLoad2_Comp</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/ForwardWb_A" type="logic">
+         <obj_property name="ElementShortName">ForwardWb_A</obj_property>
+         <obj_property name="ObjectShortName">ForwardWb_A</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/Forwarding_unit/ForwardWb_B" type="logic">
+         <obj_property name="ElementShortName">ForwardWb_B</obj_property>
+         <obj_property name="ObjectShortName">ForwardWb_B</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group141" type="group">
+      <obj_property name="label">HazardDetection</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/HazardDetection_unit/rs2_ID" type="array">
+         <obj_property name="ElementShortName">rs2_ID[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs2_ID[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/HazardDetection_unit/rs1_ID" type="array">
+         <obj_property name="ElementShortName">rs1_ID[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs1_ID[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/HazardDetection_unit/rd_EX" type="array">
+         <obj_property name="ElementShortName">rd_EX[4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_EX[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/HazardDetection_unit/MemToReg_EX" type="logic">
+         <obj_property name="ElementShortName">MemToReg_EX</obj_property>
+         <obj_property name="ObjectShortName">MemToReg_EX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/HazardDetection_unit/ce_pc" type="logic">
+         <obj_property name="ElementShortName">ce_pc</obj_property>
+         <obj_property name="ObjectShortName">ce_pc</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/HazardDetection_unit/ce_stage_ID" type="logic">
+         <obj_property name="ElementShortName">ce_stage_ID</obj_property>
+         <obj_property name="ObjectShortName">ce_stage_ID</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/HazardDetection_unit/bubble_hazard_EX" type="logic">
+         <obj_property name="ElementShortName">bubble_hazard_EX</obj_property>
+         <obj_property name="ObjectShortName">bubble_hazard_EX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/HazardDetection_unit/ce" type="logic">
+         <obj_property name="ElementShortName">ce</obj_property>
+         <obj_property name="ObjectShortName">ce</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group178" type="group">
+      <obj_property name="label">Branch_detection</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="group177" type="group">
+         <obj_property name="label">INS_MEM</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="group142" type="group">
+            <obj_property name="label">BranchDetection</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BranchDetection_unit/instruction" type="other">
+               <obj_property name="ElementShortName">instruction</obj_property>
+               <obj_property name="ObjectShortName">instruction</obj_property>
+            </wvobject>
+            <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BranchDetection_unit/Data1_ID" type="array">
+               <obj_property name="ElementShortName">Data1_ID[31:0]</obj_property>
+               <obj_property name="ObjectShortName">Data1_ID[31:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BranchDetection_unit/Data2_ID" type="array">
+               <obj_property name="ElementShortName">Data2_ID[31:0]</obj_property>
+               <obj_property name="ObjectShortName">Data2_ID[31:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BranchDetection_unit/branch_decision" type="logic">
+               <obj_property name="ElementShortName">branch_decision</obj_property>
+               <obj_property name="ObjectShortName">branch_decision</obj_property>
+            </wvobject>
+            <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BranchDetection_unit/bubble_branch_ID" type="logic">
+               <obj_property name="ElementShortName">bubble_branch_ID</obj_property>
+               <obj_property name="ObjectShortName">bubble_branch_ID</obj_property>
+            </wvobject>
+            <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BranchDetection_unit/branch_prediction" type="logic">
+               <obj_property name="ElementShortName">branch_prediction</obj_property>
+               <obj_property name="ObjectShortName">branch_prediction</obj_property>
+            </wvobject>
+            <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BranchDetection_unit/branch_decision_signal" type="logic">
+               <obj_property name="ElementShortName">branch_decision_signal</obj_property>
+               <obj_property name="ObjectShortName">branch_decision_signal</obj_property>
+            </wvobject>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BranchDetection_unit/instruction" type="other">
+         <obj_property name="ElementShortName">instruction</obj_property>
+         <obj_property name="ObjectShortName">instruction</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BranchDetection_unit/Data1_ID" type="array">
+         <obj_property name="ElementShortName">Data1_ID[31:0]</obj_property>
+         <obj_property name="ObjectShortName">Data1_ID[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BranchDetection_unit/Data2_ID" type="array">
+         <obj_property name="ElementShortName">Data2_ID[31:0]</obj_property>
+         <obj_property name="ObjectShortName">Data2_ID[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BranchDetection_unit/branch_decision" type="logic">
+         <obj_property name="ElementShortName">branch_decision</obj_property>
+         <obj_property name="ObjectShortName">branch_decision</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BranchDetection_unit/bubble_branch_ID" type="logic">
+         <obj_property name="ElementShortName">bubble_branch_ID</obj_property>
+         <obj_property name="ObjectShortName">bubble_branch_ID</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BranchDetection_unit/branch_prediction" type="logic">
+         <obj_property name="ElementShortName">branch_prediction</obj_property>
+         <obj_property name="ObjectShortName">branch_prediction</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BranchDetection_unit/branch_decision_signal" type="logic">
+         <obj_property name="ElementShortName">branch_decision_signal</obj_property>
+         <obj_property name="ObjectShortName">branch_decision_signal</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group990" type="group">
+      <obj_property name="label">BTB_predictor</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="group187" type="group">
+         <obj_property name="label">DATA_MEM</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/clock" type="logic">
+            <obj_property name="ElementShortName">clock</obj_property>
+            <obj_property name="ObjectShortName">clock</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/MemWrite" type="logic">
+            <obj_property name="ElementShortName">MemWrite</obj_property>
+            <obj_property name="ObjectShortName">MemWrite</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/address" type="array">
+            <obj_property name="ElementShortName">address[31:0]</obj_property>
+            <obj_property name="ObjectShortName">address[31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/data_i" type="array">
+            <obj_property name="ElementShortName">data_i[31:0]</obj_property>
+            <obj_property name="ObjectShortName">data_i[31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/data_o" type="array">
+            <obj_property name="ElementShortName">data_o[31:0]</obj_property>
+            <obj_property name="ObjectShortName">data_o[31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/memoryArray" type="array">
+            <obj_property name="ElementShortName">memoryArray[0:100][31:0]</obj_property>
+            <obj_property name="ObjectShortName">memoryArray[0:100][31:0]</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+         </wvobject>
+         <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/wordAddress" type="array">
+            <obj_property name="ElementShortName">wordAddress[31:0]</obj_property>
+            <obj_property name="ObjectShortName">wordAddress[31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/mappedAddress" type="array">
+            <obj_property name="ElementShortName">mappedAddress[31:0]</obj_property>
+            <obj_property name="ObjectShortName">mappedAddress[31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/SIZE" type="other">
+            <obj_property name="ElementShortName">SIZE</obj_property>
+            <obj_property name="ObjectShortName">SIZE</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/START_ADDRESS" type="array">
+            <obj_property name="ElementShortName">START_ADDRESS[31:0]</obj_property>
+            <obj_property name="ObjectShortName">START_ADDRESS[31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/imageFileName" type="array">
+            <obj_property name="ElementShortName">imageFileName[1:19]</obj_property>
+            <obj_property name="ObjectShortName">imageFileName[1:19]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/clock" type="logic">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/pc_in" type="array">
+         <obj_property name="ElementShortName">pc_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pc_in[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/predict_taken" type="logic">
+         <obj_property name="ElementShortName">predict_taken</obj_property>
+         <obj_property name="ObjectShortName">predict_taken</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/predict_pc" type="array">
+         <obj_property name="ElementShortName">predict_pc[31:0]</obj_property>
+         <obj_property name="ObjectShortName">predict_pc[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/update_en" type="logic">
+         <obj_property name="ElementShortName">update_en</obj_property>
+         <obj_property name="ObjectShortName">update_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/pc_update" type="array">
+         <obj_property name="ElementShortName">pc_update[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pc_update[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/target_real" type="array">
+         <obj_property name="ElementShortName">target_real[31:0]</obj_property>
+         <obj_property name="ObjectShortName">target_real[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/taken_real" type="logic">
+         <obj_property name="ElementShortName">taken_real</obj_property>
+         <obj_property name="ObjectShortName">taken_real</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/BTB" type="array">
+         <obj_property name="ElementShortName">BTB[0:15]</obj_property>
+         <obj_property name="ObjectShortName">BTB[0:15]</obj_property>
+         <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/index_fetch" type="other">
+         <obj_property name="ElementShortName">index_fetch</obj_property>
+         <obj_property name="ObjectShortName">index_fetch</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/index_update" type="other">
+         <obj_property name="ElementShortName">index_update</obj_property>
+         <obj_property name="ObjectShortName">index_update</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/hit" type="logic">
+         <obj_property name="ElementShortName">hit</obj_property>
+         <obj_property name="ObjectShortName">hit</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/BTB_BITS" type="other">
+         <obj_property name="ElementShortName">BTB_BITS</obj_property>
+         <obj_property name="ObjectShortName">BTB_BITS</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DUV/DATA_PATH/BTB_UNIT/BTB_SIZE" type="other">
+         <obj_property name="ElementShortName">BTB_SIZE</obj_property>
+         <obj_property name="ObjectShortName">BTB_SIZE</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group294" type="group">
+      <obj_property name="label">Data_Mem</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/clock" type="logic">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/MemWrite" type="logic">
+         <obj_property name="ElementShortName">MemWrite</obj_property>
+         <obj_property name="ObjectShortName">MemWrite</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/address" type="array">
+         <obj_property name="ElementShortName">address[31:0]</obj_property>
+         <obj_property name="ObjectShortName">address[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/data_i" type="array">
+         <obj_property name="ElementShortName">data_i[31:0]</obj_property>
+         <obj_property name="ObjectShortName">data_i[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/data_o" type="array">
+         <obj_property name="ElementShortName">data_o[31:0]</obj_property>
+         <obj_property name="ObjectShortName">data_o[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/memoryArray" type="array">
+         <obj_property name="ElementShortName">memoryArray[0:100][31:0]</obj_property>
+         <obj_property name="ObjectShortName">memoryArray[0:100][31:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/wordAddress" type="array">
+         <obj_property name="ElementShortName">wordAddress[31:0]</obj_property>
+         <obj_property name="ObjectShortName">wordAddress[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/mappedAddress" type="array">
+         <obj_property name="ElementShortName">mappedAddress[31:0]</obj_property>
+         <obj_property name="ObjectShortName">mappedAddress[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/SIZE" type="other">
+         <obj_property name="ElementShortName">SIZE</obj_property>
+         <obj_property name="ObjectShortName">SIZE</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/START_ADDRESS" type="array">
+         <obj_property name="ElementShortName">START_ADDRESS[31:0]</obj_property>
+         <obj_property name="ObjectShortName">START_ADDRESS[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_pipeline_tb/DATA_MEMORY/imageFileName" type="array">
+         <obj_property name="ElementShortName">imageFileName[1:19]</obj_property>
+         <obj_property name="ObjectShortName">imageFileName[1:19]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

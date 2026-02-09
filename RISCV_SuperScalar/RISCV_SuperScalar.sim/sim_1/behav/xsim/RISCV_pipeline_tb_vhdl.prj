@@ -1,0 +1,25 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/RISCV_package.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/shift_unit.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/ALU.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/BTB.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/BranchDetection_unit.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/ControlPath.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/RegisterNbits.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/RegisterFile.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/ImmediateDataExtractor.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/Stage_ID.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/Stage_EX.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/Stage_MEM.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/Stage_WB.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/Forwarding_unit.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/HazardDetection_unit.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/DataPath.vhd" \
+"../../../Util_package.vhd" \
+"../../../Memory.vhd" \
+"../../../../RISCV_SuperScalar.srcs/sources_1/new/RISCV_pipeline.vhd" \
+"../../../RISCV_pipeline_tb.vhd" \
+
+# Do not sort compile order
+nosort
