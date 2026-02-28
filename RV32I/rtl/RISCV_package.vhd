@@ -32,6 +32,12 @@ package RISCV_package is
         instruction : Instruction_type;             -- Decoded instruction  
         format      : Instruction_format;           -- Indicates the instruction format      
     end record;
+
+    type Microinstruction_array is array (0 to 1) of Microinstruction;
+    type Data_array             is array (0 to 1) of std_logic_vector(31 downto 0);
+    type Reg_array              is array (0 to 1) of std_logic_vector(4 downto 0);
+    type Select_array           is array (0 to 1) of std_logic_vector(1 downto 0);
+    type MemWrite_array         is array (0 to 1) of std_logic_vector(3 downto 0);
          
 end RISCV_package;
 

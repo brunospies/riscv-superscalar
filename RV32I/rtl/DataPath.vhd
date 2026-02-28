@@ -1,7 +1,6 @@
 -------------------------------------------------------------------------
 -- Design unit: Data path
--- Description: MIPS data path supporting ADDU, SUBU, AND, OR, LW, SW,  
---                  ADDIU, ORI, SLT, BEQ, J, LUI instructions.
+-- Description: 
 -------------------------------------------------------------------------
 
 library IEEE;
@@ -13,19 +12,22 @@ use work.RISCV_package.all;
 entity DataPath is
     generic (
         PC_START_ADDRESS    : integer := 0;
-        SYNTHESIS           : std_logic := '0'
+        SYNTHESIS           : std_logic := '0';
+        DATA_WIDTH          : integer := 32;
+        INST_WIDTH          : integer := 64;
+        ISSUE_WIDTH         : natural := 2
     );
     port (  
         clock               : in  std_logic;
         reset               : in  std_logic;
-        instructionAddress  : out std_logic_vector(31 downto 0);  -- Instruction memory address bus
-        instruction_IF      : in  std_logic_vector(31 downto 0);  -- Data bus from instruction memory
-        instruction_out     : out std_logic_vector(31 downto 0);  -- Data bus from instruction of Stage_ID for Decode by Control Path
-        dataAddress         : out std_logic_vector(31 downto 0);  -- Data memory address bus
-        data_i              : in  std_logic_vector(31 downto 0);  -- Data bus from data memory 
-        data_o              : out std_logic_vector(31 downto 0);  -- Data bus to data memory
-        MemWrite            : out std_logic_vector(3 downto 0);
-        uins_ID             : in  Microinstruction                -- Control path microinstruction
+        instructionAddress  : out std_logic_vector(DATA_WIDTH-1 downto 0);  -- Instruction memory address bus
+        instruction_in      : in  std_logic_vector(INST_WIDTH-1 downto 0);  -- Data bus from instruction memory
+        dataAddress         : out Data_array;  -- Data memory address bus
+        data_i              : in  Data_array;  -- Data bus from data memory 
+        data_o              : out Data_array;  -- Data bus to data memory
+        MemWrite            : out MemWrite_array; 
+        instruction_out     : out Data_array                                -- Data bus from instruction of Stage_ID for Decode by Control Path
+        uins_ID             : in  Microinstruction_array                    -- Control path microinstruction
     );
 end DataPath;
 
@@ -33,120 +35,73 @@ end DataPath;
 architecture structural of DataPath is
 
     -- Instruction Fetch Stage Signals:
-    signal incrementedPC_IF, pc_d, pc_q, PC_IF_mux, instruction_IF_mux : std_logic_vector(31 downto 0);
+    signal incrementedPC_IF, pc_d, pc_q, PC_IF_mux : std_logic_vector(31 downto 0);
     signal ce_pc : std_logic;
+    signal instruction_IF, instruction_IF_mux : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
 
     -- Instruction Decode Stage Signals:
-    signal PC_ID, readData1_ID, readData2_ID, imm_data_ID, imm_data_ID_mux, jumpTarget, readReg1_Comp, readReg2_Comp : std_logic_vector(31 downto 0);
-    signal branchTarget, readReg1, readReg2, Data1_ID, Data1_ID_mux, Data2_ID, Data2_ID_mux, instruction_ID : std_logic_vector(31 downto 0);
-    signal rs1_ID, rs2_ID, rd_ID, rs1_ID_mux, rs2_ID_mux, rd_ID_mux: std_logic_vector(4 downto 0);
-    signal ce_stage_ID, bubble_branch_ID, branch_decision : std_logic;
-    signal uins_ID_mux : Microinstruction;
+    signal instruction_ID : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
+    signal PC_ID, readData1_ID, readData2_ID, imm_data_ID, imm_data_ID_mux, jumpTarget, readReg1_Comp, readReg2_Comp : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
+    signal branchTarget, readReg1, readReg2, Data1_ID, Data1_ID_mux, Data2_ID, Data2_ID_mux : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
+    signal rs1_ID, rs2_ID, rd_ID, rs1_ID_mux, rs2_ID_mux, rd_ID_mux : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
+    signal ce_stage_ID, bubble_branch_ID, branch_decision : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
+    signal uins_ID_mux : Microinstruction_array; --> (0 to 1) of Microinstruction;
 
     -- Execution Stage Signals:
-    signal result_EX, readData1_EX, readData2_EX, operand1, operand2 : std_logic_vector(31 downto 0);
-    signal ALUoperand2, imm_data_EX, PC_EX : std_logic_vector(31 downto 0);
-    signal uins_EX : Microinstruction;
-    signal rd_EX, rs2_EX, rs1_EX : std_logic_vector(4 downto 0);
-    signal bubble_hazard_EX : std_logic;
+    signal result_EX, readData1_EX, readData2_EX, operand1, operand2 : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
+    signal ALUoperand2, imm_data_EX, PC_EX : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
+    signal uins_EX : Microinstruction_array; --> (0 to 1) of Microinstruction;
+    signal rd_EX, rs2_EX, rs1_EX : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
+    signal bubble_hazard_EX : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
 
     -- Memory Stage Signals:
-    signal result_MEM : std_logic_vector(31 downto 0);
-    signal uins_MEM : Microinstruction;
-    signal rd_MEM : std_logic_vector(4 downto 0);
+    signal result_MEM : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
+    signal uins_MEM : Microinstruction_array; --> (0 to 1) of Microinstruction;
+    signal rd_MEM : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
 
     -- Write Back Stage Signals:
-    signal writeData, data_i_WB, result_WB: std_logic_vector(31 downto 0);
-    signal uins_WB : Microinstruction;
-    signal rd_WB : std_logic_vector(4 downto 0);
+    signal writeData, data_i_WB, result_WB: Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
+    signal uins_WB : Microinstruction_array; --> (0 to 1) of Microinstruction;
+    signal rd_WB : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
 
     -- Auxiliar Signals:
-    signal ForwardA, ForwardB, Forward1, Forward2 : std_logic_vector(1 downto 0);
-    signal ForwardWb_A, ForwardWb_B, MuxLoad1_Comp, MuxLoad2_Comp : std_logic;
+    signal ForwardA, ForwardB, Forward1, Forward2 : Select_array; --> (0 to 1) of std_logic_vector(1 downto 0);
+    signal ForwardWb_A, ForwardWb_B, MuxLoad1_Comp, MuxLoad2_Comp : std_logic_vector(1 downto 0); -->  (0 to 1) of std_logic; 
     signal uins_bubble : Microinstruction;
 
     -- SIMULATION Signals:
-    signal decodedInstruction_IF: Instruction_type;
-    signal decodedFormat_IF:      Instruction_format;
-    alias  opcode: std_logic_vector(6 downto 0) is instruction_IF(6 downto 0);
-    alias  funct3: std_logic_vector(2 downto 0) is instruction_IF(14 downto 12);
-    alias  funct7: std_logic_vector(6 downto 0) is instruction_IF(31 downto 25); 
+    type Instruction_type_array is array (0 to 1) of Instruction_type;
+    type Instruction_format_array is array (0 to 1) of Instruction_format;
+    type op_func7_array is array (0 to 1) of std_logic_vector(6 downto 0);
+    type func3_array is array (0 to 1) of std_logic_vector(2 downto 0);
+
+    signal decodedInstruction_IF: Instruction_type_array;
+    signal decodedFormat_IF:      Instruction_format_array;
+    signal opcode: op_func7_array;
+    signal funct3: func3_array;
+    signal funct7: op_func7_array; 
     signal cycles : integer := 0;
 
-    
 begin
 
-    rs1_ID   <= instruction_ID(19 downto 15);
-    rs2_ID   <= instruction_ID(24 downto 20);
-    rd_ID    <= instruction_ID(11 downto 7);
+    instruction_IF(0) <= instruction_in(31 downto 0);
+    instruction_IF(1) <= intruction_in(63 downto 32);
 
     -- incrementedPC_IF points the next instruction address
     -- ADDER over the PC register
-    ADDER_PC: incrementedPC_IF <= STD_LOGIC_VECTOR(UNSIGNED(pc_q) + TO_UNSIGNED(4,32));
+    ADDER_PC: incrementedPC_IF <= STD_LOGIC_VECTOR(UNSIGNED(pc_q) + TO_UNSIGNED(8,32));
         
     -- Instruction memory is addressed by the PC register
     instructionAddress <= pc_q;
-    
-    -- Branch or Jump target address
-    -- Branch ADDER
-    ADDER_BRANCH: branchTarget <= STD_LOGIC_VECTOR(UNSIGNED(PC_ID) + UNSIGNED(imm_data_ID));
 
-    jumpTarget <= STD_LOGIC_VECTOR(UNSIGNED(imm_data_ID) + UNSIGNED(Data1_ID));
-    
     -- MUX which selects the PC value
-    MUX_PC: pc_d <= branchTarget when (uins_ID.format = B and branch_decision = '1') or uins_ID.format = J else
-                    jumpTarget when uins_ID.instruction = JALR else --jumpTarget(30 downto 0) & '0' when uins_ID.instruction = JALR else 
+    MUX_PC: pc_d <= branchTarget(0) when (uins_ID(0).format = B and branch_decision(0) = '1') or uins_ID(0).format = J else
+                    jumpTarget(0)   when uins_ID.instruction = JALR else
+                    branchTarget(1) when (uins_ID(1).format = B and branch_decision(1) = '1') or uins_ID(1).format = J else
+                    jumpTarget(1)   when uins_ID.instruction = JALR else
                     incrementedPC_IF;
-      
-    -- Selects the second ALU operand
-    -- MUX at the ALU input
-    MUX_ALU: ALUoperand2 <= operand2 when uins_EX.ALUSrc = '0' else
-                            imm_data_EX;
-    
-    -- Selects the data to be written in the register file
-    -- MUX at the data memory output
-    MUX_DATA_MEM: writeData <= data_i_WB when uins_WB.memToReg = '1' else result_WB;
-    
-    -- MUX Forward A (operand ALU)
-    MUX_FORWARD_A: operand1 <= readData1_EX when ForwardA = "00" else 
-    writeData when ForwardA = "01" else
-    data_i when ForwardA = "11" else
-    result_MEM;
 
-    -- MUX Forward B (operand ALU)
-    MUX_FORWARD_B: operand2 <= readData2_EX when ForwardB = "00" else 
-    writeData when ForwardB = "01" else
-    data_i when ForwardB = "11" else
-    result_MEM;
-
-    -- MUX Forward 1 (comparison)
-    MUX_FORWARD_1: readReg1 <= readData1_ID when Forward1 = "00" else 
-    result_EX when Forward1 = "01" else
-    result_MEM when Forward1 = "10" else
-    writeData;
-
-    -- MUX Forward 2 (comparison)
-    MUX_FORWARD_2: readReg2 <= readData2_ID when Forward2 = "00" else 
-    result_EX when Forward2 = "01" else
-    result_MEM when Forward2 = "10" else
-    writeData;
-
-    -- MUX Load 1 (comparison)
-    MUX_LOAD_1: readReg1_Comp <= data_i when MuxLoad1_Comp = '1' else
-                                 readReg1;
-
-    -- MUX Load 1 (comparison)
-    MUX_LOAD_2: readReg2_Comp <= data_i when MuxLoad2_Comp = '1' else
-                                 readReg2;
-
-    -- MUX Forward WB A
-    MUX_FORWARD_WB_A: Data1_ID <= writeData when ForwardWb_A = '1' else readData1_ID; 
-
-    -- MUX Forward WB B
-    MUX_FORWARD_WB_B: Data2_ID <= writeData when ForwardWb_B = '1' else readData2_ID; 
-
-    -- ALU output address the data memory
-    dataAddress <= result_MEM;
+    -----------------------------------------------------------------------------------------------------------------------
     
     -- PC register
     PROGRAM_COUNTER:    entity work.RegisterNbits
@@ -167,180 +122,253 @@ begin
         port map (
             clock             => clock,
             reset             => reset,            
-            write             => uins_WB.RegWrite,            
-            readRegister1     => rs1_ID,    
-            readRegister2     => rs2_ID,
-            writeRegister     => rd_WB,
-            writeData         => writeData,          
-            readData1         => readData1_ID,        
-            readData2         => readData2_ID
+            write_a           => uins_WB(0).RegWrite,   
+            write_b           => uins_WB(1).RegWrite, 
+            readRegister1_a   => rs1_ID(0),    
+            readRegister2_a   => rs2_ID(0),
+            readRegister1_b   => rs1_ID(1), 
+            readRegister2_b   => rs1_ID(1), 
+            writeRegister_a   => rd_WB(0),
+            writeRegister_b   => rd_WB(1), 
+            writeData_a       => writeData(0), 
+            writeData_b       => writeData(1),
+            readData1_a       => readData1_ID(0),        
+            readData2_a       => readData2_ID(0),
+            readData1_b       => readData1_ID(1),  
+            readData2_b       => readData2_ID(1)
         );
     
+
+    gen_ex : for i in 0 to ISSUE_WIDTH-1 generate
+
+        -- ALU output address the data memory
+        dataAddress(i) <= result_MEM(i);
+
+        -- MemWrite receive signal of Stage MEM
+        MemWrite(i) <= uins_MEM(i).MemWrite;
+
+        rs1_ID(i) <= instruction_ID(i)(19 downto 15);
+        rs2_ID(i) <= instruction_ID(i)(24 downto 20);
+        rd_ID(i)  <= instruction_ID(i)(11 downto 7);
+
+        -- Stage Instruction Decode of Pipeline
+        IMM_DATA_EXTRACT_i: entity work.ImmediateDataExtractor(arch2)
+        port map (
+            instruction      => instruction_ID(i)(31 downto 7),
+            instruction_f    => uins_ID(i).format,
+            imm_data         => imm_data_ID(i)
+        );
+
+        -- Stage Instruction Decode of Pipeline
+        id_i: entity work.Stage_ID(behavioral)
+            port map (
+                clock               => clock, 
+                reset               => reset,
+                ce                  => ce_stage_ID(i),  
+                pc_in               => PC_IF_mux(i), 
+                pc_out              => PC_ID(i),
+                instruction_in      => instruction_IF_mux(i),
+                instruction_out     => instruction_ID(i)
+            );
+
+        -- Stage Exexution of Pipeline
+        ex_i: entity work.Stage_EX(behavioral)
+            port map (
+                clock                 => clock, 
+                reset                 => reset,
+                pc_in                 => PC_ID(i),
+                pc_out                => PC_EX(i),
+                read_data_1_in        => Data1_ID_mux(i), 
+                read_data_1_out       => readData1_EX(i),
+                read_data_2_in        => Data2_ID_mux(i), 
+                read_data_2_out       => readData2_EX(i),
+                imm_data_in           => imm_data_ID_mux(i), 
+                imm_data_out          => imm_data_EX(i),
+                rs2_in                => rs2_ID_mux(i), 
+                rs2_out               => rs2_EX(i),
+                rs1_in                => rs1_ID_mux(i), 
+                rs1_out               => rs1_EX(i),
+                rd_in                 => rd_ID_mux(i),  
+                rd_out                => rd_EX(i),
+                uins_in               => uins_ID_mux(i), 
+                uins_out              => uins_EX(i)
+            );
+
+        -- Stage Memory of Pipeline
+        mem_i: entity work.Stage_MEM(behavioral)
+            port map (
+                clock            => clock, 
+                reset            => reset,
+                alu_result_in    => result_EX(i),
+                alu_result_out   => result_MEM(i),
+                write_data_in    => operand2(i),
+                write_data_out   => data_o(i),
+                rd_in            => rd_EX(i),
+                rd_out           => rd_MEM(i),
+                uins_in          => uins_EX(i),
+                uins_out         => uins_MEM(i)
+            );
+
+        -- Stage Write Back of Pipeline
+        wb_i: entity work.Stage_WB(behavioral)
+            port map (
+                clock            => clock, 
+                reset            => reset,
+                rd_in            => rd_MEM(i),
+                rd_out           => rd_WB(i),
+                read_data_in     => data_i(i), 
+                read_data_out    => data_i_WB(i),
+                alu_result_in    => result_MEM(i),
+                alu_result_out   => result_WB(i),
+                uins_in          => uins_MEM(i),
+                uins_out         => uins_WB(i)
+            );
+
+        -- Arithmetic/Logic Unit
+        ALU_i: entity work.ALU(behavioral)
+            port map (
+                operand1    => operand1(i)
+                operand2    => ALUoperand2(i),
+                pc          => PC_EX(i),
+                result      => result_EX(i),
+                operation   => uins_EX(i).instruction
+            );
     
-    -- Arithmetic/Logic Unit
-    ALU: entity work.ALU(behavioral)
-        port map (
-            operand1    => operand1,
-            operand2    => ALUoperand2,
-            pc          => PC_EX,
-            result      => result_EX,
-            operation   => uins_EX.instruction
-        );
+        -- Forwardin Unit
+        forwarding_unit_i: entity work.Forwarding_unit(arch1)
+            port map (
+                RegWrite_stage_EX   => uins_EX(i).RegWrite,
+                RegWrite_stage_MEM  => uins_MEM(i).RegWrite,
+                RegWrite_stage_WB   => uins_WB(i).RegWrite,
+                rs1_stage_EX        => rs1_EX(i),
+                rs2_stage_EX        => rs2_EX(i),
+                rs1_stage_ID        => rs1_ID(i),
+                rs2_stage_ID        => rs2_ID(i),
+                rd_stage_EX         => rd_EX(i),
+                rd_stage_MEM        => rd_MEM(i),
+                rd_stage_WB         => rd_WB(i),
+                MemToReg_MEM        => uins_MEM(i).MemToReg,
+                ForwardA            => ForwardA(i),
+                ForwardB            => ForwardB(i),
+                Forward1            => Forward1(i),
+                Forward2            => Forward2(i),
+                MuxLoad1_Comp       => MuxLoad1_Comp(i),
+                MuxLoad2_Comp       => MuxLoad2_Comp(i),
+                ForwardWb_A         => ForwardWb_A(i),
+                ForwardWb_B         => ForwardWb_B(i)
 
-    -- Stage Instruction Decode of Pipeline
-    IMM_DATA_EXTRACT: entity work.ImmediateDataExtractor(arch2)
-    port map (
-        instruction      => instruction_ID(31 downto 7),
-        instruction_f    => uins_ID.format,
-        imm_data         => imm_data_ID
-    );
+            );
 
-    -- Stage Instruction Decode of Pipeline
-     Stage_ID: entity work.Stage_ID(behavioral)
-        port map (
-            clock               => clock, 
-            reset               => reset,
-            ce                  => ce_stage_ID,  
-	        pc_in               => PC_IF_mux, 
-            pc_out              => PC_ID,
-            instruction_in      => instruction_IF_mux,
-            instruction_out     => instruction_ID
-        );
+        -- Hazard Detection Unit
+        HazardDetection_unit_i: entity work.HazardDetection_unit(arch1)
+            port map (
+                rs2_ID               => rs2_ID(i),
+                rs1_ID               => rs1_ID(i),
+                rd_EX                => rd_EX(i),
+                MemToReg_EX          => uins_EX(i).MemToReg,
+                ce_pc                => ce_pc(i),
+                ce_stage_ID          => ce_stage_ID(i),
+                bubble_hazard_EX     => bubble_hazard_EX(i)
+            );
 
-    -- Stage Exexution of Pipeline
-    Stage_EX: entity work.Stage_EX(behavioral)
-        port map (
-            clock                 => clock, 
-            reset                 => reset,
-            pc_in                 => PC_ID,
-            pc_out                => PC_EX,
-            read_data_1_in        => Data1_ID_mux, 
-      	    read_data_1_out       => readData1_EX,
-	        read_data_2_in        => Data2_ID_mux, 
-            read_data_2_out       => readData2_EX,
-            imm_data_in           => imm_data_ID_mux, 
-            imm_data_out          => imm_data_EX,
-            rs2_in                => rs2_ID_mux, 
-            rs2_out               => rs2_EX,
-            rs1_in                => rs1_ID_mux, 
-            rs1_out               => rs1_EX,
-            rd_in                 => rd_ID_mux,  
-            rd_out                => rd_EX,
-            uins_in               => uins_ID_mux, 
-            uins_out              => uins_EX
-        );
+        BranchDetection_unit: entity work.BranchDetection_unit(arch1)
+            port map (
+                instruction        => uins_ID(i).instruction,
+                Data1_ID           => readReg1_Comp(i),
+                Data2_ID           => readReg2_Comp(i),
+                branch_decision    => branch_decision(i),
+                bubble_branch_ID   => bubble_branch_ID(i)
+            );
 
-    -- Stage Memory of Pipeline
-    Stage_MEM: entity work.Stage_MEM(behavioral)
-        port map (
-            clock            => clock, 
-            reset            => reset,
-	        alu_result_in    => result_EX,
-            alu_result_out   => result_MEM,
-	        write_data_in    => operand2,
-            write_data_out   => data_o,
-            rd_in            => rd_EX,
-            rd_out           => rd_MEM,
-            uins_in          => uins_EX,
-            uins_out         => uins_MEM
-        );
+        
+        -- Branch or Jump target address
+        -- Branch ADDER
+        ADDER_BRANCH_0: branchTarget(i) <= STD_LOGIC_VECTOR(UNSIGNED(PC_ID(i)) + UNSIGNED(imm_data_ID(i)));
 
-    -- Stage Write Back of Pipeline
-    Stage_WB: entity work.Stage_WB(behavioral)
-        port map (
-            clock            => clock, 
-            reset            => reset,
-            rd_in            => rd_MEM,
-            rd_out           => rd_WB,
-            read_data_in     => data_i, 
-            read_data_out    => data_i_WB,
-	        alu_result_in    => result_MEM,
-            alu_result_out   => result_WB,
-            uins_in          => uins_MEM,
-            uins_out         => uins_WB
-        );
+        jumpTarget(i) <= STD_LOGIC_VECTOR(UNSIGNED(imm_data_ID(i)) + UNSIGNED(Data1_ID(i)));
+        
+        -- Selects the second ALU operand
+        -- MUX at the ALU input
+        MUX_ALU: ALUoperand2(i) <= operand2(i) when uins_EX(i).ALUSrc = '0' else
+                                imm_data_EX(i);
+        
+        -- Selects the data to be written in the register file
+        -- MUX at the data memory output
+        MUX_DATA_MEM: writeData(i) <= data_i_WB(i) when uins_WB(i).memToReg = '1' else result_WB(i);
+        
+        -- MUX Forward A (operand ALU)
+        MUX_FORWARD_A: operand1(i) <= readData1_EX(i) when ForwardA(i) = "00" else 
+        writeData(i) when ForwardA(i) = "01" else
+        data_i(i) when ForwardA(i) = "11" else
+        result_MEM(i);
 
-    -- Forwardin Unit
-    Forwarding_unit: entity work.Forwarding_unit(arch1)
-        port map (
-            RegWrite_stage_EX   => uins_EX.RegWrite,
-            RegWrite_stage_MEM  => uins_MEM.RegWrite,
-            RegWrite_stage_WB   => uins_WB.RegWrite,
-            rs1_stage_EX        => rs1_EX,
-            rs2_stage_EX        => rs2_EX,
-            rs1_stage_ID        => rs1_ID,
-            rs2_stage_ID        => rs2_ID,
-            rd_stage_EX         => rd_EX,
-            rd_stage_MEM        => rd_MEM,
-            rd_stage_WB         => rd_WB,
-            MemToReg_MEM        => uins_MEM.MemToReg,
-            ForwardA            => ForwardA,
-            ForwardB            => ForwardB,
-            Forward1            => Forward1,
-            Forward2            => Forward2,
-            MuxLoad1_Comp       => MuxLoad1_Comp,
-            MuxLoad2_Comp       => MuxLoad2_Comp,
-            ForwardWb_A         => ForwardWb_A,
-            ForwardWb_B         => ForwardWb_B
+        -- MUX Forward B (operand ALU)
+        MUX_FORWARD_B: operand2(i) <= readData2_EX(i) when ForwardB(i) = "00" else 
+        writeData(i) when ForwardB(i) = "01" else
+        data_i(i) when ForwardB(i) = "11" else
+        result_MEM(i);
 
-        );
+        -- MUX Forward 1 (comparison)
+        MUX_FORWARD_1: readReg1(i) <= readData1_ID(i) when Forward1(i) = "00" else 
+        result_EX(i) when Forward1(i) = "01" else
+        result_MEM(i) when Forward1(i) = "10" else
+        writeData(i);
 
-    -- Hazard Detection Unit
-    HazardDetection_unit: entity work.HazardDetection_unit(arch1)
-        port map (
-            rs2_ID               => rs2_ID,
-            rs1_ID               => rs1_ID,
-            rd_EX                => rd_EX,
-            MemToReg_EX          => uins_EX.MemToReg,
-            ce_pc                => ce_pc,
-            ce_stage_ID          => ce_stage_ID,
-            bubble_hazard_EX     => bubble_hazard_EX
-        );
+        -- MUX Forward 2 (comparison)
+        MUX_FORWARD_2: readReg2(i) <= readData2_ID(i) when Forward2(i) = "00" else 
+        result_EX(i) when Forward2(i) = "01" else
+        result_MEM(i) when Forward2(i) = "10" else
+        writeData(i);
 
-    BranchDetection_unit: entity work.BranchDetection_unit(arch1)
-        port map (
-            instruction        => uins_ID.instruction,
-            Data1_ID           => readReg1_Comp,
-            Data2_ID           => readReg2_Comp,
-            branch_decision    => branch_decision,
-            bubble_branch_ID   => bubble_branch_ID
-        );
+        -- MUX Load 1 (comparison)
+        MUX_LOAD_1: readReg1_Comp(i) <= data_i(i) when MuxLoad1_Comp(i) = '1' else
+                                    readReg1(i);
 
-    -- MemWrite receive signal of Stage MEM
-    MemWrite <= uins_MEM.MemWrite;
+        -- MUX Load 1 (comparison)
+        MUX_LOAD_2: readReg2_Comp(i) <= data_i(i) when MuxLoad2_Comp(i) = '1' else
+                                    readReg2(i);
+
+        -- MUX Forward WB A
+        MUX_FORWARD_WB_A: Data1_ID(i) <= writeData(i) when ForwardWb_A(i) = '1' else readData1_ID(i); 
+
+        -- MUX Forward WB B
+        MUX_FORWARD_WB_B: Data2_ID(i) <= writeData(i) when ForwardWb_B(i) = '1' else readData2_ID(i); 
+
+
+        -- MUX BUBBLE ID
+        MUX_BUBBLE_PC_IF: PC_IF_mux(i) <= pc_q(i) when bubble_branch_ID(i) = '0' else
+                                                (others=>'0');
+
+        MUX_BUBBLE_instruction_IF: instruction_IF_mux(i) <= instruction_IF(i) when bubble_branch_ID(i) = '0' else
+                                                        (others=>'0');
+        
+        -- MUX BUBBLE EX
+
+        MUX_BUBBLE_Data1_ID: Data1_ID_mux(i) <= Data1_ID(i) when bubble_hazard_EX(i) = '0' else
+                                            (others=>'0');
+        
+        MUX_BUBBLE_Data2_ID: Data2_ID_mux(i) <= Data2_ID(i) when bubble_hazard_EX(i) = '0' else
+                                            (others=>'0');
+
+        MUX_BUBBLE_IMM_DATA_ID: imm_data_ID_mux(i) <= imm_data_ID(i) when bubble_hazard_EX(i) = '0' else
+                                                (others=>'0');
+
+        MUX_BUBBLE_rs2_ID: rs2_ID_mux(i) <= rs2_ID(i) when bubble_hazard_EX(i) = '0' else
+                                    (others=>'0');
+
+        MUX_BUBBLE_rs1_ID: rs1_ID_mux(i) <= rs1_ID(i) when bubble_hazard_EX(i) = '0' else
+                                    (others=>'0');
+
+        MUX_BUBBLE_rd_ID: rd_ID_mux(i) <= rd_ID(i) when bubble_hazard_EX(i) = '0' else
+                                    (others=>'0');
+
+        MUX_BUBBLE_uins_ID: uins_ID_mux(i) <= uins_ID(i) when bubble_hazard_EX(i) = '0' else
+                                        uins_bubble;
+
+    end generate;
 
     -- Instruction_out receive instruction_out of Stage 1 for decodification by Control Path
-    instruction_out <= instruction_ID;
-
-    -- MUX BUBBLE ID
-    MUX_BUBBLE_PC_IF: PC_IF_mux <= pc_q when bubble_branch_ID = '0' else
-                                             (others=>'0');
-
-    MUX_BUBBLE_instruction_IF: instruction_IF_mux <= instruction_IF when bubble_branch_ID = '0' else
-                                                     (others=>'0');
-    
-    -- MUX BUBBLE EX
-
-    MUX_BUBBLE_Data1_ID: Data1_ID_mux <= Data1_ID when bubble_hazard_EX = '0' else
-                                        (others=>'0');
-    
-    MUX_BUBBLE_Data2_ID: Data2_ID_mux <= Data2_ID when bubble_hazard_EX = '0' else
-                                        (others=>'0');
-
-    MUX_BUBBLE_IMM_DATA_ID: imm_data_ID_mux <= imm_data_ID when bubble_hazard_EX = '0' else
-                                               (others=>'0');
-
-    MUX_BUBBLE_rs2_ID: rs2_ID_mux <= rs2_ID when bubble_hazard_EX = '0' else
-                                   (others=>'0');
-
-    MUX_BUBBLE_rs1_ID: rs1_ID_mux <= rs1_ID when bubble_hazard_EX = '0' else
-                                   (others=>'0');
-
-    MUX_BUBBLE_rd_ID: rd_ID_mux <= rd_ID when bubble_hazard_EX = '0' else
-                                   (others=>'0');
-
-    MUX_BUBBLE_uins_ID: uins_ID_mux <= uins_ID when bubble_hazard_EX = '0' else
-                                    uins_bubble;
+    instruction_out <= instruction_ID(1) & instruction_ID(0);
 
     -- BUBBLE signals 
 
@@ -356,81 +384,92 @@ begin
 
         process(clock) begin 
             if rising_edge(clock) then
-                cycles <= cycles + 1;
+                if reset = '0' then 
+                    cycles <= 0;
+                else
+                    cycles <= cycles + 1;
+                end if;
             end if;
         end process;
+    
+        gen_ex : for i in 0 to ISSUE_WIDTH-1 generate
 
-    -- Instruction format decode
-    decodedFormat_IF <= U when opcode = "0010111" or opcode = "0110111" else
-                     J when opcode = "1101111" else
-                     I when opcode = "1100111" or opcode = "1100111" or opcode = "1110011" or opcode = "0001111" else
-                     B when opcode = "1100011" else
-                     R when opcode = "0110011" else
-                     S when opcode = "0100011" else
-                     X; -- invalid format
+            opcode(i) <= instruction_IF(i)(6 downto 0);
+            funct3(i) <= instruction_IF(i)(14 downto 12);
+            funct7(i) <= instruction_IF(i)(31 downto 25);
 
-    -- Instruction type decode
-    decodedInstruction_IF <=   -- U-format 
-                            LUI     when decodedFormat_IF = U and opcode(5) = '1' else
-                            AUIPC   when decodedFormat_IF = U and opcode(5) = '0' else
-                            -- J-format
-                            JAL     when decodedFormat_IF = J else
-                            -- I-format
-                            JALR    when opcode = "1100111" else 
-                            -- B-format
-                            BEQ     when decodedFormat_IF = B and funct3 = "000" else
-                            BNE     when decodedFormat_IF = B and funct3 = "001" else
-                            BLT     when decodedFormat_IF = B and funct3 = "100" else
-                            BGE     when decodedFormat_IF = B and funct3 = "101" else 
-                            BLTU    when decodedFormat_IF = B and funct3 = "110" else
-                            BGEU    when decodedFormat_IF = B and funct3 = "111" else 
-                            -- I-format
-                            LB      when opcode = "0000011" and funct3 = "000" else 
-                            LH      when opcode = "0000011" and funct3 = "001" else
-                            LW      when opcode = "0000011" and funct3 = "010" else
-                            LBU     when opcode = "0000011" and funct3 = "100" else
-                            LHU     when opcode = "0000011" and funct3 = "101" else
-                            -- S-format
-                            SB      when decodedFormat_IF = S and funct3 = "000" else
-                            SH      when decodedFormat_IF = S and funct3 = "001" else
-                            SW      when decodedFormat_IF = S and funct3 = "010" else
-                            -- I-format
-                            ADDI    when opcode = "0010011" and funct3 = "000" else
-                            SLTI    when opcode = "0010011" and funct3 = "010" else
-                            SLTIU   when opcode = "0010011" and funct3 = "011" else
-                            XORI    when opcode = "0010011" and funct3 = "100" else 
-                            ORI     when opcode = "0010011" and funct3 = "110" else
-                            ANDI    when opcode = "0010011" and funct3 = "111" else
-                            SLLI    when opcode = "0010011" and funct3 = "001" else
-                            SRLI    when opcode = "0010011" and funct3 = "101" and funct7(5) = '0' else
-                            SRAI    when opcode = "0010011" and funct3 = "101" and funct7(5) = '1' else
-                            -- R-format
-                            ADD     when decodedFormat_IF = R and funct3 = "000" and funct7(5) = '0' else
-                            SUB     when decodedFormat_IF = R and funct3 = "000" and funct7(5) = '1' else
-                            SLLL    when decodedFormat_IF = R and funct3 = "001" else
-                            SLT     when decodedFormat_IF = R and funct3 = "010" else
-                            SLTU    when decodedFormat_IF = R and funct3 = "011" else
-                            XORR    when decodedFormat_IF = R and funct3 = "100" else
-                            SRLL    when decodedFormat_IF = R and funct3 = "101" and funct7(5) = '0' else
-                            SRAA    when decodedFormat_IF = R and funct3 = "101" and funct7(5) = '1' else
-                            ORR     when decodedFormat_IF = R and funct3 = "110" else
-                            ANDD    when decodedFormat_IF = R and funct3 = "111" else
-                            -- FENCE instructions
-                            FENCE   when opcode = "0001111" and funct3 = "000" else
-                            FENCE_I when opcode = "0001111" and funct3 = "001" else
-                            -- SYSTEM instruction
-                            ECALL   when opcode = "1110011" and funct3 = "000" and instruction_IF(20) = '0' else
-                            EBREAK  when opcode = "1110011" and funct3 = "000" and instruction_IF(20) = '1' else
-                            -- CSR instructions
-                            CSRRW   when opcode = "1110011" and funct3 = "001" else 
-                            CSRRS   when opcode = "1110011" and funct3 = "010" else
-                            CSRRC   when opcode = "1110011" and funct3 = "011" else
-                            CSRRWI  when opcode = "1110011" and funct3 = "101" else
-                            CSRRSI  when opcode = "1110011" and funct3 = "101" else
-                            CSRRCI  when opcode = "1110011" and funct3 = "111" else
+            -- Instruction format decode
+            decodedFormat_IF(i) <= U when opcode(i) = "0010111" or opcode(i) = "0110111" else
+                            J when opcode(i) = "1101111" else
+                            I when opcode(i) = "1100111" or opcode(i) = "1100111" or opcode(i) = "1110011" or opcode(i) = "0001111" else
+                            B when opcode(i) = "1100011" else
+                            R when opcode(i) = "0110011" else
+                            S when opcode(i) = "0100011" else
+                            X; -- invalid format
 
-                            -- Invalid or not implemented instruction
-                            INVALID_INSTRUCTION; 
+            -- Instruction type decode
+            decodedInstruction_IF(i) <=   -- U-format 
+                                    LUI     when decodedFormat_IF(i) = U and opcode(i)(5) = '1' else
+                                    AUIPC   when decodedFormat_IF(i) = U and opcode(i)(5) = '0' else
+                                    -- J-format
+                                    JAL     when decodedFormat_IF(i) = J else
+                                    -- I-format
+                                    JALR    when opcode(i) = "1100111" else 
+                                    -- B-format
+                                    BEQ     when decodedFormat_IF(i) = B and funct3(i) = "000" else
+                                    BNE     when decodedFormat_IF(i) = B and funct3(i) = "001" else
+                                    BLT     when decodedFormat_IF(i) = B and funct3(i) = "100" else
+                                    BGE     when decodedFormat_IF(i) = B and funct3(i) = "101" else 
+                                    BLTU    when decodedFormat_IF(i) = B and funct3(i) = "110" else
+                                    BGEU    when decodedFormat_IF(i) = B and funct3(i) = "111" else 
+                                    -- I-format
+                                    LB      when opcode(i) = "0000011" and funct3(i) = "000" else 
+                                    LH      when opcode(i) = "0000011" and funct3(i) = "001" else
+                                    LW      when opcode(i) = "0000011" and funct3(i) = "010" else
+                                    LBU     when opcode(i) = "0000011" and funct3(i) = "100" else
+                                    LHU     when opcode(i) = "0000011" and funct3(i) = "101" else
+                                    -- S-format
+                                    SB      when decodedFormat_IF(i) = S and funct3(i) = "000" else
+                                    SH      when decodedFormat_IF(i) = S and funct3(i) = "001" else
+                                    SW      when decodedFormat_IF(i) = S and funct3(i) = "010" else
+                                    -- I-format
+                                    ADDI    when opcode(i) = "0010011" and funct3(i) = "000" else
+                                    SLTI    when opcode(i) = "0010011" and funct3(i) = "010" else
+                                    SLTIU   when opcode(i) = "0010011" and funct3(i) = "011" else
+                                    XORI    when opcode(i) = "0010011" and funct3(i) = "100" else 
+                                    ORI     when opcode(i) = "0010011" and funct3(i) = "110" else
+                                    ANDI    when opcode(i) = "0010011" and funct3(i) = "111" else
+                                    SLLI    when opcode(i) = "0010011" and funct3(i) = "001" else
+                                    SRLI    when opcode(i) = "0010011" and funct3(i) = "101" and funct7(i)(5) = '0' else
+                                    SRAI    when opcode(i) = "0010011" and funct3(i) = "101" and funct7(i)(5) = '1' else
+                                    -- R-format
+                                    ADD     when decodedFormat_IF(i) = R and funct3(i) = "000" and funct7(i)(5) = '0' else
+                                    SUB     when decodedFormat_IF(i) = R and funct3(i) = "000" and funct7(i)(5) = '1' else
+                                    SLLL    when decodedFormat_IF(i) = R and funct3(i) = "001" else
+                                    SLT     when decodedFormat_IF(i) = R and funct3(i) = "010" else
+                                    SLTU    when decodedFormat_IF(i) = R and funct3(i) = "011" else
+                                    XORR    when decodedFormat_IF(i) = R and funct3(i) = "100" else
+                                    SRLL    when decodedFormat_IF(i) = R and funct3(i) = "101" and funct7(i)(5) = '0' else
+                                    SRAA    when decodedFormat_IF(i) = R and funct3(i) = "101" and funct7(i)(5) = '1' else
+                                    ORR     when decodedFormat_IF(i) = R and funct3(i) = "110" else
+                                    ANDD    when decodedFormat_IF(i) = R and funct3(i) = "111" else
+                                    -- FENCE instructions
+                                    FENCE   when opcode(i) = "0001111" and funct3(i) = "000" else
+                                    FENCE_I when opcode(i) = "0001111" and funct3(i) = "001" else
+                                    -- SYSTEM instruction
+                                    ECALL   when opcode(i) = "1110011" and funct3(i) = "000" and instruction_IF(i)(20) = '0' else
+                                    EBREAK  when opcode(i) = "1110011" and funct3(i) = "000" and instruction_IF(i)(20) = '1' else
+                                    -- CSR instructions
+                                    CSRRW   when opcode(i) = "1110011" and funct3(i) = "001" else 
+                                    CSRRS   when opcode(i) = "1110011" and funct3(i) = "010" else
+                                    CSRRC   when opcode(i) = "1110011" and funct3(i) = "011" else
+                                    CSRRWI  when opcode(i) = "1110011" and funct3(i) = "101" else
+                                    CSRRSI  when opcode(i) = "1110011" and funct3(i) = "101" else
+                                    CSRRCI  when opcode(i) = "1110011" and funct3(i) = "111" else
+
+                                    -- Invalid or not implemented instruction
+                                    INVALID_INSTRUCTION; 
+        end generate;
     end generate;
 
 end structural;
