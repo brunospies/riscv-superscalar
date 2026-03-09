@@ -26,7 +26,7 @@ entity DataPath is
         data_i              : in  Data_array;  -- Data bus from data memory 
         data_o              : out Data_array;  -- Data bus to data memory
         MemWrite            : out MemWrite_array; 
-        instruction_out     : out Data_array                                -- Data bus from instruction of Stage_ID for Decode by Control Path
+        instruction_out     : out Data_array;                                -- Data bus from instruction of Stage_ID for Decode by Control Path
         uins_ID             : in  Microinstruction_array                    -- Control path microinstruction
     );
 end DataPath;
@@ -35,16 +35,18 @@ end DataPath;
 architecture structural of DataPath is
 
     -- Instruction Fetch Stage Signals:
-    signal incrementedPC_IF, pc_d, pc_q, PC_IF_mux : std_logic_vector(31 downto 0);
-    signal ce_pc : std_logic;
-    signal instruction_IF, instruction_IF_mux : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
+    signal incrementedPC_IF, pc_d, pc_q : std_logic_vector(31 downto 0);
+    signal ce_pc, ce_pc_dep : std_logic;
+    signal ce_pc_hazard : std_logic_vector(1 downto 0);
+    signal PC_IF_mux, instruction_IF, instruction_IF_mux : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
 
     -- Instruction Decode Stage Signals:
     signal instruction_ID : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal PC_ID, readData1_ID, readData2_ID, imm_data_ID, imm_data_ID_mux, jumpTarget, readReg1_Comp, readReg2_Comp : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal branchTarget, readReg1, readReg2, Data1_ID, Data1_ID_mux, Data2_ID, Data2_ID_mux : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal rs1_ID, rs2_ID, rd_ID, rs1_ID_mux, rs2_ID_mux, rd_ID_mux : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
-    signal ce_stage_ID, bubble_branch_ID, branch_decision : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
+    signal bubble_dep_inst0_ID, ce_stage_ID_hazard, bubble_branch_ID, branch_decision : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
+    signal ce_stage_ID, ce_stage_ID_dep : std_logic;
     signal uins_ID_mux : Microinstruction_array; --> (0 to 1) of Microinstruction;
 
     -- Execution Stage Signals:
@@ -52,7 +54,7 @@ architecture structural of DataPath is
     signal ALUoperand2, imm_data_EX, PC_EX : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal uins_EX : Microinstruction_array; --> (0 to 1) of Microinstruction;
     signal rd_EX, rs2_EX, rs1_EX : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
-    signal bubble_hazard_EX : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
+    signal bubble_hazard_EX, bubble_dep_inst1_EX : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
 
     -- Memory Stage Signals:
     signal result_MEM : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
@@ -85,7 +87,7 @@ architecture structural of DataPath is
 begin
 
     instruction_IF(0) <= instruction_in(31 downto 0);
-    instruction_IF(1) <= intruction_in(63 downto 32);
+    instruction_IF(1) <= instruction_in(63 downto 32);
 
     -- incrementedPC_IF points the next instruction address
     -- ADDER over the PC register
@@ -96,9 +98,9 @@ begin
 
     -- MUX which selects the PC value
     MUX_PC: pc_d <= branchTarget(0) when (uins_ID(0).format = B and branch_decision(0) = '1') or uins_ID(0).format = J else
-                    jumpTarget(0)   when uins_ID.instruction = JALR else
+                    jumpTarget(0)   when uins_ID(0).instruction = JALR else
                     branchTarget(1) when (uins_ID(1).format = B and branch_decision(1) = '1') or uins_ID(1).format = J else
-                    jumpTarget(1)   when uins_ID.instruction = JALR else
+                    jumpTarget(1)   when uins_ID(1).instruction = JALR else
                     incrementedPC_IF;
 
     -----------------------------------------------------------------------------------------------------------------------
@@ -124,10 +126,10 @@ begin
             reset             => reset,            
             write_a           => uins_WB(0).RegWrite,   
             write_b           => uins_WB(1).RegWrite, 
-            readRegister1_a   => rs1_ID(0),    
-            readRegister2_a   => rs2_ID(0),
-            readRegister1_b   => rs1_ID(1), 
-            readRegister2_b   => rs1_ID(1), 
+            rs1_a             => rs1_ID(0),    
+            rs2_a             => rs2_ID(0),
+            rs1_b             => rs1_ID(1), 
+            rs2_b             => rs1_ID(1), 
             writeRegister_a   => rd_WB(0),
             writeRegister_b   => rd_WB(1), 
             writeData_a       => writeData(0), 
@@ -137,9 +139,27 @@ begin
             readData1_b       => readData1_ID(1),  
             readData2_b       => readData2_ID(1)
         );
+
+    
+    DEPENDENCY_INSTRUCTIONS_ID: entity work.Double_issue_dep(arch1)
+        port map (
+            rs1_inst1           => rs1_ID(1),
+            rs2_inst1           => rs2_ID(1),
+            rd_inst0            => rd_ID(0),          
+            ce_pc               => ce_pc_dep,  -- stall pc dependency bewteen inst[0] and inst[1] in ID
+            ce_stage_ID         => ce_stage_ID_dep, -- stall ID registers
+            bubble_dep_inst1_EX => bubble_dep_inst1_EX(1), 
+            bubble_dep_inst0_ID => bubble_dep_inst0_ID(0)  
+     );
+
+     ce_stage_ID <= ce_stage_ID_dep and ce_stage_ID_hazard(0) and ce_stage_ID_hazard(1); 
+     ce_pc <= ce_pc_dep and ce_pc_hazard(0) and ce_pc_hazard(1);
+
+     bubble_dep_inst1_EX(0) <= '0'; -- bubble only in inst1, signal necessary for gen_duplicate 
+     bubble_dep_inst0_ID(1) <= '0'; -- bubble only in inst0, signal necessary for gen_duplicate 
     
 
-    gen_ex : for i in 0 to ISSUE_WIDTH-1 generate
+    gen_duplicate : for i in 0 to ISSUE_WIDTH-1 generate
 
         -- ALU output address the data memory
         dataAddress(i) <= result_MEM(i);
@@ -164,7 +184,7 @@ begin
             port map (
                 clock               => clock, 
                 reset               => reset,
-                ce                  => ce_stage_ID(i),  
+                ce                  => ce_stage_ID,  
                 pc_in               => PC_IF_mux(i), 
                 pc_out              => PC_ID(i),
                 instruction_in      => instruction_IF_mux(i),
@@ -266,8 +286,8 @@ begin
                 rs1_ID               => rs1_ID(i),
                 rd_EX                => rd_EX(i),
                 MemToReg_EX          => uins_EX(i).MemToReg,
-                ce_pc                => ce_pc(i),
-                ce_stage_ID          => ce_stage_ID(i),
+                ce_pc                => ce_pc_hazard(i),
+                ce_stage_ID          => ce_stage_ID_hazard(i),
                 bubble_hazard_EX     => bubble_hazard_EX(i)
             );
 
@@ -336,33 +356,33 @@ begin
 
 
         -- MUX BUBBLE ID
-        MUX_BUBBLE_PC_IF: PC_IF_mux(i) <= pc_q(i) when bubble_branch_ID(i) = '0' else
+        MUX_BUBBLE_PC_IF: PC_IF_mux(i) <= pc_q(i) when bubble_branch_ID(0) = '0' and bubble_branch_ID(1) = '0' and bubble_dep_inst0_ID(i) = '0' else
                                                 (others=>'0');
 
-        MUX_BUBBLE_instruction_IF: instruction_IF_mux(i) <= instruction_IF(i) when bubble_branch_ID(i) = '0' else
+        MUX_BUBBLE_instruction_IF: instruction_IF_mux(i) <= instruction_IF(i) when bubble_branch_ID(0) = '0' and bubble_branch_ID(1) = '0' and bubble_dep_inst0_ID(i) = '0' else
                                                         (others=>'0');
         
         -- MUX BUBBLE EX
 
-        MUX_BUBBLE_Data1_ID: Data1_ID_mux(i) <= Data1_ID(i) when bubble_hazard_EX(i) = '0' else
+        MUX_BUBBLE_Data1_ID: Data1_ID_mux(i) <= Data1_ID(i) when bubble_hazard_EX(0)='0' and bubble_hazard_EX(1)='0' and bubble_dep_inst1_EX(i)='0' else
                                             (others=>'0');
         
-        MUX_BUBBLE_Data2_ID: Data2_ID_mux(i) <= Data2_ID(i) when bubble_hazard_EX(i) = '0' else
+        MUX_BUBBLE_Data2_ID: Data2_ID_mux(i) <= Data2_ID(i) when bubble_hazard_EX(0)='0' and bubble_hazard_EX(1)='0' and bubble_dep_inst1_EX(i)='0' else
                                             (others=>'0');
 
-        MUX_BUBBLE_IMM_DATA_ID: imm_data_ID_mux(i) <= imm_data_ID(i) when bubble_hazard_EX(i) = '0' else
+        MUX_BUBBLE_IMM_DATA_ID: imm_data_ID_mux(i) <= imm_data_ID(i) when bubble_hazard_EX(0)='0' and bubble_hazard_EX(1)='0' and bubble_dep_inst1_EX(i)='0' else
                                                 (others=>'0');
 
-        MUX_BUBBLE_rs2_ID: rs2_ID_mux(i) <= rs2_ID(i) when bubble_hazard_EX(i) = '0' else
+        MUX_BUBBLE_rs2_ID: rs2_ID_mux(i) <= rs2_ID(i) when bubble_hazard_EX(0)='0' and bubble_hazard_EX(1)='0' and bubble_dep_inst1_EX(i)='0' else
                                     (others=>'0');
 
-        MUX_BUBBLE_rs1_ID: rs1_ID_mux(i) <= rs1_ID(i) when bubble_hazard_EX(i) = '0' else
+        MUX_BUBBLE_rs1_ID: rs1_ID_mux(i) <= rs1_ID(i) when bubble_hazard_EX(0)='0' and bubble_hazard_EX(1)='0' and bubble_dep_inst1_EX(i)='0' else
                                     (others=>'0');
 
-        MUX_BUBBLE_rd_ID: rd_ID_mux(i) <= rd_ID(i) when bubble_hazard_EX(i) = '0' else
+        MUX_BUBBLE_rd_ID: rd_ID_mux(i) <= rd_ID(i) when bubble_hazard_EX(0)='0' and bubble_hazard_EX(1)='0' and bubble_dep_inst1_EX(i)='0' else
                                     (others=>'0');
 
-        MUX_BUBBLE_uins_ID: uins_ID_mux(i) <= uins_ID(i) when bubble_hazard_EX(i) = '0' else
+        MUX_BUBBLE_uins_ID: uins_ID_mux(i) <= uins_ID(i) when bubble_hazard_EX(0)='0' and bubble_hazard_EX(1)='0' and bubble_dep_inst1_EX(i)='0' else
                                         uins_bubble;
 
     end generate;
