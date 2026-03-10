@@ -1,0 +1,4 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/RV32I/rtl/DataPath.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'DataPath'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/RV32I/rtl/RISCV_superscalar.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'RISCV_superscalar'

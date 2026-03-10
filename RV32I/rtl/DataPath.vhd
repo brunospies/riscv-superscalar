@@ -408,13 +408,11 @@ begin
     DECODE_STAGE_IF: -- Decoded Instruction of Instruction Fetch Stage for SIMULATION
     if SYNTHESIS = '0' generate
 
-        process(clock) begin 
-            if rising_edge(clock) then
-                if reset = '0' then 
-                    cycles <= 0;
-                else
-                    cycles <= cycles + 1;
-                end if;
+        process(clock, reset) begin 
+            if reset = '1' then
+                cycles <= 0;
+            elsif rising_edge(clock) then
+                cycles <= cycles + 1;
             end if;
         end process;
     
