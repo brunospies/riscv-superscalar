@@ -1,0 +1,7 @@
+Running: xsim.dir/RISCV_superscalar_tb_behav/xsimk.exe -simmode gui -wdb RISCV_superscalar_tb_behav.wdb -simrunnum 0 -socket 54652
+Design successfully loaded
+Design Loading Memory Usage: 11116 KB (Peak: 11116 KB)
+Design Loading CPU Usage: 46 ms
+Simulation completed
+Simulation Memory Usage: 12720 KB (Peak: 12720 KB)
+Simulation CPU Usage: 124 ms

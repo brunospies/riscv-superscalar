@@ -86,8 +86,6 @@ package body Util_package is
           return binaryValue;
       
       end StringToStdLogicVector;
-      
-      
 
 end Util_package;
 

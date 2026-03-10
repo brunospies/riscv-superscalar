@@ -38,15 +38,15 @@ architecture structural of DataPath is
     signal incrementedPC_IF, pc_d, pc_q : std_logic_vector(31 downto 0);
     signal ce_pc, ce_pc_dep : std_logic;
     signal ce_pc_hazard : std_logic_vector(1 downto 0);
-    signal PC_IF_mux, instruction_IF, instruction_IF_mux : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
+    signal PC_IF_mux, instruction_IF, instruction_IF_mux, PC_IF : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
 
     -- Instruction Decode Stage Signals:
     signal instruction_ID : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal PC_ID, readData1_ID, readData2_ID, imm_data_ID, imm_data_ID_mux, jumpTarget, readReg1_Comp, readReg2_Comp : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal branchTarget, readReg1, readReg2, Data1_ID, Data1_ID_mux, Data2_ID, Data2_ID_mux : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal rs1_ID, rs2_ID, rd_ID, rs1_ID_mux, rs2_ID_mux, rd_ID_mux : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
-    signal bubble_dep_inst0_ID, ce_stage_ID_hazard, bubble_branch_ID, branch_decision : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
-    signal ce_stage_ID, ce_stage_ID_dep : std_logic;
+    signal ce_stage_ID, bubble_dep_inst0_ID, ce_stage_ID_hazard, bubble_branch_ID, branch_decision : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
+    signal ce_stage_ID_dep : std_logic;
     signal uins_ID_mux : Microinstruction_array; --> (0 to 1) of Microinstruction;
 
     -- Execution Stage Signals:
@@ -95,6 +95,9 @@ begin
         
     -- Instruction memory is addressed by the PC register
     instructionAddress <= pc_q;
+    
+    PC_IF(0) <= pc_q; -- actual pc ins[0]
+    PC_IF(1) <= STD_LOGIC_VECTOR(UNSIGNED(pc_q) + TO_UNSIGNED(4,32)); -- actual pc ins[1]
 
     -- MUX which selects the PC value
     MUX_PC: pc_d <= branchTarget(0) when (uins_ID(0).format = B and branch_decision(0) = '1') or uins_ID(0).format = J else
@@ -152,7 +155,9 @@ begin
             bubble_dep_inst0_ID => bubble_dep_inst0_ID(0)  
      );
 
-     ce_stage_ID <= ce_stage_ID_dep and ce_stage_ID_hazard(0) and ce_stage_ID_hazard(1); 
+     ce_stage_ID(0) <= ce_stage_ID_hazard(0); -- do not receive ce_stage_ID_dep because recive bubble (bubble_mux)
+     ce_stage_ID(1) <= ce_stage_ID_dep and ce_stage_ID_hazard(1); 
+     
      ce_pc <= ce_pc_dep and ce_pc_hazard(0) and ce_pc_hazard(1);
 
      bubble_dep_inst1_EX(0) <= '0'; -- bubble only in inst1, signal necessary for gen_duplicate 
@@ -184,7 +189,7 @@ begin
             port map (
                 clock               => clock, 
                 reset               => reset,
-                ce                  => ce_stage_ID,  
+                ce                  => ce_stage_ID(i),  
                 pc_in               => PC_IF_mux(i), 
                 pc_out              => PC_ID(i),
                 instruction_in      => instruction_IF_mux(i),
@@ -247,7 +252,7 @@ begin
         -- Arithmetic/Logic Unit
         ALU_i: entity work.ALU(behavioral)
             port map (
-                operand1    => operand1(i)
+                operand1    => operand1(i),
                 operand2    => ALUoperand2(i),
                 pc          => PC_EX(i),
                 result      => result_EX(i),
@@ -356,7 +361,7 @@ begin
 
 
         -- MUX BUBBLE ID
-        MUX_BUBBLE_PC_IF: PC_IF_mux(i) <= pc_q(i) when bubble_branch_ID(0) = '0' and bubble_branch_ID(1) = '0' and bubble_dep_inst0_ID(i) = '0' else
+        MUX_BUBBLE_PC_IF: PC_IF_mux(i) <= PC_IF(i) when bubble_branch_ID(0) = '0' and bubble_branch_ID(1) = '0' and bubble_dep_inst0_ID(i) = '0' else
                                                 (others=>'0');
 
         MUX_BUBBLE_instruction_IF: instruction_IF_mux(i) <= instruction_IF(i) when bubble_branch_ID(0) = '0' and bubble_branch_ID(1) = '0' and bubble_dep_inst0_ID(i) = '0' else
@@ -388,7 +393,8 @@ begin
     end generate;
 
     -- Instruction_out receive instruction_out of Stage 1 for decodification by Control Path
-    instruction_out <= instruction_ID(1) & instruction_ID(0);
+    instruction_out(0) <= instruction_ID(0);
+    instruction_out(1) <= instruction_ID(1);
 
     -- BUBBLE signals 
 
@@ -412,80 +418,80 @@ begin
             end if;
         end process;
     
-        gen_ex : for i in 0 to ISSUE_WIDTH-1 generate
+        gen_tb : for k in 0 to ISSUE_WIDTH-1 generate
 
-            opcode(i) <= instruction_IF(i)(6 downto 0);
-            funct3(i) <= instruction_IF(i)(14 downto 12);
-            funct7(i) <= instruction_IF(i)(31 downto 25);
+            opcode(k) <= instruction_IF(k)(6 downto 0);
+            funct3(k) <= instruction_IF(k)(14 downto 12);
+            funct7(k) <= instruction_IF(k)(31 downto 25);
 
             -- Instruction format decode
-            decodedFormat_IF(i) <= U when opcode(i) = "0010111" or opcode(i) = "0110111" else
-                            J when opcode(i) = "1101111" else
-                            I when opcode(i) = "1100111" or opcode(i) = "1100111" or opcode(i) = "1110011" or opcode(i) = "0001111" else
-                            B when opcode(i) = "1100011" else
-                            R when opcode(i) = "0110011" else
-                            S when opcode(i) = "0100011" else
+            decodedFormat_IF(k) <= U when opcode(k) = "0010111" or opcode(k) = "0110111" else
+                            J when opcode(k) = "1101111" else
+                            I when opcode(k) = "1100111" or opcode(k) = "1100111" or opcode(k) = "1110011" or opcode(k) = "0001111" else
+                            B when opcode(k) = "1100011" else
+                            R when opcode(k) = "0110011" else
+                            S when opcode(k) = "0100011" else
                             X; -- invalid format
 
             -- Instruction type decode
-            decodedInstruction_IF(i) <=   -- U-format 
-                                    LUI     when decodedFormat_IF(i) = U and opcode(i)(5) = '1' else
-                                    AUIPC   when decodedFormat_IF(i) = U and opcode(i)(5) = '0' else
+            decodedInstruction_IF(k) <=   -- U-format 
+                                    LUI     when decodedFormat_IF(k) = U and opcode(k)(5) = '1' else
+                                    AUIPC   when decodedFormat_IF(k) = U and opcode(k)(5) = '0' else
                                     -- J-format
-                                    JAL     when decodedFormat_IF(i) = J else
+                                    JAL     when decodedFormat_IF(k) = J else
                                     -- I-format
-                                    JALR    when opcode(i) = "1100111" else 
+                                    JALR    when opcode(k) = "1100111" else 
                                     -- B-format
-                                    BEQ     when decodedFormat_IF(i) = B and funct3(i) = "000" else
-                                    BNE     when decodedFormat_IF(i) = B and funct3(i) = "001" else
-                                    BLT     when decodedFormat_IF(i) = B and funct3(i) = "100" else
-                                    BGE     when decodedFormat_IF(i) = B and funct3(i) = "101" else 
-                                    BLTU    when decodedFormat_IF(i) = B and funct3(i) = "110" else
-                                    BGEU    when decodedFormat_IF(i) = B and funct3(i) = "111" else 
+                                    BEQ     when decodedFormat_IF(k) = B and funct3(k) = "000" else
+                                    BNE     when decodedFormat_IF(k) = B and funct3(k) = "001" else
+                                    BLT     when decodedFormat_IF(k) = B and funct3(k) = "100" else
+                                    BGE     when decodedFormat_IF(k) = B and funct3(k) = "101" else 
+                                    BLTU    when decodedFormat_IF(k) = B and funct3(k) = "110" else
+                                    BGEU    when decodedFormat_IF(k) = B and funct3(k) = "111" else 
                                     -- I-format
-                                    LB      when opcode(i) = "0000011" and funct3(i) = "000" else 
-                                    LH      when opcode(i) = "0000011" and funct3(i) = "001" else
-                                    LW      when opcode(i) = "0000011" and funct3(i) = "010" else
-                                    LBU     when opcode(i) = "0000011" and funct3(i) = "100" else
-                                    LHU     when opcode(i) = "0000011" and funct3(i) = "101" else
+                                    LB      when opcode(k) = "0000011" and funct3(k) = "000" else 
+                                    LH      when opcode(k) = "0000011" and funct3(k) = "001" else
+                                    LW      when opcode(k) = "0000011" and funct3(k) = "010" else
+                                    LBU     when opcode(k) = "0000011" and funct3(k) = "100" else
+                                    LHU     when opcode(k) = "0000011" and funct3(k) = "101" else
                                     -- S-format
-                                    SB      when decodedFormat_IF(i) = S and funct3(i) = "000" else
-                                    SH      when decodedFormat_IF(i) = S and funct3(i) = "001" else
-                                    SW      when decodedFormat_IF(i) = S and funct3(i) = "010" else
+                                    SB      when decodedFormat_IF(k) = S and funct3(k) = "000" else
+                                    SH      when decodedFormat_IF(k) = S and funct3(k) = "001" else
+                                    SW      when decodedFormat_IF(k) = S and funct3(k) = "010" else
                                     -- I-format
-                                    ADDI    when opcode(i) = "0010011" and funct3(i) = "000" else
-                                    SLTI    when opcode(i) = "0010011" and funct3(i) = "010" else
-                                    SLTIU   when opcode(i) = "0010011" and funct3(i) = "011" else
-                                    XORI    when opcode(i) = "0010011" and funct3(i) = "100" else 
-                                    ORI     when opcode(i) = "0010011" and funct3(i) = "110" else
-                                    ANDI    when opcode(i) = "0010011" and funct3(i) = "111" else
-                                    SLLI    when opcode(i) = "0010011" and funct3(i) = "001" else
-                                    SRLI    when opcode(i) = "0010011" and funct3(i) = "101" and funct7(i)(5) = '0' else
-                                    SRAI    when opcode(i) = "0010011" and funct3(i) = "101" and funct7(i)(5) = '1' else
+                                    ADDI    when opcode(k) = "0010011" and funct3(k) = "000" else
+                                    SLTI    when opcode(k) = "0010011" and funct3(k) = "010" else
+                                    SLTIU   when opcode(k) = "0010011" and funct3(k) = "011" else
+                                    XORI    when opcode(k) = "0010011" and funct3(k) = "100" else 
+                                    ORI     when opcode(k) = "0010011" and funct3(k) = "110" else
+                                    ANDI    when opcode(k) = "0010011" and funct3(k) = "111" else
+                                    SLLI    when opcode(k) = "0010011" and funct3(k) = "001" else
+                                    SRLI    when opcode(k) = "0010011" and funct3(k) = "101" and funct7(k)(5) = '0' else
+                                    SRAI    when opcode(k) = "0010011" and funct3(k) = "101" and funct7(k)(5) = '1' else
                                     -- R-format
-                                    ADD     when decodedFormat_IF(i) = R and funct3(i) = "000" and funct7(i)(5) = '0' else
-                                    SUB     when decodedFormat_IF(i) = R and funct3(i) = "000" and funct7(i)(5) = '1' else
-                                    SLLL    when decodedFormat_IF(i) = R and funct3(i) = "001" else
-                                    SLT     when decodedFormat_IF(i) = R and funct3(i) = "010" else
-                                    SLTU    when decodedFormat_IF(i) = R and funct3(i) = "011" else
-                                    XORR    when decodedFormat_IF(i) = R and funct3(i) = "100" else
-                                    SRLL    when decodedFormat_IF(i) = R and funct3(i) = "101" and funct7(i)(5) = '0' else
-                                    SRAA    when decodedFormat_IF(i) = R and funct3(i) = "101" and funct7(i)(5) = '1' else
-                                    ORR     when decodedFormat_IF(i) = R and funct3(i) = "110" else
-                                    ANDD    when decodedFormat_IF(i) = R and funct3(i) = "111" else
+                                    ADD     when decodedFormat_IF(k) = R and funct3(k) = "000" and funct7(k)(5) = '0' else
+                                    SUB     when decodedFormat_IF(k) = R and funct3(k) = "000" and funct7(k)(5) = '1' else
+                                    SLLL    when decodedFormat_IF(k) = R and funct3(k) = "001" else
+                                    SLT     when decodedFormat_IF(k) = R and funct3(k) = "010" else
+                                    SLTU    when decodedFormat_IF(k) = R and funct3(k) = "011" else
+                                    XORR    when decodedFormat_IF(k) = R and funct3(k) = "100" else
+                                    SRLL    when decodedFormat_IF(k) = R and funct3(k) = "101" and funct7(k)(5) = '0' else
+                                    SRAA    when decodedFormat_IF(k) = R and funct3(k) = "101" and funct7(k)(5) = '1' else
+                                    ORR     when decodedFormat_IF(k) = R and funct3(k) = "110" else
+                                    ANDD    when decodedFormat_IF(k) = R and funct3(k) = "111" else
                                     -- FENCE instructions
-                                    FENCE   when opcode(i) = "0001111" and funct3(i) = "000" else
-                                    FENCE_I when opcode(i) = "0001111" and funct3(i) = "001" else
+                                    FENCE   when opcode(k) = "0001111" and funct3(k) = "000" else
+                                    FENCE_I when opcode(k) = "0001111" and funct3(k) = "001" else
                                     -- SYSTEM instruction
-                                    ECALL   when opcode(i) = "1110011" and funct3(i) = "000" and instruction_IF(i)(20) = '0' else
-                                    EBREAK  when opcode(i) = "1110011" and funct3(i) = "000" and instruction_IF(i)(20) = '1' else
+                                    ECALL   when opcode(k) = "1110011" and funct3(k) = "000" and instruction_IF(k)(20) = '0' else
+                                    EBREAK  when opcode(k) = "1110011" and funct3(k) = "000" and instruction_IF(k)(20) = '1' else
                                     -- CSR instructions
-                                    CSRRW   when opcode(i) = "1110011" and funct3(i) = "001" else 
-                                    CSRRS   when opcode(i) = "1110011" and funct3(i) = "010" else
-                                    CSRRC   when opcode(i) = "1110011" and funct3(i) = "011" else
-                                    CSRRWI  when opcode(i) = "1110011" and funct3(i) = "101" else
-                                    CSRRSI  when opcode(i) = "1110011" and funct3(i) = "101" else
-                                    CSRRCI  when opcode(i) = "1110011" and funct3(i) = "111" else
+                                    CSRRW   when opcode(k) = "1110011" and funct3(k) = "001" else 
+                                    CSRRS   when opcode(k) = "1110011" and funct3(k) = "010" else
+                                    CSRRC   when opcode(k) = "1110011" and funct3(k) = "011" else
+                                    CSRRWI  when opcode(k) = "1110011" and funct3(k) = "101" else
+                                    CSRRSI  when opcode(k) = "1110011" and funct3(k) = "101" else
+                                    CSRRCI  when opcode(k) = "1110011" and funct3(k) = "111" else
 
                                     -- Invalid or not implemented instruction
                                     INVALID_INSTRUCTION; 

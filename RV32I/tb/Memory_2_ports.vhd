@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------
--- Design unit: Memory
+-- Design unit: Memory 2 ports
 -- Description: Parametrizable 32 bits word memory
 -------------------------------------------------------------------------
 
@@ -19,10 +19,14 @@ entity Memory_2_ports is
     );
     port (  
         clock           : in std_logic;
-        MemWrite        : in MemWrite_array;
-        address         : in Data_array;
-        data_i          : in Data_array;
-        data_o          : out Data_array
+        MemWrite_0      : in std_logic_vector(3 downto 0);
+        MemWrite_1      : in std_logic_vector(3 downto 0);
+        address_0       : in std_logic_vector(31 downto 0);
+        address_1       : in std_logic_vector(31 downto 0);
+        data_i_0        : in std_logic_vector(31 downto 0);
+        data_i_1        : in std_logic_vector(31 downto 0);
+        data_o_0        : out std_logic_vector(31 downto 0);
+        data_o_1        : out std_logic_vector(31 downto 0)
     );
 end Memory_2_ports;
 
@@ -120,21 +124,21 @@ architecture behavioral of Memory_2_ports is
             
     end MemoryLoad;
     
-    signal wordAddress, mappedAddress: Data_array;
+    signal wordAddress_0, wordAddress_1, mappedAddress_0, mappedAddress_1: std_logic_vector(31 downto 0);
 
 begin
         
-    mappedAddress(0) <= STD_LOGIC_VECTOR(UNSIGNED(address(0)) - UNSIGNED(START_ADDRESS));
-    mappedAddress(1) <= STD_LOGIC_VECTOR(UNSIGNED(address(1)) - UNSIGNED(START_ADDRESS));
+    mappedAddress_0 <= STD_LOGIC_VECTOR(UNSIGNED(address_0) - UNSIGNED(START_ADDRESS));
+    mappedAddress_1 <= STD_LOGIC_VECTOR(UNSIGNED(address_1) - UNSIGNED(START_ADDRESS));
     
     -- Converts byte address in word address
     --wordAddress <= "00" & address(31 downto 2);
-    wordAddress(0) <= "00" & mappedAddress(0)(31 downto 2);
-    wordAddress(1) <= "00" & mappedAddress(1)(31 downto 2);
+    wordAddress_0 <= "00" & mappedAddress_0(31 downto 2);
+    wordAddress_1 <= "00" & mappedAddress_1(31 downto 2);
         
     -- Memory read
-    data_o(0) <= memoryArray(TO_INTEGER(UNSIGNED(wordAddress(0)))) when UNSIGNED(wordAddress(0)) < SIZE else (others=>'U');
-    data_o(1) <= memoryArray(TO_INTEGER(UNSIGNED(wordAddress(1)))) when UNSIGNED(wordAddress(1)) < SIZE else (others=>'U');
+    data_o_0 <= memoryArray(TO_INTEGER(UNSIGNED(wordAddress_0))) when UNSIGNED(wordAddress_0) < SIZE else (others=>'U');
+    data_o_1 <= memoryArray(TO_INTEGER(UNSIGNED(wordAddress_1))) when UNSIGNED(wordAddress_1) < SIZE else (others=>'U');
 
     -- Process to load the memory array and control the memory writing
     process(clock)
@@ -149,29 +153,29 @@ begin
         end if;
         
         if rising_edge(clock) then    -- Memory writing        
-            if MemWrite(0)(0) = '1' and MemWrite(1)(0) = '1' then
-                if UNSIGNED(wordAddress(0)) < SIZE and UNSIGNED(wordAddress(1)) < SIZE then
-                    memoryArray(TO_INTEGER(UNSIGNED(wordAddress(0)))) <= data_i(0);
-                    memoryArray(TO_INTEGER(UNSIGNED(wordAddress(1)))) <= data_i(1);
+            if MemWrite_0(0) = '1' and MemWrite_1(0) = '1' then
+                if UNSIGNED(wordAddress_0) < SIZE and UNSIGNED(wordAddress_1) < SIZE then
+                    memoryArray(TO_INTEGER(UNSIGNED(wordAddress_0))) <= data_i_0;
+                    memoryArray(TO_INTEGER(UNSIGNED(wordAddress_1))) <= data_i_1;
 
                 else
                     report "******************* MEMORY WRITE (0 OR 1) OUT OF BOUNDS *************"
                     severity error;
                 end if;
-            elsif MemWrite(0)(0) = '1' and MemWrite(1)(0) = '0' then
-                if UNSIGNED(wordAddress(0)) < SIZE then
-                    memoryArray(TO_INTEGER(UNSIGNED(wordAddress(0)))) <= data_i(0);
+            elsif MemWrite_0(0) = '1' and MemWrite_1(0) = '0' then
+                if UNSIGNED(wordAddress_0) < SIZE then
+                    memoryArray(TO_INTEGER(UNSIGNED(wordAddress_0))) <= data_i_0;
 
                 else
-                    report "******************* MEMORY WRITE (0) OUT OF BOUNDS *************"
+                    report "******************* MEMORY WRITE _0 OUT OF BOUNDS *************"
                     severity error;
                 end if;
-            elsif MemWrite(0)(0) = '0' and MemWrite(1)(0) = '1' then
-                if UNSIGNED(wordAddress(1)) < SIZE then
-                    memoryArray(TO_INTEGER(UNSIGNED(wordAddress(1)))) <= data_i(1);
+            elsif MemWrite_0(0) = '0' and MemWrite_1(0) = '1' then
+                if UNSIGNED(wordAddress_1) < SIZE then
+                    memoryArray(TO_INTEGER(UNSIGNED(wordAddress_1))) <= data_i_1;
 
                 else
-                    report "******************* MEMORY WRITE (1) OUT OF BOUNDS *************"
+                    report "******************* MEMORY WRITE _1 OUT OF BOUNDS *************"
                     severity error;
                 end if;
             end if;

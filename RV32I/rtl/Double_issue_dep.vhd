@@ -28,7 +28,7 @@ architecture arch1 of Double_issue_dep is
     
 begin
 
-    ce <= '0' when rd_inst0 = rs1_inst1 or rd_inst0 = rs2_inst1 else
+    ce <= '0' when (rd_inst0 = rs1_inst1 or rd_inst0 = rs2_inst1) and rd_inst0 /= "00000" else
           '1';
 
     ce_pc <= ce;

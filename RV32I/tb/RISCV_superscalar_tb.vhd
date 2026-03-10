@@ -46,7 +46,7 @@ architecture structural of RISCV_superscalar_tb is
             instruction         : in std_logic_vector(INST_WIDTH-1 downto 0);
             
             -- data memory interface
-            dataAddress         : out std_logic_vector(DATA_WIDTH-1 downto 0);
+            dataAddress         : out Data_array;
             data_i              : in  Data_array;
             data_o              : out Data_array;
             MemWrite            : out MemWrite_array
@@ -56,7 +56,7 @@ architecture structural of RISCV_superscalar_tb is
     component Memory is
         generic (
             SIZE            : integer := 32;       -- Memory depth
-            DATA_WIDTH      : integer := 32;       -- Data size
+            INST_WIDTH      : integer := 32;       -- Data size
             START_ADDRESS   : std_logic_vector(31 downto 0) := (others=>'0');    -- Address to be mapped to address 0x00000000
             imageFileName   : string := "UNUSED"   -- Memory content to be loaded
         );
@@ -64,24 +64,28 @@ architecture structural of RISCV_superscalar_tb is
             clock           : in std_logic;
             MemWrite        : in std_logic;
             address         : in std_logic_vector (31 downto 0);
-            data_i          : in std_logic_vector (DATA_WIDTH-1 downto 0);
-            data_o          : out std_logic_vector (DATA_WIDTH-1 downto 0)
+            data_i          : in std_logic_vector (INST_WIDTH-1 downto 0);
+            data_o          : out std_logic_vector (INST_WIDTH-1 downto 0)
         );
     end component;
 
     component Memory_2_ports is
         generic (
-            SIZE            : integer := 32;       -- Memory depth
-            DATA_WIDTH      : integer := 32;
-            START_ADDRESS   : std_logic_vector(31 downto 0) := (others=>'0');    -- Address to be mapped to address 0x00000000
-            imageFileName   : string := "UNUSED"   -- Memory content to be loaded
+        SIZE            : integer := 32;       -- Memory depth
+        DATA_WIDTH      : integer := 32;
+        START_ADDRESS   : std_logic_vector(31 downto 0) := (others=>'0');    -- Address to be mapped to address 0x00000000
+        imageFileName   : string := "UNUSED"   -- Memory content to be loaded
         );
         port (  
             clock           : in std_logic;
-            MemWrite        : in MemWrite_array;
-            address         : in Data_array;
-            data_i          : in Data_array;
-            data_o          : out Data_array
+            MemWrite_0      : in std_logic_vector(3 downto 0);
+            MemWrite_1      : in std_logic_vector(3 downto 0);
+            address_0       : in std_logic_vector(31 downto 0);
+            address_1       : in std_logic_vector(31 downto 0);
+            data_i_0        : in std_logic_vector(31 downto 0);
+            data_i_1        : in std_logic_vector(31 downto 0);
+            data_o_0        : out std_logic_vector(31 downto 0);
+            data_o_1        : out std_logic_vector(31 downto 0)
         );
     end component;
 
@@ -117,7 +121,7 @@ begin
     INSTRUCTION_MEMORY: Memory
         generic map (
             SIZE            => 100,                       
-            DATA_WIDTH      => INST_WIDTH, -- 64 bits (2 instructions) 
+            INST_WIDTH      => INST_WIDTH, -- 64 bits (2 instructions) 
             START_ADDRESS   => INSTRUCTION_OFFSET,         
             imageFileName   => "BubbleSort_code.txt"
         )
@@ -139,10 +143,14 @@ begin
         )
         port map (
             clock           => clock,
-            MemWrite        => MemWrite,
-            address         => dataAddress,    
-            data_i          => data_o,
-            data_o          => data_i
+            MemWrite_0      => MemWrite(0),
+            MemWrite_1      => MemWrite(1),
+            address_0       => dataAddress(0),   
+            address_1       => dataAddress(1),  
+            data_i_0        => data_o(0),
+            data_i_1        => data_o(1),
+            data_o_0        => data_i(0),
+            data_o_1        => data_i(1)
         );  
     
 end structural;
