@@ -13,6 +13,7 @@ use work.Util_package.all;
 entity Memory is
     generic (
         SIZE            : integer := 32;       -- Memory depth
+        DATA_WIDTH      : integer := 32;
         INST_WIDTH      : integer := 64;
         START_ADDRESS   : std_logic_vector(31 downto 0) := (others=>'0');    -- Address to be mapped to address 0x00000000
         imageFileName   : string := "UNUSED"   -- Memory content to be loaded
@@ -20,8 +21,8 @@ entity Memory is
     port (  
         clock           : in std_logic;
         MemWrite        : in std_logic;
-        address         : in std_logic_vector (31 downto 0);
-        data_i          : in std_logic_vector (INST_WIDTH-1 downto 0);
+        address         : in std_logic_vector  (31 downto 0);
+        data_i          : in std_logic_vector  (DATA_WIDTH-1 downto 0);
         data_o          : out std_logic_vector (INST_WIDTH-1 downto 0)
     );
 end Memory;
@@ -30,7 +31,7 @@ end Memory;
 architecture behavioral of Memory is
 
     -- Word addressed memory
-    type Memory is array (0 to SIZE) of std_logic_vector(INST_WIDTH-1 downto 0);
+    type Memory is array (0 to SIZE) of std_logic_vector(DATA_WIDTH-1 downto 0);
     signal memoryArray: Memory;
         
     
@@ -59,7 +60,6 @@ architecture behavioral of Memory is
         variable bool        : boolean;             
         variable address     : std_logic_vector(31 downto 0);
         variable data        : std_logic_vector(31 downto 0);
-        variable inst        : boolean:= true;
                 
         begin
         
@@ -108,16 +108,10 @@ architecture behavioral of Memory is
                     data := StringToStdLogicVector(str);
                     
                     -- Converts the byte address to word address
-                    address := "000" & address(31 downto 3);
+                    address := "00" & address(31 downto 2);
                     
                     -- Stores the 'data' into the memoryArray
-                    if inst then -- add 2 intructions in the same address
-                        memoryArray(TO_INTEGER(UNSIGNED(address)))(31 downto 0) := data;
-                    else
-                        memoryArray(TO_INTEGER(UNSIGNED(address)))(63 downto 32) := data;
-                    end if;
-
-                    inst := not inst;
+                    memoryArray(TO_INTEGER(UNSIGNED(address))) := data;
                     
                 end if;
             end loop;
@@ -134,10 +128,11 @@ begin
     
     -- Converts byte address in word address
     --wordAddress <= "00" & address(31 downto 2);
-    wordAddress <= "000" & mappedAddress(31 downto 3); -- word address = 64 bits = 8 bytes : mapped/8
+    wordAddress <= "00" & mappedAddress(31 downto 2); -- word address = 32 bits = 4 bytes : mapped/4
         
     -- Memory read
-    data_o <= memoryArray(TO_INTEGER(UNSIGNED(wordAddress))) when UNSIGNED(wordAddress) < SIZE else (others=>'U');
+    data_o(31 downto 0)  <= memoryArray(TO_INTEGER(UNSIGNED(wordAddress))) when UNSIGNED(wordAddress) < SIZE else (others=>'U');
+    data_o(63 downto 32) <= memoryArray(TO_INTEGER(UNSIGNED(wordAddress) + TO_UNSIGNED(1,32))) when (UNSIGNED(wordAddress) + TO_UNSIGNED(1,32)) < SIZE else (others=>'U');
 
     -- Process to load the memory array and control the memory writing
     process(clock)

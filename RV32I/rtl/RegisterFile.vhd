@@ -62,7 +62,7 @@ begin
                 d       => writeData(i), 
                 q       => reg(i)
             );
-   end generate Registers; 
+    end generate Registers; 
     
     -- Register source 1 instruction a (rs1_a)
     ReadData1_a <= reg(TO_INTEGER(UNSIGNED(rs1_a)));   

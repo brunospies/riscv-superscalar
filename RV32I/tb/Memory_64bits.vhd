@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------
--- Design unit: Memory 2 ports
+-- Design unit: Memory
 -- Description: Parametrizable 32 bits word memory
 -------------------------------------------------------------------------
 
@@ -10,31 +10,27 @@ use std.textio.all;
 use work.Util_package.all;
 
 
-entity Memory_2_ports is
+entity Memory is
     generic (
         SIZE            : integer := 32;       -- Memory depth
-        DATA_WIDTH      : integer := 32;
+        INST_WIDTH      : integer := 64;
         START_ADDRESS   : std_logic_vector(31 downto 0) := (others=>'0');    -- Address to be mapped to address 0x00000000
         imageFileName   : string := "UNUSED"   -- Memory content to be loaded
     );
     port (  
         clock           : in std_logic;
-        MemWrite_0      : in std_logic_vector(3 downto 0);
-        MemWrite_1      : in std_logic_vector(3 downto 0);
-        address_0       : in std_logic_vector(31 downto 0);
-        address_1       : in std_logic_vector(31 downto 0);
-        data_i_0        : in std_logic_vector(31 downto 0);
-        data_i_1        : in std_logic_vector(31 downto 0);
-        data_o_0        : out std_logic_vector(31 downto 0);
-        data_o_1        : out std_logic_vector(31 downto 0)
+        MemWrite        : in std_logic;
+        address         : in std_logic_vector (31 downto 0);
+        data_i          : in std_logic_vector (INST_WIDTH-1 downto 0);
+        data_o          : out std_logic_vector (INST_WIDTH-1 downto 0)
     );
-end Memory_2_ports;
+end Memory;
 
 
-architecture behavioral of Memory_2_ports is
+architecture behavioral of Memory is
 
     -- Word addressed memory
-    type Memory is array (0 to SIZE) of std_logic_vector(DATA_WIDTH-1 downto 0);
+    type Memory is array (0 to SIZE) of std_logic_vector(INST_WIDTH-1 downto 0);
     signal memoryArray: Memory;
         
     
@@ -62,7 +58,8 @@ architecture behavioral of Memory_2_ports is
         variable char        : character;           -- Stores a single character
         variable bool        : boolean;             
         variable address     : std_logic_vector(31 downto 0);
-        variable data        : std_logic_vector(DATA_WIDTH-1 downto 0);
+        variable data        : std_logic_vector(31 downto 0);
+        variable inst        : boolean:= true;
                 
         begin
         
@@ -84,7 +81,6 @@ architecture behavioral of Memory_2_ports is
                         read(fileLine, char, bool);
                         str(i) := char;
                     end loop;
-                    
                     
                     -- Converts the string address 'str' to std_logic_vector
                     address := StringToStdLogicVector(str);
@@ -112,10 +108,16 @@ architecture behavioral of Memory_2_ports is
                     data := StringToStdLogicVector(str);
                     
                     -- Converts the byte address to word address
-                    address := "00" & address(31 downto 2);
+                    address := "000" & address(31 downto 3);
                     
                     -- Stores the 'data' into the memoryArray
-                    memoryArray(TO_INTEGER(UNSIGNED(address))) := data;
+                    if inst then -- add 2 intructions in the same address
+                        memoryArray(TO_INTEGER(UNSIGNED(address)))(31 downto 0) := data;
+                    else
+                        memoryArray(TO_INTEGER(UNSIGNED(address)))(63 downto 32) := data;
+                    end if;
+
+                    inst := not inst;
                     
                 end if;
             end loop;
@@ -124,21 +126,18 @@ architecture behavioral of Memory_2_ports is
             
     end MemoryLoad;
     
-    signal wordAddress_0, wordAddress_1, mappedAddress_0, mappedAddress_1: std_logic_vector(31 downto 0);
+    signal wordAddress, mappedAddress: std_logic_vector(31 downto 0);
 
 begin
         
-    mappedAddress_0 <= STD_LOGIC_VECTOR(UNSIGNED(address_0) - UNSIGNED(START_ADDRESS));
-    mappedAddress_1 <= STD_LOGIC_VECTOR(UNSIGNED(address_1) - UNSIGNED(START_ADDRESS));
+    mappedAddress <= STD_LOGIC_VECTOR(UNSIGNED(address) - UNSIGNED(START_ADDRESS));
     
     -- Converts byte address in word address
     --wordAddress <= "00" & address(31 downto 2);
-    wordAddress_0 <= "00" & mappedAddress_0(31 downto 2);
-    wordAddress_1 <= "00" & mappedAddress_1(31 downto 2);
+    wordAddress <= "000" & mappedAddress(31 downto 3); -- word address = 64 bits = 8 bytes : mapped/8
         
     -- Memory read
-    data_o_0 <= memoryArray(TO_INTEGER(UNSIGNED(wordAddress_0))) when UNSIGNED(wordAddress_0) < SIZE else (others=>'U');
-    data_o_1 <= memoryArray(TO_INTEGER(UNSIGNED(wordAddress_1))) when UNSIGNED(wordAddress_1) < SIZE else (others=>'U');
+    data_o <= memoryArray(TO_INTEGER(UNSIGNED(wordAddress))) when UNSIGNED(wordAddress) < SIZE else (others=>'U');
 
     -- Process to load the memory array and control the memory writing
     process(clock)
@@ -153,29 +152,11 @@ begin
         end if;
         
         if rising_edge(clock) then    -- Memory writing        
-            if MemWrite_0(0) = '1' and MemWrite_1(0) = '1' then
-                if UNSIGNED(wordAddress_0) < SIZE and UNSIGNED(wordAddress_1) < SIZE then
-                    memoryArray(TO_INTEGER(UNSIGNED(wordAddress_0))) <= data_i_0;
-                    memoryArray(TO_INTEGER(UNSIGNED(wordAddress_1))) <= data_i_1;
-
+            if MemWrite = '1' then
+                if UNSIGNED(wordAddress) < SIZE then
+                    memoryArray(TO_INTEGER(UNSIGNED(wordAddress))) <= data_i;
                 else
-                    report "******************* MEMORY WRITE (0 OR 1) OUT OF BOUNDS *************"
-                    severity error;
-                end if;
-            elsif MemWrite_0(0) = '1' and MemWrite_1(0) = '0' then
-                if UNSIGNED(wordAddress_0) < SIZE then
-                    memoryArray(TO_INTEGER(UNSIGNED(wordAddress_0))) <= data_i_0;
-
-                else
-                    report "******************* MEMORY WRITE 0 OUT OF BOUNDS *************"
-                    severity error;
-                end if;
-            elsif MemWrite_0(0) = '0' and MemWrite_1(0) = '1' then
-                if UNSIGNED(wordAddress_1) < SIZE then
-                    memoryArray(TO_INTEGER(UNSIGNED(wordAddress_1))) <= data_i_1;
-
-                else
-                    report "******************* MEMORY WRITE 1 OUT OF BOUNDS *************"
+                    report "******************* MEMORY WRITE OUT OF BOUNDS *************"
                     severity error;
                 end if;
             end if;

@@ -2,6 +2,15 @@
 -- Design unit: Data path
 -- Description: 
 -------------------------------------------------------------------------
+--██████████████████████████████████████████████████████████████████████████████████
+--██                                                                              ██
+--██ ██████═╗  █████╗ ████████╗ █████╗        ████████╗ █████╗ ████████╗██╗   ██╗ ██
+--██ ██╔══██╚╗██╔══██╗╚══██╔══╝██╔══██╗       ██╔═══██║██╔══██╗╚══██╔══╝██║   ██║ ██
+--██ ██║   ██║███████║   ██║   ███████║       ████████║███████║   ██║   ████████║ ██
+--██ ██║  ██╔╝██╔══██║   ██║   ██╔══██║       ██╔═════╝██╔══██║   ██║   ██╔═══██║ ██
+--██ ██████╔╝ ██║  ██║   ██║   ██║  ██║       ██║      ██║  ██║   ██║   ██║   ██║ ██
+--██ ╚═════╝  ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝       ╚═╝      ╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝ ██
+--██████████████████████████████████████████████████████████████████████████████████
 
 library IEEE;
 use IEEE.std_logic_1164.all;
@@ -36,17 +45,16 @@ architecture structural of DataPath is
 
     -- Instruction Fetch Stage Signals:
     signal incrementedPC_IF, pc_d, pc_q : std_logic_vector(31 downto 0);
-    signal ce_pc, ce_pc_dep : std_logic;
-    signal ce_pc_hazard : std_logic_vector(1 downto 0);
+    signal ce_pc, ce_pc_dep, ce_pc_hazard : std_logic;
     signal PC_IF_mux, instruction_IF, instruction_IF_mux, PC_IF : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
 
     -- Instruction Decode Stage Signals:
     signal instruction_ID : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
-    signal PC_ID, readData1_ID, readData2_ID, imm_data_ID, imm_data_ID_mux, jumpTarget, readReg1_Comp, readReg2_Comp : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
+    signal PC_ID, readData1_ID, readData2_ID, imm_data_ID, imm_data_ID_mux, jumpTarget : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal branchTarget, readReg1, readReg2, Data1_ID, Data1_ID_mux, Data2_ID, Data2_ID_mux : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal rs1_ID, rs2_ID, rd_ID, rs1_ID_mux, rs2_ID_mux, rd_ID_mux : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
-    signal ce_stage_ID, bubble_dep_inst0_ID, ce_stage_ID_hazard, bubble_branch_ID, branch_decision : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
-    signal ce_stage_ID_dep : std_logic;
+    signal ce_stage_ID, bubble_dep_inst0_ID, bubble_branch_ID, branch_decision : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
+    signal ce_stage_ID_dep, ce_stage_ID_hazard : std_logic;
     signal uins_ID_mux : Microinstruction_array; --> (0 to 1) of Microinstruction;
 
     -- Execution Stage Signals:
@@ -54,7 +62,8 @@ architecture structural of DataPath is
     signal ALUoperand2, imm_data_EX, PC_EX : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal uins_EX : Microinstruction_array; --> (0 to 1) of Microinstruction;
     signal rd_EX, rs2_EX, rs1_EX : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
-    signal bubble_hazard_EX, bubble_dep_inst1_EX : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
+    signal bubble_dep_inst1_EX, bubble_branch_inst1_EX : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
+    signal bubble_hazard_EX : std_logic;
 
     -- Memory Stage Signals:
     signal result_MEM : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
@@ -67,8 +76,8 @@ architecture structural of DataPath is
     signal rd_WB : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
 
     -- Auxiliar Signals:
-    signal ForwardA, ForwardB, Forward1, Forward2 : Select_array; --> (0 to 1) of std_logic_vector(1 downto 0);
-    signal ForwardWb_A, ForwardWb_B, MuxLoad1_Comp, MuxLoad2_Comp : std_logic_vector(1 downto 0); -->  (0 to 1) of std_logic; 
+    signal ForwardA, ForwardB, Forward1, Forward2 : Select_array_3b; --> (0 to 1) of std_logic_vector(2 downto 0);
+    signal ForwardWb_A, ForwardWb_B : Select_array_2b; -->  (0 to 1) of std_logic_vector(1 downto 0); 
     signal uins_bubble : Microinstruction;
 
     -- SIMULATION Signals:
@@ -88,6 +97,9 @@ begin
 
     instruction_IF(0) <= instruction_in(31 downto 0);
     instruction_IF(1) <= instruction_in(63 downto 32);
+
+    -- Instruction_out receive instruction_out of Stage 1 for decodification by Control Path
+    instruction_out <= instruction_ID;
 
     -- incrementedPC_IF points the next instruction address
     -- ADDER over the PC register
@@ -153,16 +165,70 @@ begin
             ce_stage_ID         => ce_stage_ID_dep, -- stall ID registers
             bubble_dep_inst1_EX => bubble_dep_inst1_EX(1), 
             bubble_dep_inst0_ID => bubble_dep_inst0_ID(0)  
-     );
+        );
 
-     ce_stage_ID(0) <= ce_stage_ID_hazard(0); -- do not receive ce_stage_ID_dep because recive bubble (bubble_mux)
-     ce_stage_ID(1) <= ce_stage_ID_dep and ce_stage_ID_hazard(1); 
+    ce_stage_ID(0) <= ce_stage_ID_hazard; -- do not receive ce_stage_ID_dep because recive bubble (bubble_mux)
+    ce_stage_ID(1) <= ce_stage_ID_dep and ce_stage_ID_hazard; 
      
-     ce_pc <= ce_pc_dep and ce_pc_hazard(0) and ce_pc_hazard(1);
+    ce_pc <= ce_pc_dep and ce_pc_hazard;
 
-     bubble_dep_inst1_EX(0) <= '0'; -- bubble only in inst1, signal necessary for gen_duplicate 
-     bubble_dep_inst0_ID(1) <= '0'; -- bubble only in inst0, signal necessary for gen_duplicate 
+    bubble_dep_inst1_EX(0) <= '0'; -- bubble only in inst1, signal necessary for gen_duplicate 
+    bubble_dep_inst0_ID(1) <= '0'; -- bubble only in inst0, signal necessary for gen_duplicate 
+
+    bubble_branch_inst1_EX(0) <= '0'; -- bubble only in inst1, signal necessary for gen_duplicate  
+    bubble_branch_inst1_EX(1) <= '1' when (uins_ID(0).format = B and branch_decision(0) = '1') or uins_ID(0).format = J or uins_ID(0).instruction = JALR else
+                                 '0'; -- bubble in inst1_ID when inst0_ID have a branch and is taken
+
+    forwarding_unit_i: entity work.Forwarding_unit(arch1)
+        generic map (
+            ISSUE_WIDTH  => ISSUE_WIDTH
+        )
+        port map (
+            RegWrite_stage_EX_0   => uins_EX(0).RegWrite,
+            RegWrite_stage_EX_1   => uins_EX(1).RegWrite,
+            RegWrite_stage_MEM_0  => uins_MEM(0).RegWrite,
+            RegWrite_stage_MEM_1  => uins_MEM(1).RegWrite,
+            RegWrite_stage_WB_0   => uins_WB(0).RegWrite,
+            RegWrite_stage_WB_1   => uins_WB(1).RegWrite,
+            rs1_stage_EX          => rs1_EX,
+            rs2_stage_EX          => rs2_EX,
+            rs1_stage_ID          => rs1_ID,
+            rs2_stage_ID          => rs2_ID,
+            rd_stage_EX           => rd_EX,
+            rd_stage_MEM          => rd_MEM,
+            rd_stage_WB           => rd_WB,
+            ForwardA              => ForwardA,     -- Bypass ALU
+            ForwardB              => ForwardB,     -- Bypass ALU
+            Forward1              => Forward1,     -- Branch detection
+            Forward2              => Forward2,     -- Branch detection
+            ForwardWb_A           => ForwardWb_A,  -- INS_WB => write reg X, INS_ID => read reg X
+            ForwardWb_B           => ForwardWb_B   -- INS_WB => write reg X, INS_ID => read reg X
+        );
     
+    -- Hazard Detection Unit
+    HazardDetection_unit_i: entity work.HazardDetection_unit(arch1)
+        generic map (
+            ISSUE_WIDTH  => ISSUE_WIDTH
+        )
+        port map (
+            rs2_ID               => rs2_ID,
+            rs1_ID               => rs1_ID,
+            rd_EX                => rd_EX,
+            rd_MEM               => rd_MEM, 
+            format_INS_ID_0      => uins_ID(0).format,
+            format_INS_ID_1      => uins_ID(1).format,
+            MemToReg_EX_0        => uins_EX(0).MemToReg,
+            MemToReg_EX_1        => uins_EX(1).MemToReg,
+            MemToReg_MEM_0       => uins_MEM(0).MemToReg,
+            MemToReg_MEM_1       => uins_MEM(1).MemToReg,
+            ce_pc                => ce_pc_hazard,
+            ce_stage_ID          => ce_stage_ID_hazard,
+            bubble_hazard_EX     => bubble_hazard_EX
+        );
+
+    -------------------------------------------------------------------------------------------------------------------
+
+    ------------------------------------------- DUPLICATE COMPONENTS --------------------------------------------------
 
     gen_duplicate : for i in 0 to ISSUE_WIDTH-1 generate
 
@@ -258,49 +324,12 @@ begin
                 result      => result_EX(i),
                 operation   => uins_EX(i).instruction
             );
-    
-        -- Forwardin Unit
-        forwarding_unit_i: entity work.Forwarding_unit(arch1)
-            port map (
-                RegWrite_stage_EX   => uins_EX(i).RegWrite,
-                RegWrite_stage_MEM  => uins_MEM(i).RegWrite,
-                RegWrite_stage_WB   => uins_WB(i).RegWrite,
-                rs1_stage_EX        => rs1_EX(i),
-                rs2_stage_EX        => rs2_EX(i),
-                rs1_stage_ID        => rs1_ID(i),
-                rs2_stage_ID        => rs2_ID(i),
-                rd_stage_EX         => rd_EX(i),
-                rd_stage_MEM        => rd_MEM(i),
-                rd_stage_WB         => rd_WB(i),
-                MemToReg_MEM        => uins_MEM(i).MemToReg,
-                ForwardA            => ForwardA(i),
-                ForwardB            => ForwardB(i),
-                Forward1            => Forward1(i),
-                Forward2            => Forward2(i),
-                MuxLoad1_Comp       => MuxLoad1_Comp(i),
-                MuxLoad2_Comp       => MuxLoad2_Comp(i),
-                ForwardWb_A         => ForwardWb_A(i),
-                ForwardWb_B         => ForwardWb_B(i)
-
-            );
-
-        -- Hazard Detection Unit
-        HazardDetection_unit_i: entity work.HazardDetection_unit(arch1)
-            port map (
-                rs2_ID               => rs2_ID(i),
-                rs1_ID               => rs1_ID(i),
-                rd_EX                => rd_EX(i),
-                MemToReg_EX          => uins_EX(i).MemToReg,
-                ce_pc                => ce_pc_hazard(i),
-                ce_stage_ID          => ce_stage_ID_hazard(i),
-                bubble_hazard_EX     => bubble_hazard_EX(i)
-            );
 
         BranchDetection_unit: entity work.BranchDetection_unit(arch1)
             port map (
                 instruction        => uins_ID(i).instruction,
-                Data1_ID           => readReg1_Comp(i),
-                Data2_ID           => readReg2_Comp(i),
+                Data1_ID           => readReg1(i),
+                Data2_ID           => readReg2(i),
                 branch_decision    => branch_decision(i),
                 bubble_branch_ID   => bubble_branch_ID(i)
             );
@@ -315,88 +344,116 @@ begin
         -- Selects the second ALU operand
         -- MUX at the ALU input
         MUX_ALU: ALUoperand2(i) <= operand2(i) when uins_EX(i).ALUSrc = '0' else
-                                imm_data_EX(i);
+                                   imm_data_EX(i);
         
         -- Selects the data to be written in the register file
         -- MUX at the data memory output
-        MUX_DATA_MEM: writeData(i) <= data_i_WB(i) when uins_WB(i).memToReg = '1' else result_WB(i);
-        
+        MUX_DATA_MEM: writeData(i) <= data_i_WB(i) when uins_WB(i).memToReg = '1' else 
+                                      result_WB(i);
+
+        --███████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+        --██                                                                                                               ██
+        --██ ███████╗ ██████╗ ████████╗██╗  ██╗  ██╗ █████╗ ████████╗██████═╗        ██╗      ██████╗  ██████╗ ██╗███████╗ ██
+        --██ ██╔════╝██╔═══██╗██╔═══██║██║  ██║  ██║██╔══██╗██╔═══██║██╔══██╚╗       ██║     ██╔═══██╗██╔════╝ ██║██╔════╝ ██
+        --██ ██████╗ ██║   ██║████████║██╚╗ ██╚╗ ██║███████║████████║██║   ██║       ██║     ██║   ██║██║  ███╗██║██║      ██
+        --██ ██╔═══╝ ██║   ██║██╔══██╚╗ ██╚████╚██╔╝██╔══██║██╔══██╚╗██║  ██╔╝       ██║     ██║   ██║██║   ██║██║██║      ██
+        --██ ██║     ╚██████╔╝██║   ██║  ╚██╔══██╔╝ ██║  ██║██║   ██║██████╔╝        ███████╗╚██████╔╝╚██████╔╝██║███████╗ ██
+        --██ ╚═╝      ╚═════╝ ╚═╝   ╚═╝   ╚═╝  ╚═╝  ╚═╝  ╚═╝╚═╝   ╚═╝╚═════╝         ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝╚══════╝ ██
+        --███████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+
         -- MUX Forward A (operand ALU)
-        MUX_FORWARD_A: operand1(i) <= readData1_EX(i) when ForwardA(i) = "00" else 
-        writeData(i) when ForwardA(i) = "01" else
-        data_i(i) when ForwardA(i) = "11" else
-        result_MEM(i);
+        MUX_FORWARD_A: operand1(i) <= result_MEM(0) when ForwardA(i) = "010" else -- Bypass operand1 INS_EX(i) <- INS_MEM(0)
+                                      writeData(0)  when ForwardA(i) = "001" else -- Bypass operand1 INS_EX(i) <- INS_WB(0)
+                                      result_MEM(1) when ForwardA(i) = "011" else -- Bypass operand1 INS_EX(i) <- INS_MEM(1) 
+                                      writeData(1)  when ForwardA(i) = "100" else -- Bypass operand1 INS_EX(i) <- INS_WB(1)
+                                      readData1_EX(0);                            -- No Bypass
 
-        -- MUX Forward B (operand ALU)
-        MUX_FORWARD_B: operand2(i) <= readData2_EX(i) when ForwardB(i) = "00" else 
-        writeData(i) when ForwardB(i) = "01" else
-        data_i(i) when ForwardB(i) = "11" else
-        result_MEM(i);
+        -- MUX Forward B (operand ALU) -- delete 
+        MUX_FORWARD_B: operand2(i) <= result_MEM(0) when ForwardB(i) = "010" else -- Bypass operand2 INS_EX(i) <- INS_MEM(0)
+                                      writeData(0)  when ForwardB(i) = "001" else -- Bypass operand2 INS_EX(i) <- INS_WB(0)
+                                      result_MEM(1) when ForwardB(i) = "011" else -- Bypass operand2 INS_EX(i) <- INS_MEM(1) 
+                                      writeData(1)  when ForwardB(i) = "100" else -- Bypass operand2 INS_EX(i) <- INS_WB(1)
+                                      readData2_EX(0);                            -- No Bypass
 
-        -- MUX Forward 1 (comparison)
-        MUX_FORWARD_1: readReg1(i) <= readData1_ID(i) when Forward1(i) = "00" else 
-        result_EX(i) when Forward1(i) = "01" else
-        result_MEM(i) when Forward1(i) = "10" else
-        writeData(i);
-
-        -- MUX Forward 2 (comparison)
-        MUX_FORWARD_2: readReg2(i) <= readData2_ID(i) when Forward2(i) = "00" else 
-        result_EX(i) when Forward2(i) = "01" else
-        result_MEM(i) when Forward2(i) = "10" else
-        writeData(i);
-
-        -- MUX Load 1 (comparison)
-        MUX_LOAD_1: readReg1_Comp(i) <= data_i(i) when MuxLoad1_Comp(i) = '1' else
-                                    readReg1(i);
-
-        -- MUX Load 1 (comparison)
-        MUX_LOAD_2: readReg2_Comp(i) <= data_i(i) when MuxLoad2_Comp(i) = '1' else
-                                    readReg2(i);
+        -- MUX Forward 1 (comparison) -- (make global)
+        MUX_FORWARD_1: readReg1(i) <= writeData(0)  when Forward1(i) = "011" else -- Bypass rs1 INS_ID(i) <- INS_WB(0) 
+                                      result_MEM(0) when Forward1(i) = "010" else -- Bypass rs1 INS_ID(i) <- INS_MEM(0)
+                                      result_EX(0)  when Forward1(i) = "001" else -- Bypass rs1 INS_ID(i) <- INS_EX(0)
+                                      writeData(1)  when Forward1(i) = "111" else -- Bypass rs1 INS_ID(i) <- INS_WB(1) 
+                                      result_MEM(1) when Forward1(i) = "110" else -- Bypass rs1 INS_ID(i) <- INS_MEM(1)
+                                      result_EX(1)  when Forward1(i) = "101" else -- Bypass rs1 INS_ID(i) <- INS_EX(1)
+                                      readData1_ID(0);                            -- No Bypass
+        
+        -- MUX Forward 2 (comparison) -- (make global)
+        MUX_FORWARD_2: readReg2(i) <= writeData(0)  when Forward2(i) = "011" else -- Bypass rs1 INS_ID(i) <- INS_WB(0) 
+                                      result_MEM(0) when Forward2(i) = "010" else -- Bypass rs1 INS_ID(i) <- INS_MEM(0)
+                                      result_EX(0)  when Forward2(i) = "001" else -- Bypass rs1 INS_ID(i) <- INS_EX(0)
+                                      writeData(1)  when Forward2(i) = "111" else -- Bypass rs1 INS_ID(i) <- INS_WB(1) 
+                                      result_MEM(1) when Forward2(i) = "110" else -- Bypass rs1 INS_ID(i) <- INS_MEM(1)
+                                      result_EX(1)  when Forward2(i) = "101" else -- Bypass rs1 INS_ID(i) <- INS_EX(1)
+                                      readData2_ID(0); 
 
         -- MUX Forward WB A
-        MUX_FORWARD_WB_A: Data1_ID(i) <= writeData(i) when ForwardWb_A(i) = '1' else readData1_ID(i); 
+        MUX_FORWARD_WB_A: Data1_ID(i) <= writeData(0) when ForwardWb_A(i) = "01" else -- Bypass rs1 INS_ID(0) <- INS_WB(0) 
+                                         writeData(1) when ForwardWb_A(i) = "10" else -- Bypass rs1 INS_ID(0) <- INS_WB(1)
+                                         readData1_ID(i);                             -- No Bypass
 
         -- MUX Forward WB B
-        MUX_FORWARD_WB_B: Data2_ID(i) <= writeData(i) when ForwardWb_B(i) = '1' else readData2_ID(i); 
-
+        MUX_FORWARD_WB_B: Data2_ID(i) <= writeData(0) when ForwardWb_B(i) = "01" else -- Bypass rs2 INS_ID(i) <- INS_WB(0) 
+                                         writeData(1) when ForwardWb_B(i) = "10" else -- Bypass rs2 INS_ID(i) <- INS_WB(1)
+                                         readData2_ID(i);                             -- No Bypass
+        
+        --██████████████████████████████████████████████████████████████████████████████████████████
+        --██                                                                                      ██
+        --██ ███████╗██╗   ██╗███████╗███████╗██╗     ███████╗       ███╗   ███╗██╗   ██╗██╗   ██╗██
+        --██ ██╔══██╗██║   ██║██╔══██╗██╔══██╗██║     ██╔════╝       ████╗ ████║██║   ██║ ╚██ ██╔╝██
+        --██ ██████╔╝██║   ██║██████╔╝██████╔╝██║     ██████╗        ██╔████╔██║██║   ██║  ╚███╗  ██
+        --██ ██╔══██╗██║   ██║██╔══██╗██╔══██╗██║     ██╔═══╝        ██║╚██╔╝██║██║   ██║ ╔██ ██╗ ██
+        --██ ██████╔╝╚██████╔╝██████╔╝██████╔╝███████╗███████╗       ██║ ╚═╝ ██║╚██████╔╝██╔╝  ██╗██
+        --██ ╚═════╝  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝       ╚═╝     ╚═╝ ╚═════╝ ╚═╝   ╚═╝██
+        --██████████████████████████████████████████████████████████████████████████████████████████
 
         -- MUX BUBBLE ID
         MUX_BUBBLE_PC_IF: PC_IF_mux(i) <= PC_IF(i) when bubble_branch_ID(0) = '0' and bubble_branch_ID(1) = '0' and bubble_dep_inst0_ID(i) = '0' else
-                                                (others=>'0');
+                                          (others=>'0');
 
         MUX_BUBBLE_instruction_IF: instruction_IF_mux(i) <= instruction_IF(i) when bubble_branch_ID(0) = '0' and bubble_branch_ID(1) = '0' and bubble_dep_inst0_ID(i) = '0' else
-                                                        (others=>'0');
+                                                            (others=>'0');
         
         -- MUX BUBBLE EX
 
-        MUX_BUBBLE_Data1_ID: Data1_ID_mux(i) <= Data1_ID(i) when bubble_hazard_EX(0)='0' and bubble_hazard_EX(1)='0' and bubble_dep_inst1_EX(i)='0' else
-                                            (others=>'0');
+        MUX_BUBBLE_Data1_ID: Data1_ID_mux(i) <= Data1_ID(i) when bubble_hazard_EX='0' and bubble_dep_inst1_EX(i)='0' and bubble_branch_inst1_EX(i) = '0' else
+                                                (others=>'0');
         
-        MUX_BUBBLE_Data2_ID: Data2_ID_mux(i) <= Data2_ID(i) when bubble_hazard_EX(0)='0' and bubble_hazard_EX(1)='0' and bubble_dep_inst1_EX(i)='0' else
-                                            (others=>'0');
-
-        MUX_BUBBLE_IMM_DATA_ID: imm_data_ID_mux(i) <= imm_data_ID(i) when bubble_hazard_EX(0)='0' and bubble_hazard_EX(1)='0' and bubble_dep_inst1_EX(i)='0' else
+        MUX_BUBBLE_Data2_ID: Data2_ID_mux(i) <= Data2_ID(i) when bubble_hazard_EX='0' and bubble_dep_inst1_EX(i)='0' and bubble_branch_inst1_EX(i) = '0' else
                                                 (others=>'0');
 
-        MUX_BUBBLE_rs2_ID: rs2_ID_mux(i) <= rs2_ID(i) when bubble_hazard_EX(0)='0' and bubble_hazard_EX(1)='0' and bubble_dep_inst1_EX(i)='0' else
-                                    (others=>'0');
+        MUX_BUBBLE_IMM_DATA_ID: imm_data_ID_mux(i) <= imm_data_ID(i) when bubble_hazard_EX='0' and bubble_dep_inst1_EX(i)='0' and bubble_branch_inst1_EX(i) = '0' else
+                                                      (others=>'0');
 
-        MUX_BUBBLE_rs1_ID: rs1_ID_mux(i) <= rs1_ID(i) when bubble_hazard_EX(0)='0' and bubble_hazard_EX(1)='0' and bubble_dep_inst1_EX(i)='0' else
-                                    (others=>'0');
+        MUX_BUBBLE_rs2_ID: rs2_ID_mux(i) <= rs2_ID(i) when bubble_hazard_EX='0' and bubble_dep_inst1_EX(i)='0' and bubble_branch_inst1_EX(i) = '0' else
+                                            (others=>'0');
 
-        MUX_BUBBLE_rd_ID: rd_ID_mux(i) <= rd_ID(i) when bubble_hazard_EX(0)='0' and bubble_hazard_EX(1)='0' and bubble_dep_inst1_EX(i)='0' else
-                                    (others=>'0');
+        MUX_BUBBLE_rs1_ID: rs1_ID_mux(i) <= rs1_ID(i) when bubble_hazard_EX='0' and bubble_dep_inst1_EX(i)='0' and bubble_branch_inst1_EX(i) = '0' else
+                                            (others=>'0');
 
-        MUX_BUBBLE_uins_ID: uins_ID_mux(i) <= uins_ID(i) when bubble_hazard_EX(0)='0' and bubble_hazard_EX(1)='0' and bubble_dep_inst1_EX(i)='0' else
-                                        uins_bubble;
+        MUX_BUBBLE_rd_ID: rd_ID_mux(i) <= rd_ID(i) when bubble_hazard_EX='0' and bubble_dep_inst1_EX(i)='0' and bubble_branch_inst1_EX(i) = '0' else
+                                          (others=>'0');
+
+        MUX_BUBBLE_uins_ID: uins_ID_mux(i) <= uins_ID(i) when bubble_hazard_EX='0' and bubble_dep_inst1_EX(i)='0' and bubble_branch_inst1_EX(i) = '0' else
+                                              uins_bubble;
 
     end generate;
 
-    -- Instruction_out receive instruction_out of Stage 1 for decodification by Control Path
-    instruction_out(0) <= instruction_ID(0);
-    instruction_out(1) <= instruction_ID(1);
-
-    -- BUBBLE signals 
+--████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+--██                                                                                                                ██
+--██ ███████╗██╗   ██╗███████╗███████╗██╗     ███████╗       ███████╗██╗ ██████╗ ███╗   ██╗ █████╗ ██╗     ███████╗ ██
+--██ ██╔══██╗██║   ██║██╔══██╗██╔══██╗██║     ██╔════╝       ██╔════╝██║██╔════╝ ████╗  ██║██╔══██╗██║     ██╔════╝ ██
+--██ ██████╔╝██║   ██║██████╔╝██████╔╝██║     ██████╗        ███████╗██║██║  ███╗██╔██╗ ██║███████║██║     ███████╗ ██
+--██ ██╔══██╗██║   ██║██╔══██╗██╔══██╗██║     ██╔═══╝        ╚════██║██║██║   ██║██║╚██╗██║██╔══██║██║     ╚════██║ ██
+--██ ██████╔╝╚██████╔╝██████╔╝██████╔╝███████╗███████╗       ███████║██║╚██████╔╝██║ ╚████║██║  ██║███████╗███████║ ██
+--██ ╚═════╝  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝       ╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚══════╝ ██
+--████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
 
     uins_bubble.RegWrite     <= '0';
     uins_bubble.ALUSrc       <= '0';
@@ -404,6 +461,16 @@ begin
     uins_bubble.MemWrite     <= "0000";
     uins_bubble.format       <= X;
     uins_bubble.instruction  <= INVALID_INSTRUCTION;
+
+--██████████████████████████████████████████████████████████████████████████████████████████████████████████████
+--██                                                                                                          ██
+--██ ██████═╗ ███████╗███████╗██╗   ██╗ ██████╗        ███████╗██╗ ██████╗ ███╗   ██╗ █████╗ ██╗     ███████╗ ██
+--██ ██╔══██╚╗██╔════╝██╔══██╗██║   ██║██╔════╝        ██╔════╝██║██╔════╝ ████╗  ██║██╔══██╗██║     ██╔════╝ ██
+--██ ██║   ██║██████╗ ██████╔╝██║   ██║██║  ███╗       ███████╗██║██║  ███╗██╔██╗ ██║███████║██║     ███████╗ ██
+--██ ██║  ██╔╝██╔═══╝ ██╔══██╗██║   ██║██║   ██║       ╚════██║██║██║   ██║██║╚██╗██║██╔══██║██║     ╚════██║ ██
+--██ ██████╔╝ ███████╗██████╔╝╚██████╔╝╚██████╔╝       ███████║██║╚██████╔╝██║ ╚████║██║  ██║███████╗███████║ ██
+--██ ╚═════╝  ╚══════╝╚═════╝  ╚═════╝  ╚═════╝        ╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚══════╝ ██
+--██████████████████████████████████████████████████████████████████████████████████████████████████████████████
 
     DECODE_STAGE_IF: -- Decoded Instruction of Instruction Fetch Stage for SIMULATION
     if SYNTHESIS = '0' generate

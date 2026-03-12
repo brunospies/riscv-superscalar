@@ -9,13 +9,13 @@ vhdl xil_defaultlib  \
 "../../../../../RV32I/rtl/RegisterNbits.vhd" \
 "../../../../../RV32I/rtl/RegisterFile.vhd" \
 "../../../../../RV32I/rtl/Double_issue_dep.vhd" \
+"../../../../../RV32I/rtl/Forwarding_unit.vhd" \
+"../../../../../RV32I/rtl/HazardDetection_unit.vhd" \
 "../../../../../RV32I/rtl/ImmediateDataExtractor.vhd" \
 "../../../../../RV32I/rtl/Stage_ID.vhd" \
 "../../../../../RV32I/rtl/Stage_EX.vhd" \
 "../../../../../RV32I/rtl/Stage_MEM.vhd" \
 "../../../../../RV32I/rtl/Stage_WB.vhd" \
-"../../../../../RV32I/rtl/Forwarding_unit.vhd" \
-"../../../../../RV32I/rtl/HazardDetection_unit.vhd" \
 "../../../../../RV32I/rtl/DataPath.vhd" \
 "../../../../../RV32I/tb/Util_package.vhd" \
 "../../../../../RV32I/tb/Memory.vhd" \

@@ -7,65 +7,73 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all; 
-
+use work.RISCV_package.all;
 
 entity Forwarding_unit is
-    port (  
-        RegWrite_stage_MEM  : in  std_logic;
-        RegWrite_stage_WB   : in  std_logic;
-        RegWrite_stage_EX   : in  std_logic;
-        rs1_stage_EX        : in  std_logic_vector (4 downto 0);
-        rs2_stage_EX        : in  std_logic_vector (4 downto 0);
-        rs1_stage_ID        : in  std_logic_vector (4 downto 0);
-        rs2_stage_ID        : in  std_logic_vector (4 downto 0);
-        rd_stage_MEM        : in  std_logic_vector (4 downto 0);
-        rd_stage_WB         : in  std_logic_vector (4 downto 0);
-        rd_stage_EX         : in  std_logic_vector (4 downto 0);
-        MemToReg_MEM        : in  std_logic;
-        ForwardA            : out std_logic_vector (1 downto 0);
-        ForwardB            : out std_logic_vector (1 downto 0);
-        Forward1            : out std_logic_vector (1 downto 0);
-        Forward2            : out std_logic_vector (1 downto 0);
-        MuxLoad1_Comp       : out std_logic;
-        MuxLoad2_Comp       : out std_logic;
-        ForwardWb_A         : out std_logic;
-        ForwardWb_B         : out std_logic
+    generic (
+        ISSUE_WIDTH         : natural := 2
+    );
+    port (
+        RegWrite_stage_MEM_0 : in  std_logic;
+        RegWrite_stage_MEM_1 : in  std_logic;
+        RegWrite_stage_WB_0  : in  std_logic;
+        RegWrite_stage_WB_1  : in  std_logic;
+        RegWrite_stage_EX_0  : in  std_logic;
+        RegWrite_stage_EX_1  : in  std_logic;
+        rs1_stage_EX         : in  Reg_array;
+        rs2_stage_EX         : in  Reg_array;
+        rs1_stage_ID         : in  Reg_array;
+        rs2_stage_ID         : in  Reg_array;
+        rd_stage_MEM         : in  Reg_array;
+        rd_stage_WB          : in  Reg_array;
+        rd_stage_EX          : in  Reg_array;
+        ForwardA             : out Select_array_3b;
+        ForwardB             : out Select_array_3b;
+        Forward1             : out Select_array_3b;
+        Forward2             : out Select_array_3b;
+        ForwardWb_A          : out Select_array_2b;
+        ForwardWb_B          : out Select_array_2b    
     );
 end Forwarding_unit;
 
 architecture arch1 of Forwarding_unit is
 begin
+    gen_forward : for i in 0 to ISSUE_WIDTH-1 generate
+    
+        ForwardA(i) <= "010" when RegWrite_stage_MEM_0 = '1' and rd_stage_MEM(0) /= "00000" and rd_stage_MEM(0) = rs1_stage_EX(i) else -- Bypass rs1 INS_EX(i) <- INS_MEM(0) 
+                       "001" when RegWrite_stage_WB_0  = '1' and rd_stage_WB(0)  /= "00000" and rd_stage_WB(0)  = rs1_stage_EX(i) else -- Bypass rs1 INS_EX(i) <- INS_WB(0) 
+                       "011" when RegWrite_stage_MEM_1 = '1' and rd_stage_MEM(1) /= "00000" and rd_stage_MEM(1) = rs1_stage_EX(i) else -- Bypass rs1 INS_EX(i) <- INS_MEM(1) 
+                       "100" when RegWrite_stage_WB_1  = '1' and rd_stage_WB(1)  /= "00000" and rd_stage_WB(1)  = rs1_stage_EX(i) else -- Bypass rs1 INS_EX(i) <- INS_WB(1)
+                       "000";                                                                                                           -- No Bypass
 
-    ForwardA <= "10" when RegWrite_stage_MEM = '1' and rd_stage_MEM /= "00000" and rd_stage_MEM = rs1_stage_EX and MemToReg_MEM = '0' else
-                "11" when RegWrite_stage_MEM = '1' and rd_stage_MEM /= "00000" and rd_stage_MEM = rs1_stage_EX and MemToReg_MEM = '1' else
-                "01" when RegWrite_stage_WB = '1' and rd_stage_WB /= "00000" and rd_stage_WB = rs1_stage_EX else
-                "00";
+        ForwardB(i) <= "010" when RegWrite_stage_MEM_0 = '1' and rd_stage_MEM(0) /= "00000" and rd_stage_MEM(0) = rs2_stage_EX(i) else -- Bypass rs2 INS_EX(i) <- INS_MEM(0) 
+                       "001" when RegWrite_stage_WB_0  = '1' and rd_stage_WB(0)  /= "00000" and rd_stage_WB(0)  = rs2_stage_EX(i) else -- Bypass rs2 INS_EX(i) <- INS_WB(0) 
+                       "011" when RegWrite_stage_MEM_1 = '1' and rd_stage_MEM(1) /= "00000" and rd_stage_MEM(1) = rs2_stage_EX(i) else -- Bypass rs2 INS_EX(i) <- INS_MEM(1) 
+                       "100" when RegWrite_stage_WB_1  = '1' and rd_stage_WB(1)  /= "00000" and rd_stage_WB(1)  = rs2_stage_EX(i) else -- Bypass rs2 INS_EX(i) <- INS_WB(1)
+                       "000";                                                                                                           -- No Bypass
+        
+        Forward1(i) <= "011" when RegWrite_stage_WB_0  = '1' and rd_stage_WB(0)  /= "00000" and rd_stage_WB(0)  = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_WB(0) 
+                       "010" when RegWrite_stage_MEM_0 = '1' and rd_stage_MEM(0) /= "00000" and rd_stage_MEM(0) = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_MEM(0) 
+                       "001" when RegWrite_stage_EX_0  = '1' and rd_stage_EX(0)  /= "00000" and rd_stage_EX(0)  = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_EX(0)
+                       "111" when RegWrite_stage_WB_1  = '1' and rd_stage_WB(1)  /= "00000" and rd_stage_WB(1)  = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_WB(1) 
+                       "110" when RegWrite_stage_MEM_1 = '1' and rd_stage_MEM(1) /= "00000" and rd_stage_MEM(1) = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_MEM(1)
+                       "101" when RegWrite_stage_EX_1  = '1' and rd_stage_EX(1)  /= "00000" and rd_stage_EX(1)  = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_EX(1)
+                       "000";                                                                                                           -- No Bypass
 
-    ForwardB <= "10" when RegWrite_stage_MEM = '1' and rd_stage_MEM /= "00000" and rd_stage_MEM = rs2_stage_EX and MemToReg_MEM = '0' else
-                "11" when RegWrite_stage_MEM = '1' and rd_stage_MEM /= "00000" and rd_stage_MEM = rs2_stage_EX and MemToReg_MEM = '1' else
-                "01" when RegWrite_stage_WB = '1' and rd_stage_WB /= "00000" and rd_stage_WB = rs2_stage_EX else
-                "00";
-    
-    Forward1 <= "11" when RegWrite_stage_WB = '1' and rd_stage_WB /= "00000" and rd_stage_WB = rs1_stage_ID else
-                "10" when RegWrite_stage_MEM = '1' and rd_stage_MEM /= "00000" and rd_stage_MEM = rs1_stage_ID else
-                "01" when RegWrite_stage_EX = '1' and rd_stage_EX /= "00000" and rd_stage_EX = rs1_stage_ID else
-                "00";
-
-    Forward2 <= "11" when RegWrite_stage_WB = '1' and rd_stage_WB /= "00000" and rd_stage_WB = rs2_stage_ID else
-                "10" when RegWrite_stage_MEM = '1' and rd_stage_MEM /= "00000" and rd_stage_MEM = rs2_stage_ID else
-                "01" when RegWrite_stage_EX = '1' and rd_stage_EX /= "00000" and rd_stage_EX = rs2_stage_ID else
-                "00";
-    
-    ForwardWb_A <= '1' when RegWrite_stage_WB = '1' and rd_stage_WB = rs1_stage_ID else
-                   '0';
-    
-    ForwardWb_B <= '1' when RegWrite_stage_WB = '1' and rd_stage_WB = rs2_stage_ID else
-                   '0';
-
-    MuxLoad1_Comp <= '1' when RegWrite_stage_MEM = '1' and rd_stage_MEM /= "00000" and rd_stage_MEM = rs1_stage_ID and MemToReg_MEM = '1' else 
-                     '0';
-    
-    MuxLoad2_Comp <= '1' when RegWrite_stage_MEM = '1' and rd_stage_MEM /= "00000" and rd_stage_MEM = rs2_stage_ID and MemToReg_MEM = '1' else
-                     '0';
-    
+        Forward2(i) <= "011" when RegWrite_stage_WB_0  = '1' and rd_stage_WB(0)  /= "00000" and rd_stage_WB(0)  = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_WB(0) 
+                       "010" when RegWrite_stage_MEM_0 = '1' and rd_stage_MEM(0) /= "00000" and rd_stage_MEM(0) = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_MEM(0) 
+                       "001" when RegWrite_stage_EX_0  = '1' and rd_stage_EX(0)  /= "00000" and rd_stage_EX(0)  = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_EX(0)
+                       "111" when RegWrite_stage_WB_1  = '1' and rd_stage_WB(1)  /= "00000" and rd_stage_WB(1)  = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_WB(1) 
+                       "110" when RegWrite_stage_MEM_1 = '1' and rd_stage_MEM(1) /= "00000" and rd_stage_MEM(1) = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_MEM(1)
+                       "101" when RegWrite_stage_EX_1  = '1' and rd_stage_EX(1)  /= "00000" and rd_stage_EX(1)  = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_EX(1)
+                       "000";                                                                                                          -- No Bypass
+        
+        ForwardWb_A(i) <= "01" when RegWrite_stage_WB_0 = '1' and rd_stage_WB(0) = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_WB(0) 
+                          "10" when RegWrite_stage_WB_1 = '1' and rd_stage_WB(1) = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_WB(1) 
+                          "00";                                                                         -- No Bypass
+        
+        ForwardWb_B(i) <= "01" when RegWrite_stage_WB_0 = '1' and rd_stage_WB(0) = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_WB(0) 
+                          "10" when RegWrite_stage_WB_1 = '1' and rd_stage_WB(1) = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_WB(1) 
+                          "00";                                                                         -- No Bypass
+    end generate;
 end arch1;

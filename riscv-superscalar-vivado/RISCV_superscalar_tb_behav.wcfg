@@ -12,13 +12,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,000.001 ns"></ZoomEndTime>
-      <Cursor1Time time="29.877 ns"></Cursor1Time>
+      <ZoomStartTime time="77.602 ns"></ZoomStartTime>
+      <ZoomEndTime time="108.277 ns"></ZoomEndTime>
+      <Cursor1Time time="82.113 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="276"></NameColumnWidth>
-      <ValueColumnWidth column_width="120"></ValueColumnWidth>
+      <ValueColumnWidth column_width="110"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="18" />
    <wvobject fp_name="group577" type="group">
@@ -80,7 +80,6 @@
    <wvobject fp_name="group576" type="group">
       <obj_property name="label">DATA_PATH</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/clock" type="logic">
          <obj_property name="ElementShortName">clock</obj_property>
          <obj_property name="ObjectShortName">clock</obj_property>
@@ -142,9 +141,9 @@
          <obj_property name="ElementShortName">ce_pc_dep</obj_property>
          <obj_property name="ObjectShortName">ce_pc_dep</obj_property>
       </wvobject>
-      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/ce_pc_hazard" type="array">
-         <obj_property name="ElementShortName">ce_pc_hazard[1:0]</obj_property>
-         <obj_property name="ObjectShortName">ce_pc_hazard[1:0]</obj_property>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/ce_pc_hazard" type="logic">
+         <obj_property name="ElementShortName">ce_pc_hazard</obj_property>
+         <obj_property name="ObjectShortName">ce_pc_hazard</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/PC_IF_mux" type="array">
          <obj_property name="ElementShortName">PC_IF_mux[0:1][31:0]</obj_property>
@@ -255,9 +254,9 @@
          <obj_property name="ElementShortName">bubble_dep_inst0_ID[1:0]</obj_property>
          <obj_property name="ObjectShortName">bubble_dep_inst0_ID[1:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/ce_stage_ID_hazard" type="array">
-         <obj_property name="ElementShortName">ce_stage_ID_hazard[1:0]</obj_property>
-         <obj_property name="ObjectShortName">ce_stage_ID_hazard[1:0]</obj_property>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/ce_stage_ID_hazard" type="logic">
+         <obj_property name="ElementShortName">ce_stage_ID_hazard</obj_property>
+         <obj_property name="ObjectShortName">ce_stage_ID_hazard</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/bubble_branch_ID" type="array">
          <obj_property name="ElementShortName">bubble_branch_ID[1:0]</obj_property>
@@ -327,9 +326,9 @@
          <obj_property name="ElementShortName">rs1_EX[0:1][4:0]</obj_property>
          <obj_property name="ObjectShortName">rs1_EX[0:1][4:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/bubble_hazard_EX" type="array">
-         <obj_property name="ElementShortName">bubble_hazard_EX[1:0]</obj_property>
-         <obj_property name="ObjectShortName">bubble_hazard_EX[1:0]</obj_property>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/bubble_hazard_EX" type="logic">
+         <obj_property name="ElementShortName">bubble_hazard_EX</obj_property>
+         <obj_property name="ObjectShortName">bubble_hazard_EX</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/bubble_dep_inst1_EX" type="array">
          <obj_property name="ElementShortName">bubble_dep_inst1_EX[1:0]</obj_property>
@@ -368,36 +367,36 @@
          <obj_property name="ObjectShortName">rd_WB[0:1][4:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/ForwardA" type="array">
-         <obj_property name="ElementShortName">ForwardA[0:1][1:0]</obj_property>
-         <obj_property name="ObjectShortName">ForwardA[0:1][1:0]</obj_property>
+         <obj_property name="ElementShortName">ForwardA[0:1][2:0]</obj_property>
+         <obj_property name="ObjectShortName">ForwardA[0:1][2:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/ForwardB" type="array">
-         <obj_property name="ElementShortName">ForwardB[0:1][1:0]</obj_property>
-         <obj_property name="ObjectShortName">ForwardB[0:1][1:0]</obj_property>
+         <obj_property name="ElementShortName">ForwardB[0:1][2:0]</obj_property>
+         <obj_property name="ObjectShortName">ForwardB[0:1][2:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/Forward1" type="array">
-         <obj_property name="ElementShortName">Forward1[0:1][1:0]</obj_property>
-         <obj_property name="ObjectShortName">Forward1[0:1][1:0]</obj_property>
+         <obj_property name="ElementShortName">Forward1[0:1][2:0]</obj_property>
+         <obj_property name="ObjectShortName">Forward1[0:1][2:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/Forward2" type="array">
-         <obj_property name="ElementShortName">Forward2[0:1][1:0]</obj_property>
-         <obj_property name="ObjectShortName">Forward2[0:1][1:0]</obj_property>
+         <obj_property name="ElementShortName">Forward2[0:1][2:0]</obj_property>
+         <obj_property name="ObjectShortName">Forward2[0:1][2:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/ForwardWb_A" type="array">
-         <obj_property name="ElementShortName">ForwardWb_A[1:0]</obj_property>
-         <obj_property name="ObjectShortName">ForwardWb_A[1:0]</obj_property>
+         <obj_property name="ElementShortName">ForwardWb_A[0:1][1:0]</obj_property>
+         <obj_property name="ObjectShortName">ForwardWb_A[0:1][1:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/ForwardWb_B" type="array">
-         <obj_property name="ElementShortName">ForwardWb_B[1:0]</obj_property>
-         <obj_property name="ObjectShortName">ForwardWb_B[1:0]</obj_property>
+         <obj_property name="ElementShortName">ForwardWb_B[0:1][1:0]</obj_property>
+         <obj_property name="ObjectShortName">ForwardWb_B[0:1][1:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/MuxLoad1_Comp" type="array">
-         <obj_property name="ElementShortName">MuxLoad1_Comp[1:0]</obj_property>
-         <obj_property name="ObjectShortName">MuxLoad1_Comp[1:0]</obj_property>
+         <obj_property name="ElementShortName">MuxLoad1_Comp[0:1][1:0]</obj_property>
+         <obj_property name="ObjectShortName">MuxLoad1_Comp[0:1][1:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/MuxLoad2_Comp" type="array">
-         <obj_property name="ElementShortName">MuxLoad2_Comp[1:0]</obj_property>
-         <obj_property name="ObjectShortName">MuxLoad2_Comp[1:0]</obj_property>
+         <obj_property name="ElementShortName">MuxLoad2_Comp[0:1][1:0]</obj_property>
+         <obj_property name="ObjectShortName">MuxLoad2_Comp[0:1][1:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/uins_bubble" type="array">
          <obj_property name="ElementShortName">uins_bubble</obj_property>
@@ -477,13 +476,13 @@
          <obj_property name="label">Instructions_ID</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/uins_ID_mux[0].instruction" type="other">
+         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/uins_ID[0].instruction" type="other">
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="ElementShortName">.instruction</obj_property>
             <obj_property name="ObjectShortName">.instruction</obj_property>
             <obj_property name="label">[0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/uins_ID_mux[1].instruction" type="other">
+         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/uins_ID[1].instruction" type="other">
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="ElementShortName">.instruction</obj_property>
             <obj_property name="ObjectShortName">.instruction</obj_property>
@@ -657,6 +656,7 @@
    <wvobject fp_name="group255" type="group">
       <obj_property name="label">DEPENDENCY_INST</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/DEPENDENCY_INSTRUCTIONS_ID/rs1_inst1" type="array">
          <obj_property name="ElementShortName">rs1_inst1[4:0]</obj_property>
          <obj_property name="ObjectShortName">rs1_inst1[4:0]</obj_property>
@@ -1171,6 +1171,7 @@
    <wvobject fp_name="group261" type="group">
       <obj_property name="label">ALU</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="group299" type="group">
          <obj_property name="label">[0]</obj_property>
          <obj_property name="DisplayName">label</obj_property>
@@ -1287,247 +1288,171 @@
    <wvobject fp_name="group262" type="group">
       <obj_property name="label">FORWARDING_UNIT</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject fp_name="group299" type="group">
-         <obj_property name="label">[0]</obj_property>
-         <obj_property name="DisplayName">label</obj_property>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/RegWrite_stage_MEM" type="logic">
-            <obj_property name="ElementShortName">RegWrite_stage_MEM</obj_property>
-            <obj_property name="ObjectShortName">RegWrite_stage_MEM</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/RegWrite_stage_WB" type="logic">
-            <obj_property name="ElementShortName">RegWrite_stage_WB</obj_property>
-            <obj_property name="ObjectShortName">RegWrite_stage_WB</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/RegWrite_stage_EX" type="logic">
-            <obj_property name="ElementShortName">RegWrite_stage_EX</obj_property>
-            <obj_property name="ObjectShortName">RegWrite_stage_EX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/rs1_stage_EX" type="array">
-            <obj_property name="ElementShortName">rs1_stage_EX[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rs1_stage_EX[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/rs2_stage_EX" type="array">
-            <obj_property name="ElementShortName">rs2_stage_EX[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rs2_stage_EX[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/rs1_stage_ID" type="array">
-            <obj_property name="ElementShortName">rs1_stage_ID[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rs1_stage_ID[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/rs2_stage_ID" type="array">
-            <obj_property name="ElementShortName">rs2_stage_ID[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rs2_stage_ID[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/rd_stage_MEM" type="array">
-            <obj_property name="ElementShortName">rd_stage_MEM[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rd_stage_MEM[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/rd_stage_WB" type="array">
-            <obj_property name="ElementShortName">rd_stage_WB[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rd_stage_WB[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/rd_stage_EX" type="array">
-            <obj_property name="ElementShortName">rd_stage_EX[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rd_stage_EX[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/MemToReg_MEM" type="logic">
-            <obj_property name="ElementShortName">MemToReg_MEM</obj_property>
-            <obj_property name="ObjectShortName">MemToReg_MEM</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/ForwardA" type="array">
-            <obj_property name="ElementShortName">ForwardA[1:0]</obj_property>
-            <obj_property name="ObjectShortName">ForwardA[1:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/ForwardB" type="array">
-            <obj_property name="ElementShortName">ForwardB[1:0]</obj_property>
-            <obj_property name="ObjectShortName">ForwardB[1:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/Forward1" type="array">
-            <obj_property name="ElementShortName">Forward1[1:0]</obj_property>
-            <obj_property name="ObjectShortName">Forward1[1:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/Forward2" type="array">
-            <obj_property name="ElementShortName">Forward2[1:0]</obj_property>
-            <obj_property name="ObjectShortName">Forward2[1:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/MuxLoad1_Comp" type="logic">
-            <obj_property name="ElementShortName">MuxLoad1_Comp</obj_property>
-            <obj_property name="ObjectShortName">MuxLoad1_Comp</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/MuxLoad2_Comp" type="logic">
-            <obj_property name="ElementShortName">MuxLoad2_Comp</obj_property>
-            <obj_property name="ObjectShortName">MuxLoad2_Comp</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/ForwardWb_A" type="logic">
-            <obj_property name="ElementShortName">ForwardWb_A</obj_property>
-            <obj_property name="ObjectShortName">ForwardWb_A</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/forwarding_unit_i/ForwardWb_B" type="logic">
-            <obj_property name="ElementShortName">ForwardWb_B</obj_property>
-            <obj_property name="ObjectShortName">ForwardWb_B</obj_property>
-         </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/RegWrite_stage_MEM_0" type="logic">
+         <obj_property name="ElementShortName">RegWrite_stage_MEM_0</obj_property>
+         <obj_property name="ObjectShortName">RegWrite_stage_MEM_0</obj_property>
       </wvobject>
-      <wvobject fp_name="group300" type="group">
-         <obj_property name="label">[1]</obj_property>
-         <obj_property name="DisplayName">label</obj_property>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/RegWrite_stage_MEM" type="logic">
-            <obj_property name="ElementShortName">RegWrite_stage_MEM</obj_property>
-            <obj_property name="ObjectShortName">RegWrite_stage_MEM</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/RegWrite_stage_WB" type="logic">
-            <obj_property name="ElementShortName">RegWrite_stage_WB</obj_property>
-            <obj_property name="ObjectShortName">RegWrite_stage_WB</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/RegWrite_stage_EX" type="logic">
-            <obj_property name="ElementShortName">RegWrite_stage_EX</obj_property>
-            <obj_property name="ObjectShortName">RegWrite_stage_EX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/rs1_stage_EX" type="array">
-            <obj_property name="ElementShortName">rs1_stage_EX[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rs1_stage_EX[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/rs2_stage_EX" type="array">
-            <obj_property name="ElementShortName">rs2_stage_EX[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rs2_stage_EX[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/rs1_stage_ID" type="array">
-            <obj_property name="ElementShortName">rs1_stage_ID[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rs1_stage_ID[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/rs2_stage_ID" type="array">
-            <obj_property name="ElementShortName">rs2_stage_ID[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rs2_stage_ID[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/rd_stage_MEM" type="array">
-            <obj_property name="ElementShortName">rd_stage_MEM[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rd_stage_MEM[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/rd_stage_WB" type="array">
-            <obj_property name="ElementShortName">rd_stage_WB[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rd_stage_WB[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/rd_stage_EX" type="array">
-            <obj_property name="ElementShortName">rd_stage_EX[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rd_stage_EX[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/MemToReg_MEM" type="logic">
-            <obj_property name="ElementShortName">MemToReg_MEM</obj_property>
-            <obj_property name="ObjectShortName">MemToReg_MEM</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/ForwardA" type="array">
-            <obj_property name="ElementShortName">ForwardA[1:0]</obj_property>
-            <obj_property name="ObjectShortName">ForwardA[1:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/ForwardB" type="array">
-            <obj_property name="ElementShortName">ForwardB[1:0]</obj_property>
-            <obj_property name="ObjectShortName">ForwardB[1:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/Forward1" type="array">
-            <obj_property name="ElementShortName">Forward1[1:0]</obj_property>
-            <obj_property name="ObjectShortName">Forward1[1:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/Forward2" type="array">
-            <obj_property name="ElementShortName">Forward2[1:0]</obj_property>
-            <obj_property name="ObjectShortName">Forward2[1:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/MuxLoad1_Comp" type="logic">
-            <obj_property name="ElementShortName">MuxLoad1_Comp</obj_property>
-            <obj_property name="ObjectShortName">MuxLoad1_Comp</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/MuxLoad2_Comp" type="logic">
-            <obj_property name="ElementShortName">MuxLoad2_Comp</obj_property>
-            <obj_property name="ObjectShortName">MuxLoad2_Comp</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/ForwardWb_A" type="logic">
-            <obj_property name="ElementShortName">ForwardWb_A</obj_property>
-            <obj_property name="ObjectShortName">ForwardWb_A</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/forwarding_unit_i/ForwardWb_B" type="logic">
-            <obj_property name="ElementShortName">ForwardWb_B</obj_property>
-            <obj_property name="ObjectShortName">ForwardWb_B</obj_property>
-         </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/RegWrite_stage_MEM_1" type="logic">
+         <obj_property name="ElementShortName">RegWrite_stage_MEM_1</obj_property>
+         <obj_property name="ObjectShortName">RegWrite_stage_MEM_1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/RegWrite_stage_WB_0" type="logic">
+         <obj_property name="ElementShortName">RegWrite_stage_WB_0</obj_property>
+         <obj_property name="ObjectShortName">RegWrite_stage_WB_0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/RegWrite_stage_WB_1" type="logic">
+         <obj_property name="ElementShortName">RegWrite_stage_WB_1</obj_property>
+         <obj_property name="ObjectShortName">RegWrite_stage_WB_1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/RegWrite_stage_EX_0" type="logic">
+         <obj_property name="ElementShortName">RegWrite_stage_EX_0</obj_property>
+         <obj_property name="ObjectShortName">RegWrite_stage_EX_0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/RegWrite_stage_EX_1" type="logic">
+         <obj_property name="ElementShortName">RegWrite_stage_EX_1</obj_property>
+         <obj_property name="ObjectShortName">RegWrite_stage_EX_1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/rs1_stage_EX" type="array">
+         <obj_property name="ElementShortName">rs1_stage_EX[0:1][4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs1_stage_EX[0:1][4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/rs2_stage_EX" type="array">
+         <obj_property name="ElementShortName">rs2_stage_EX[0:1][4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs2_stage_EX[0:1][4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/rs1_stage_ID" type="array">
+         <obj_property name="ElementShortName">rs1_stage_ID[0:1][4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs1_stage_ID[0:1][4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/rs2_stage_ID" type="array">
+         <obj_property name="ElementShortName">rs2_stage_ID[0:1][4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs2_stage_ID[0:1][4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/rd_stage_MEM" type="array">
+         <obj_property name="ElementShortName">rd_stage_MEM[0:1][4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_stage_MEM[0:1][4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/rd_stage_WB" type="array">
+         <obj_property name="ElementShortName">rd_stage_WB[0:1][4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_stage_WB[0:1][4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/rd_stage_EX" type="array">
+         <obj_property name="ElementShortName">rd_stage_EX[0:1][4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_stage_EX[0:1][4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/MemToReg_MEM_0" type="logic">
+         <obj_property name="ElementShortName">MemToReg_MEM_0</obj_property>
+         <obj_property name="ObjectShortName">MemToReg_MEM_0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/MemToReg_MEM_1" type="logic">
+         <obj_property name="ElementShortName">MemToReg_MEM_1</obj_property>
+         <obj_property name="ObjectShortName">MemToReg_MEM_1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/ForwardA" type="array">
+         <obj_property name="ElementShortName">ForwardA[0:1][2:0]</obj_property>
+         <obj_property name="ObjectShortName">ForwardA[0:1][2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/ForwardB" type="array">
+         <obj_property name="ElementShortName">ForwardB[0:1][2:0]</obj_property>
+         <obj_property name="ObjectShortName">ForwardB[0:1][2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/Forward1" type="array">
+         <obj_property name="ElementShortName">Forward1[0:1][2:0]</obj_property>
+         <obj_property name="ObjectShortName">Forward1[0:1][2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/Forward2" type="array">
+         <obj_property name="ElementShortName">Forward2[0:1][2:0]</obj_property>
+         <obj_property name="ObjectShortName">Forward2[0:1][2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/MuxLoad1_Comp" type="array">
+         <obj_property name="ElementShortName">MuxLoad1_Comp[0:1][1:0]</obj_property>
+         <obj_property name="ObjectShortName">MuxLoad1_Comp[0:1][1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/MuxLoad2_Comp" type="array">
+         <obj_property name="ElementShortName">MuxLoad2_Comp[0:1][1:0]</obj_property>
+         <obj_property name="ObjectShortName">MuxLoad2_Comp[0:1][1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/ForwardWb_A" type="array">
+         <obj_property name="ElementShortName">ForwardWb_A[0:1][1:0]</obj_property>
+         <obj_property name="ObjectShortName">ForwardWb_A[0:1][1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/ForwardWb_B" type="array">
+         <obj_property name="ElementShortName">ForwardWb_B[0:1][1:0]</obj_property>
+         <obj_property name="ObjectShortName">ForwardWb_B[0:1][1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/forwarding_unit_i/ISSUE_WIDTH" type="other">
+         <obj_property name="ElementShortName">ISSUE_WIDTH</obj_property>
+         <obj_property name="ObjectShortName">ISSUE_WIDTH</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group263" type="group">
       <obj_property name="label">HAZARD_UNIT</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject fp_name="group299" type="group">
-         <obj_property name="label">[0]</obj_property>
-         <obj_property name="DisplayName">label</obj_property>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/HazardDetection_unit_i/rs2_ID" type="array">
-            <obj_property name="ElementShortName">rs2_ID[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rs2_ID[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/HazardDetection_unit_i/rs1_ID" type="array">
-            <obj_property name="ElementShortName">rs1_ID[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rs1_ID[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/HazardDetection_unit_i/rd_EX" type="array">
-            <obj_property name="ElementShortName">rd_EX[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rd_EX[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/HazardDetection_unit_i/MemToReg_EX" type="logic">
-            <obj_property name="ElementShortName">MemToReg_EX</obj_property>
-            <obj_property name="ObjectShortName">MemToReg_EX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/HazardDetection_unit_i/ce_pc" type="logic">
-            <obj_property name="ElementShortName">ce_pc</obj_property>
-            <obj_property name="ObjectShortName">ce_pc</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/HazardDetection_unit_i/ce_stage_ID" type="logic">
-            <obj_property name="ElementShortName">ce_stage_ID</obj_property>
-            <obj_property name="ObjectShortName">ce_stage_ID</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/HazardDetection_unit_i/bubble_hazard_EX" type="logic">
-            <obj_property name="ElementShortName">bubble_hazard_EX</obj_property>
-            <obj_property name="ObjectShortName">bubble_hazard_EX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(0)\/HazardDetection_unit_i/ce" type="logic">
-            <obj_property name="ElementShortName">ce</obj_property>
-            <obj_property name="ObjectShortName">ce</obj_property>
-         </wvobject>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/rs2_ID" type="array">
+         <obj_property name="ElementShortName">rs2_ID[0:1][4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs2_ID[0:1][4:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="group300" type="group">
-         <obj_property name="label">[1]</obj_property>
-         <obj_property name="DisplayName">label</obj_property>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/HazardDetection_unit_i/rs2_ID" type="array">
-            <obj_property name="ElementShortName">rs2_ID[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rs2_ID[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/HazardDetection_unit_i/rs1_ID" type="array">
-            <obj_property name="ElementShortName">rs1_ID[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rs1_ID[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/HazardDetection_unit_i/rd_EX" type="array">
-            <obj_property name="ElementShortName">rd_EX[4:0]</obj_property>
-            <obj_property name="ObjectShortName">rd_EX[4:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/HazardDetection_unit_i/MemToReg_EX" type="logic">
-            <obj_property name="ElementShortName">MemToReg_EX</obj_property>
-            <obj_property name="ObjectShortName">MemToReg_EX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/HazardDetection_unit_i/ce_pc" type="logic">
-            <obj_property name="ElementShortName">ce_pc</obj_property>
-            <obj_property name="ObjectShortName">ce_pc</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/HazardDetection_unit_i/ce_stage_ID" type="logic">
-            <obj_property name="ElementShortName">ce_stage_ID</obj_property>
-            <obj_property name="ObjectShortName">ce_stage_ID</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/HazardDetection_unit_i/bubble_hazard_EX" type="logic">
-            <obj_property name="ElementShortName">bubble_hazard_EX</obj_property>
-            <obj_property name="ObjectShortName">bubble_hazard_EX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/\gen_duplicate(1)\/HazardDetection_unit_i/ce" type="logic">
-            <obj_property name="ElementShortName">ce</obj_property>
-            <obj_property name="ObjectShortName">ce</obj_property>
-         </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/rs1_ID" type="array">
+         <obj_property name="ElementShortName">rs1_ID[0:1][4:0]</obj_property>
+         <obj_property name="ObjectShortName">rs1_ID[0:1][4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/rd_EX" type="array">
+         <obj_property name="ElementShortName">rd_EX[0:1][4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_EX[0:1][4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/rd_MEM" type="array">
+         <obj_property name="ElementShortName">rd_MEM[0:1][4:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_MEM[0:1][4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/format_INS_ID_0" type="other">
+         <obj_property name="ElementShortName">format_INS_ID_0</obj_property>
+         <obj_property name="ObjectShortName">format_INS_ID_0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/format_INS_ID_1" type="other">
+         <obj_property name="ElementShortName">format_INS_ID_1</obj_property>
+         <obj_property name="ObjectShortName">format_INS_ID_1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/MemToReg_EX_0" type="logic">
+         <obj_property name="ElementShortName">MemToReg_EX_0</obj_property>
+         <obj_property name="ObjectShortName">MemToReg_EX_0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/MemToReg_EX_1" type="logic">
+         <obj_property name="ElementShortName">MemToReg_EX_1</obj_property>
+         <obj_property name="ObjectShortName">MemToReg_EX_1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/MemToReg_MEM_0" type="logic">
+         <obj_property name="ElementShortName">MemToReg_MEM_0</obj_property>
+         <obj_property name="ObjectShortName">MemToReg_MEM_0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/MemToReg_MEM_1" type="logic">
+         <obj_property name="ElementShortName">MemToReg_MEM_1</obj_property>
+         <obj_property name="ObjectShortName">MemToReg_MEM_1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/ce_pc" type="logic">
+         <obj_property name="ElementShortName">ce_pc</obj_property>
+         <obj_property name="ObjectShortName">ce_pc</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/ce_stage_ID" type="logic">
+         <obj_property name="ElementShortName">ce_stage_ID</obj_property>
+         <obj_property name="ObjectShortName">ce_stage_ID</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/bubble_hazard_EX" type="logic">
+         <obj_property name="ElementShortName">bubble_hazard_EX</obj_property>
+         <obj_property name="ObjectShortName">bubble_hazard_EX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/ce" type="logic">
+         <obj_property name="ElementShortName">ce</obj_property>
+         <obj_property name="ObjectShortName">ce</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/HazardDetection_unit_i/ISSUE_WIDTH" type="other">
+         <obj_property name="ElementShortName">ISSUE_WIDTH</obj_property>
+         <obj_property name="ObjectShortName">ISSUE_WIDTH</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group264" type="group">
       <obj_property name="label">BRANCH_DETECTION_UNIT</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="group299" type="group">
          <obj_property name="label">[0]</obj_property>
          <obj_property name="DisplayName">label</obj_property>
@@ -1673,7 +1598,6 @@
    <wvobject fp_name="group542" type="group">
       <obj_property name="label">INSTRUCTION_MEMORY</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/RISCV_superscalar_tb/INSTRUCTION_MEMORY/clock" type="logic">
          <obj_property name="ElementShortName">clock</obj_property>
          <obj_property name="ObjectShortName">clock</obj_property>

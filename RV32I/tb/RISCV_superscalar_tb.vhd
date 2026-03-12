@@ -56,7 +56,8 @@ architecture structural of RISCV_superscalar_tb is
     component Memory is
         generic (
             SIZE            : integer := 32;       -- Memory depth
-            INST_WIDTH      : integer := 32;       -- Data size
+            INST_WIDTH      : integer := 64;       -- Data size
+            DATA_WIDTH      : integer := 32;
             START_ADDRESS   : std_logic_vector(31 downto 0) := (others=>'0');    -- Address to be mapped to address 0x00000000
             imageFileName   : string := "UNUSED"   -- Memory content to be loaded
         );
@@ -64,7 +65,7 @@ architecture structural of RISCV_superscalar_tb is
             clock           : in std_logic;
             MemWrite        : in std_logic;
             address         : in std_logic_vector (31 downto 0);
-            data_i          : in std_logic_vector (INST_WIDTH-1 downto 0);
+            data_i          : in std_logic_vector (DATA_WIDTH-1 downto 0);
             data_o          : out std_logic_vector (INST_WIDTH-1 downto 0)
         );
     end component;
@@ -122,6 +123,7 @@ begin
         generic map (
             SIZE            => 100,                       
             INST_WIDTH      => INST_WIDTH, -- 64 bits (2 instructions) 
+            DATA_WIDTH      => DATA_WIDTH,
             START_ADDRESS   => INSTRUCTION_OFFSET,         
             imageFileName   => "BubbleSort_code.txt"
         )

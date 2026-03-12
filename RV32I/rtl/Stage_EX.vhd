@@ -149,7 +149,7 @@ begin
             
         elsif rising_edge(clock) then
             uins_out.instruction <= uins_in.instruction;
-	    uins_out.RegWrite    <= uins_in.RegWrite;
+	        uins_out.RegWrite    <= uins_in.RegWrite;
             uins_out.ALUSrc      <= uins_in.ALUSrc;
             uins_out.MemWrite    <= uins_in.MemWrite;
             uins_out.MemToReg    <= uins_in.MemToReg;
