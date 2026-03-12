@@ -144,7 +144,7 @@ begin
             rs1_a             => rs1_ID(0),    
             rs2_a             => rs2_ID(0),
             rs1_b             => rs1_ID(1), 
-            rs2_b             => rs1_ID(1), 
+            rs2_b             => rs2_ID(1), 
             writeRegister_a   => rd_WB(0),
             writeRegister_b   => rd_WB(1), 
             writeData_a       => writeData(0), 
@@ -366,14 +366,14 @@ begin
                                       writeData(0)  when ForwardA(i) = "001" else -- Bypass operand1 INS_EX(i) <- INS_WB(0)
                                       result_MEM(1) when ForwardA(i) = "011" else -- Bypass operand1 INS_EX(i) <- INS_MEM(1) 
                                       writeData(1)  when ForwardA(i) = "100" else -- Bypass operand1 INS_EX(i) <- INS_WB(1)
-                                      readData1_EX(0);                            -- No Bypass
+                                      readData1_EX(i);                            -- No Bypass
 
         -- MUX Forward B (operand ALU) -- delete 
         MUX_FORWARD_B: operand2(i) <= result_MEM(0) when ForwardB(i) = "010" else -- Bypass operand2 INS_EX(i) <- INS_MEM(0)
                                       writeData(0)  when ForwardB(i) = "001" else -- Bypass operand2 INS_EX(i) <- INS_WB(0)
                                       result_MEM(1) when ForwardB(i) = "011" else -- Bypass operand2 INS_EX(i) <- INS_MEM(1) 
                                       writeData(1)  when ForwardB(i) = "100" else -- Bypass operand2 INS_EX(i) <- INS_WB(1)
-                                      readData2_EX(0);                            -- No Bypass
+                                      readData2_EX(i);                            -- No Bypass
 
         -- MUX Forward 1 (comparison) -- (make global)
         MUX_FORWARD_1: readReg1(i) <= writeData(0)  when Forward1(i) = "011" else -- Bypass rs1 INS_ID(i) <- INS_WB(0) 
@@ -382,7 +382,7 @@ begin
                                       writeData(1)  when Forward1(i) = "111" else -- Bypass rs1 INS_ID(i) <- INS_WB(1) 
                                       result_MEM(1) when Forward1(i) = "110" else -- Bypass rs1 INS_ID(i) <- INS_MEM(1)
                                       result_EX(1)  when Forward1(i) = "101" else -- Bypass rs1 INS_ID(i) <- INS_EX(1)
-                                      readData1_ID(0);                            -- No Bypass
+                                      readData1_ID(i);                            -- No Bypass
         
         -- MUX Forward 2 (comparison) -- (make global)
         MUX_FORWARD_2: readReg2(i) <= writeData(0)  when Forward2(i) = "011" else -- Bypass rs1 INS_ID(i) <- INS_WB(0) 
@@ -391,7 +391,7 @@ begin
                                       writeData(1)  when Forward2(i) = "111" else -- Bypass rs1 INS_ID(i) <- INS_WB(1) 
                                       result_MEM(1) when Forward2(i) = "110" else -- Bypass rs1 INS_ID(i) <- INS_MEM(1)
                                       result_EX(1)  when Forward2(i) = "101" else -- Bypass rs1 INS_ID(i) <- INS_EX(1)
-                                      readData2_ID(0); 
+                                      readData2_ID(i); 
 
         -- MUX Forward WB A
         MUX_FORWARD_WB_A: Data1_ID(i) <= writeData(0) when ForwardWb_A(i) = "01" else -- Bypass rs1 INS_ID(0) <- INS_WB(0) 

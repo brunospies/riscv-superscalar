@@ -68,12 +68,12 @@ begin
                        "101" when RegWrite_stage_EX_1  = '1' and rd_stage_EX(1)  /= "00000" and rd_stage_EX(1)  = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_EX(1)
                        "000";                                                                                                          -- No Bypass
         
-        ForwardWb_A(i) <= "01" when RegWrite_stage_WB_0 = '1' and rd_stage_WB(0) = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_WB(0) 
-                          "10" when RegWrite_stage_WB_1 = '1' and rd_stage_WB(1) = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_WB(1) 
-                          "00";                                                                         -- No Bypass
+        ForwardWb_A(i) <= "01" when RegWrite_stage_WB_0 = '1' and rd_stage_WB(0) = rs1_stage_ID(i) and rd_stage_WB(0) /= "00000" else -- Bypass rs1 INS_ID(i) <- INS_WB(0) 
+                          "10" when RegWrite_stage_WB_1 = '1' and rd_stage_WB(1) = rs1_stage_ID(i) and rd_stage_WB(1) /= "00000" else -- Bypass rs1 INS_ID(i) <- INS_WB(1) 
+                          "00";                                                                                                       -- No Bypass
         
-        ForwardWb_B(i) <= "01" when RegWrite_stage_WB_0 = '1' and rd_stage_WB(0) = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_WB(0) 
-                          "10" when RegWrite_stage_WB_1 = '1' and rd_stage_WB(1) = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_WB(1) 
-                          "00";                                                                         -- No Bypass
+        ForwardWb_B(i) <= "01" when RegWrite_stage_WB_0 = '1' and rd_stage_WB(0) = rs2_stage_ID(i) and rd_stage_WB(0) /= "00000" else -- Bypass rs2 INS_ID(i) <- INS_WB(0) 
+                          "10" when RegWrite_stage_WB_1 = '1' and rd_stage_WB(1) = rs2_stage_ID(i) and rd_stage_WB(1) /= "00000" else -- Bypass rs2 INS_ID(i) <- INS_WB(1) 
+                          "00";                                                                                                       -- No Bypass
     end generate;
 end arch1;
