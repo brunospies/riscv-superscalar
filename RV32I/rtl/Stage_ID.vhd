@@ -19,7 +19,9 @@ entity Stage_ID is
 	    pc_in               : in  std_logic_vector(31 downto 0);  
         pc_out              : out std_logic_vector(31 downto 0);
         instruction_in      : in  std_logic_vector(31 downto 0);  
-        instruction_out     : out std_logic_vector(31 downto 0)                
+        instruction_out     : out std_logic_vector(31 downto 0);
+        branch_taken_in     : in  std_logic_vector(1 downto 0);
+        branch_taken_out    : out std_logic_vector(1 downto 0)
     );
 end Stage_ID;
 
@@ -54,6 +56,19 @@ begin
             ce          => ce, 
             d           => instruction_in, 
             q           => instruction_out
+        );
+    
+    BTB_PREVISION: entity work.RegisterNbits
+        generic map (
+            LENGTH      => 2,
+            INIT_VALUE  => INIT
+        )
+        port map (
+            clock       => clock,
+            reset       => reset,
+            ce          => ce, 
+            d           => branch_taken_in, 
+            q           => branch_taken_out
         );
     
 end behavioral;

@@ -45,15 +45,17 @@ architecture structural of DataPath is
 
     -- Instruction Fetch Stage Signals:
     signal incrementedPC_IF, pc_d, pc_q : std_logic_vector(31 downto 0);
-    signal ce_pc, ce_pc_dep, ce_pc_hazard : std_logic;
+    signal ce_pc, ce_pc_dep, ce_pc_hazard, bubble_IF_ins1 : std_logic;
     signal PC_IF_mux, instruction_IF, instruction_IF_mux, PC_IF : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
+    signal btb_predict_taken_IF, bubble_branch_IF : std_logic_vector(1 downto 0);
+    signal btb_predict_target_IF: data_array;
 
     -- Instruction Decode Stage Signals:
     signal instruction_ID : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal PC_ID, readData1_ID, readData2_ID, imm_data_ID, imm_data_ID_mux, jumpTarget : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal branchTarget, readReg1, readReg2, Data1_ID, Data1_ID_mux, Data2_ID, Data2_ID_mux : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal rs1_ID, rs2_ID, rd_ID, rs1_ID_mux, rs2_ID_mux, rd_ID_mux : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
-    signal ce_stage_ID, bubble_dep_inst0_ID, bubble_branch_ID, branch_decision : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
+    signal ce_stage_ID, bubble_dep_inst0_ID, bubble_branch_ID, branch_decision, btb_predict_taken_ID : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
     signal ce_stage_ID_dep, ce_stage_ID_hazard : std_logic;
     signal uins_ID_mux : Microinstruction_array; --> (0 to 1) of Microinstruction;
 
@@ -113,16 +115,18 @@ begin
     PC_IF(1) <= STD_LOGIC_VECTOR(UNSIGNED(pc_q) + TO_UNSIGNED(4,32)); -- actual pc ins[1]
 
     -- MUX which selects the PC value
-    MUX_PC: pc_d <= branchTarget(0) when (uins_ID(0).format = B and branch_decision(0) = '1') or uins_ID(0).format = J else
-                    jumpTarget(0)   when uins_ID(0).instruction = JALR else
-                    branchTarget(1) when (uins_ID(1).format = B and branch_decision(1) = '1') or uins_ID(1).format = J else
-                    jumpTarget(1)   when uins_ID(1).instruction = JALR else
+    MUX_PC: pc_d <= branchTarget(0)          when (uins_ID(0).format = B and bubble_branch_ID(0) = '1') or uins_ID(0).format = J else
+                    jumpTarget(0)            when uins_ID(0).instruction = JALR else
+                    branchTarget(1)          when (uins_ID(1).format = B and bubble_branch_ID(1) = '1') or uins_ID(1).format = J else
+                    jumpTarget(1)            when uins_ID(1).instruction = JALR else
+                    btb_predict_target_IF(0) when btb_predict_taken_IF(0) = '1' else
+                    btb_predict_target_IF(1) when btb_predict_taken_IF(1) = '1' else
                     incrementedPC_IF;
 
     -----------------------------------------------------------------------------------------------------------------------
     
     -- PC register
-    PROGRAM_COUNTER:    entity work.RegisterNbits
+    PROGRAM_COUNTER: entity work.RegisterNbits
         generic map (
             LENGTH      => 32,
             INIT_VALUE  => PC_START_ADDRESS
@@ -134,6 +138,29 @@ begin
             d           => pc_d, 
             q           => pc_q
         );
+
+
+    -- Branch Predictor
+
+    BRANCH_PREDICTOR: entity work.BTB_superscalar
+        generic map(
+            BTB_BITS => 4 -- 2^4 = 16 linhas
+        )
+        port map(
+            clock         => clock,
+            reset         => reset,
+            pc_in         => PC_IF,
+            predict_taken => btb_predict_taken_IF,
+            predict_pc    => btb_predict_target_IF,
+            update_en     => bubble_branch_ID,
+            pc_update     => PC_ID,
+            target_real   => jumpTarget,
+            taken_real    => branch_decision,
+            bubble        => bubble_IF_ins1
+        );
+
+    bubble_branch_IF(0) <= '0';
+    bubble_branch_IF(1) <= bubble_IF_ins1;
 
     -- Register file
     REGISTER_FILE: entity work.RegisterFile(structural)
@@ -270,7 +297,9 @@ begin
                 pc_in               => PC_IF_mux(i), 
                 pc_out              => PC_ID(i),
                 instruction_in      => instruction_IF_mux(i),
-                instruction_out     => instruction_ID(i)
+                instruction_out     => instruction_ID(i),
+                branch_taken_in     => btb_predict_taken_IF,
+                branch_taken_out    => btb_predict_taken_ID
             );
 
         --██████████████████████████████████████████████████████████████████████████████████████████████
@@ -392,6 +421,7 @@ begin
                 Data1_ID           => readReg1(i),
                 Data2_ID           => readReg2(i),
                 branch_decision    => branch_decision(i),
+                branch_prediction  => btb_predict_taken_ID(i),
                 bubble_branch_ID   => bubble_branch_ID(i)
             );
 
@@ -475,10 +505,10 @@ begin
         --███████████████████████████████████████████████████████████████████████████████████████████
 
         -- MUX BUBBLE ID
-        MUX_BUBBLE_PC_IF: PC_IF_mux(i) <= PC_IF(i) when bubble_branch_ID(0) = '0' and bubble_branch_ID(1) = '0' and bubble_dep_inst0_ID(i) = '0' else
+        MUX_BUBBLE_PC_IF: PC_IF_mux(i) <= PC_IF(i) when bubble_branch_ID(0) = '0' and bubble_branch_ID(1) = '0' and bubble_dep_inst0_ID(i) = '0' and bubble_branch_IF(i) = '0' else
                                           (others=>'0');
 
-        MUX_BUBBLE_instruction_IF: instruction_IF_mux(i) <= instruction_IF(i) when bubble_branch_ID(0) = '0' and bubble_branch_ID(1) = '0' and bubble_dep_inst0_ID(i) = '0' else
+        MUX_BUBBLE_instruction_IF: instruction_IF_mux(i) <= instruction_IF(i) when bubble_branch_ID(0) = '0' and bubble_branch_ID(1) = '0' and bubble_dep_inst0_ID(i) = '0' and bubble_branch_IF(i) = '0' else
                                                             (others=>'0');
         
         -- MUX BUBBLE EX
