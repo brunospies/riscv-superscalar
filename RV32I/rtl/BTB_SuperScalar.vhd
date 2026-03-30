@@ -14,7 +14,7 @@ entity BTB_superscalar is
     port (
         clock : in std_logic;
         reset : in std_logic;
-        -- instruction : in  Instruction_type;
+
         -- ===== FETCH (IF) =====
         pc_in : in data_array;
 
@@ -23,13 +23,13 @@ entity BTB_superscalar is
         predict_pc : out data_array;
 
         -- ===== UPDATE (ID) =====
-        update_en    : in  std_logic_vector(1 downto 0);
+        inst_format_0 : in Instruction_format;
+        inst_format_1 : in Instruction_format;
+        ce_stage_ID   : in std_logic_vector(1 downto 0);
+        
         pc_update    : in  data_array;
         target_real  : in  data_array;
-        taken_real   : in  std_logic_vector(1 downto 0);
-        
-        -- ====== Signal Bubble ===
-        bubble       : out std_logic
+        taken_real   : in  std_logic_vector(1 downto 0)
     );
 end BTB_superscalar;
 
@@ -53,21 +53,20 @@ architecture Behavioral of BTB_superscalar is
     signal index_fetch : index_array;
     signal hit         : std_logic_vector(1 downto 0);
     
-    -- signal Branch_inst: std_logic;
+    signal Branch_inst: std_logic_vector(1 downto 0);
     
 begin
 
+-- =========================================================
+-- Branch Instruction Detection
+-- =========================================================
 
--- Branch_inst <= '1' when instruction = JAL or instruction = JALR or 
---                             instruction = BEQ  or
---                             instruction = BNE  or
---                             instruction = BLT  or
---                             instruction = BGE  or
---                             instruction = BLTU or
---                             instruction = BGEU
---                else '0';
+Branch_inst(0) <= '1' when (inst_format_0 = B or inst_format_0 = J) and ce_stage_ID(0) = '1' else -- se o ce é '0' ocorre um stall, logo nao deve atualizar a tabela 
+                  '0';                                                                            -- pois o branch ficara estagio no ID, e nao queremos atualizar 
+                                                                                                  -- mais de uma vez para a mesma intrução
 
-
+Branch_inst(1) <= '1' when (inst_format_1 = B or inst_format_1 = J) and ce_stage_ID(1) = '1' else
+                  '0';
 
 -- =========================================================
 -- Index through PC
@@ -83,7 +82,7 @@ end generate;
 gen_hit: for i in 0 to 1 generate
 begin
     hit(i) <= '1' when (BTB(index_fetch(i)).valid = '1' and
-                        BTB(index_fetch(i)).tag = pc_in(i))
+                        BTB(index_fetch(i)).tag = pc_in(i)) -- quantos comparadores?
               else '0';
 end generate;
 
@@ -98,22 +97,16 @@ begin
                         when hit(i) = '1'
                         else '0';
 
-    predict_pc(i) <= BTB(index_fetch(i)).target ;
-                    -- when hit(i) = '1'
-                    -- else std_logic_vector(unsigned(pc_in(i)) + 4);
+    predict_pc(i) <= BTB(index_fetch(i)).target;
 
 end generate;
-
--- ===== bubble generation ====
-bubble <= '1' when (hit(0) = '1' and BTB(index_fetch(0)).pred(1)='1') else '0';
-
-
 
 -- =========================================================
 -- Table update (EX)
 -- =========================================================
 process(clock, reset)
     variable idx : integer;
+    variable idx2 : integer;
 begin
     if reset = '1' then
 
@@ -126,7 +119,7 @@ begin
 
     elsif rising_edge(clock) then
 
-        if update_en(0) = '1' then
+        if Branch_inst(0) = '1' and Branch_inst(1) = '0' then
 
             idx := to_integer(unsigned(pc_update(0)(BTB_BITS+1 downto 2)));
 
@@ -160,7 +153,7 @@ begin
                     end if;
             end case;
 
-        elsif update_en(1) = '1' then
+        elsif Branch_inst(0) = '0' and Branch_inst(1) = '1' then
 
             idx := to_integer(unsigned(pc_update(1)(BTB_BITS+1 downto 2)));
 
@@ -193,9 +186,58 @@ begin
                         BTB(idx).pred <= "10";
                     end if;
             end case;
+        elsif Branch_inst(0) = '1' and Branch_inst(1) = '1' and taken_real(0) = '0' then -- se o taken_real(0) for '1' a instrução Branch_inst(1) é invalida
 
+            idx := to_integer(unsigned(pc_update(0)(BTB_BITS+1 downto 2)));
+
+            BTB(idx).valid  <= '1';
+            BTB(idx).tag    <= pc_update(0);
+            BTB(idx).target <= target_real(0);
+
+            case BTB(idx).pred is
+                when "10" => -- taken_real(0) = '0' condição ja satisfeita
+                    BTB(idx).pred <= "01";
+
+                when "11" =>
+                    BTB(idx).pred <= "10";
+
+                when others => -- "01" ou "00" atualiza para "00" pois foi not taken taken_real(0) = '0'
+                    BTB(idx).pred <= "00";
+
+            end case;
+
+            idx2 := to_integer(unsigned(pc_update(1)(BTB_BITS+1 downto 2)));
+
+            BTB(idx2).valid  <= '1';
+            BTB(idx2).tag    <= pc_update(1);
+            BTB(idx2).target <= target_real(1);
+
+            case BTB(idx2).pred is
+                when "00" =>
+                    if taken_real(1) = '1' then
+                        BTB(idx2).pred <= "01";
+                    end if;
+
+                when "01" =>
+                    if taken_real(1) = '1' then
+                        BTB(idx2).pred <= "10";
+                    else
+                        BTB(idx2).pred <= "00";
+                    end if;
+
+                when "10" =>
+                    if taken_real(1) = '1' then
+                        BTB(idx2).pred <= "11";
+                    else
+                        BTB(idx2).pred <= "01";
+                    end if;
+
+                when others =>
+                    if taken_real(1) = '0' then
+                        BTB(idx2).pred <= "10";
+                    end if;
+            end case;
         end if;
-
     end if;
 end process;
 

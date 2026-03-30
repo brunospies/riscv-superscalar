@@ -17,7 +17,6 @@ Compiling package xil_defaultlib.util_package
 Compiling architecture behavioral of entity xil_defaultlib.Decode_Unit [decode_unit_default]
 Compiling architecture behavioral of entity xil_defaultlib.ControlPath [controlpath_default]
 Compiling architecture arch2 of entity xil_defaultlib.ImmediateDataExtractor [immediatedataextractor_default]
-Compiling architecture behavioral of entity xil_defaultlib.RegisterNbits [\RegisterNbits(length=2)\]
 Compiling architecture behavioral of entity xil_defaultlib.Stage_ID [stage_id_default]
 Compiling architecture behavioral of entity xil_defaultlib.RegisterNbits [\RegisterNbits(length=5)\]
 Compiling architecture behavioral of entity xil_defaultlib.Stage_EX [stage_ex_default]
