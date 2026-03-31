@@ -40,32 +40,32 @@ architecture arch1 of Forwarding_unit is
 begin
     gen_forward : for i in 0 to ISSUE_WIDTH-1 generate
     
-        ForwardA(i) <= "010" when RegWrite_stage_MEM_0 = '1' and rd_stage_MEM(0) /= "00000" and rd_stage_MEM(0) = rs1_stage_EX(i) else -- Bypass rs1 INS_EX(i) <- INS_MEM(0) 
-                       "001" when RegWrite_stage_WB_0  = '1' and rd_stage_WB(0)  /= "00000" and rd_stage_WB(0)  = rs1_stage_EX(i) else -- Bypass rs1 INS_EX(i) <- INS_WB(0) 
+        ForwardA(i) <= "010" when RegWrite_stage_MEM_0 = '1' and rd_stage_MEM(0) /= "00000" and rd_stage_MEM(0) = rs1_stage_EX(i) else -- Bypass rs1 INS_EX(i) <- INS_MEM(0)
                        "011" when RegWrite_stage_MEM_1 = '1' and rd_stage_MEM(1) /= "00000" and rd_stage_MEM(1) = rs1_stage_EX(i) else -- Bypass rs1 INS_EX(i) <- INS_MEM(1) 
+                       "001" when RegWrite_stage_WB_0  = '1' and rd_stage_WB(0)  /= "00000" and rd_stage_WB(0)  = rs1_stage_EX(i) else -- Bypass rs1 INS_EX(i) <- INS_WB(0)  
                        "100" when RegWrite_stage_WB_1  = '1' and rd_stage_WB(1)  /= "00000" and rd_stage_WB(1)  = rs1_stage_EX(i) else -- Bypass rs1 INS_EX(i) <- INS_WB(1)
                        "000";                                                                                                           -- No Bypass
 
-        ForwardB(i) <= "010" when RegWrite_stage_MEM_0 = '1' and rd_stage_MEM(0) /= "00000" and rd_stage_MEM(0) = rs2_stage_EX(i) else -- Bypass rs2 INS_EX(i) <- INS_MEM(0) 
-                       "001" when RegWrite_stage_WB_0  = '1' and rd_stage_WB(0)  /= "00000" and rd_stage_WB(0)  = rs2_stage_EX(i) else -- Bypass rs2 INS_EX(i) <- INS_WB(0) 
+        ForwardB(i) <= "010" when RegWrite_stage_MEM_0 = '1' and rd_stage_MEM(0) /= "00000" and rd_stage_MEM(0) = rs2_stage_EX(i) else -- Bypass rs2 INS_EX(i) <- INS_MEM(0)
                        "011" when RegWrite_stage_MEM_1 = '1' and rd_stage_MEM(1) /= "00000" and rd_stage_MEM(1) = rs2_stage_EX(i) else -- Bypass rs2 INS_EX(i) <- INS_MEM(1) 
+                       "001" when RegWrite_stage_WB_0  = '1' and rd_stage_WB(0)  /= "00000" and rd_stage_WB(0)  = rs2_stage_EX(i) else -- Bypass rs2 INS_EX(i) <- INS_WB(0)  
                        "100" when RegWrite_stage_WB_1  = '1' and rd_stage_WB(1)  /= "00000" and rd_stage_WB(1)  = rs2_stage_EX(i) else -- Bypass rs2 INS_EX(i) <- INS_WB(1)
                        "000";                                                                                                           -- No Bypass
         
-        Forward1(i) <= "011" when RegWrite_stage_WB_0  = '1' and rd_stage_WB(0)  /= "00000" and rd_stage_WB(0)  = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_WB(0) 
-                       "010" when RegWrite_stage_MEM_0 = '1' and rd_stage_MEM(0) /= "00000" and rd_stage_MEM(0) = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_MEM(0) 
-                       "001" when RegWrite_stage_EX_0  = '1' and rd_stage_EX(0)  /= "00000" and rd_stage_EX(0)  = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_EX(0)
-                       "111" when RegWrite_stage_WB_1  = '1' and rd_stage_WB(1)  /= "00000" and rd_stage_WB(1)  = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_WB(1) 
-                       "110" when RegWrite_stage_MEM_1 = '1' and rd_stage_MEM(1) /= "00000" and rd_stage_MEM(1) = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_MEM(1)
+        Forward1(i) <= "001" when RegWrite_stage_EX_0  = '1' and rd_stage_EX(0)  /= "00000" and rd_stage_EX(0)  = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_EX(0)
                        "101" when RegWrite_stage_EX_1  = '1' and rd_stage_EX(1)  /= "00000" and rd_stage_EX(1)  = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_EX(1)
+                       "010" when RegWrite_stage_MEM_0 = '1' and rd_stage_MEM(0) /= "00000" and rd_stage_MEM(0) = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_MEM(0)  
+                       "110" when RegWrite_stage_MEM_1 = '1' and rd_stage_MEM(1) /= "00000" and rd_stage_MEM(1) = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_MEM(1)
+                       "011" when RegWrite_stage_WB_0  = '1' and rd_stage_WB(0)  /= "00000" and rd_stage_WB(0)  = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_WB(0)                       
+                       "111" when RegWrite_stage_WB_1  = '1' and rd_stage_WB(1)  /= "00000" and rd_stage_WB(1)  = rs1_stage_ID(i) else -- Bypass rs1 INS_ID(i) <- INS_WB(1) 
                        "000";                                                                                                           -- No Bypass
 
-        Forward2(i) <= "011" when RegWrite_stage_WB_0  = '1' and rd_stage_WB(0)  /= "00000" and rd_stage_WB(0)  = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_WB(0) 
-                       "010" when RegWrite_stage_MEM_0 = '1' and rd_stage_MEM(0) /= "00000" and rd_stage_MEM(0) = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_MEM(0) 
-                       "001" when RegWrite_stage_EX_0  = '1' and rd_stage_EX(0)  /= "00000" and rd_stage_EX(0)  = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_EX(0)
-                       "111" when RegWrite_stage_WB_1  = '1' and rd_stage_WB(1)  /= "00000" and rd_stage_WB(1)  = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_WB(1) 
-                       "110" when RegWrite_stage_MEM_1 = '1' and rd_stage_MEM(1) /= "00000" and rd_stage_MEM(1) = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_MEM(1)
+        Forward2(i) <= "001" when RegWrite_stage_EX_0  = '1' and rd_stage_EX(0)  /= "00000" and rd_stage_EX(0)  = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_EX(0)
                        "101" when RegWrite_stage_EX_1  = '1' and rd_stage_EX(1)  /= "00000" and rd_stage_EX(1)  = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_EX(1)
+                       "010" when RegWrite_stage_MEM_0 = '1' and rd_stage_MEM(0) /= "00000" and rd_stage_MEM(0) = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_MEM(0)
+                       "110" when RegWrite_stage_MEM_1 = '1' and rd_stage_MEM(1) /= "00000" and rd_stage_MEM(1) = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_MEM(1)
+                       "011" when RegWrite_stage_WB_0  = '1' and rd_stage_WB(0)  /= "00000" and rd_stage_WB(0)  = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_WB(0) 
+                       "111" when RegWrite_stage_WB_1  = '1' and rd_stage_WB(1)  /= "00000" and rd_stage_WB(1)  = rs2_stage_ID(i) else -- Bypass rs2 INS_ID(i) <- INS_WB(1) 
                        "000";                                                                                                          -- No Bypass
         
         ForwardWb_A(i) <= "01" when RegWrite_stage_WB_0 = '1' and rd_stage_WB(0) = rs1_stage_ID(i) and rd_stage_WB(0) /= "00000" else -- Bypass rs1 INS_ID(i) <- INS_WB(0) 

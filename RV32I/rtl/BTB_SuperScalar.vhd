@@ -119,7 +119,7 @@ begin
 
     elsif rising_edge(clock) then
 
-        if Branch_inst(0) = '1' and Branch_inst(1) = '0' then
+        if Branch_inst(0) = '1' and (Branch_inst(1) = '0' or (Branch_inst(1) = '1' and taken_real(0) = '1')) then -- Branch_inst(1) = '0' then
 
             idx := to_integer(unsigned(pc_update(0)(BTB_BITS+1 downto 2)));
 

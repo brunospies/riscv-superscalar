@@ -118,9 +118,9 @@ begin
     MUX_PC: pc_d <= branchTarget(0)                                           when (btb_predict_taken_ID(0) = '0' and bubble_branch_ID(0) = '1') else -- prevision not taken, but was taken
                     jumpTarget(0)                                             when uins_ID(0).instruction = JALR else
                     STD_LOGIC_VECTOR(UNSIGNED(PC_ID(0)) + TO_UNSIGNED(8,32))  when (btb_predict_taken_ID(0) = '1' and bubble_branch_ID(0) = '1') else -- prevision taken, but was not taken (PC_ID + 8 because we always execute the instrcution PC_ID + 4 in the slot 2)
-                    branchTarget(1)                                           when (btb_predict_taken_ID(1) = '0' and bubble_branch_ID(1) = '1') else -- prevision not taken, but was taken
+                    branchTarget(1)                                           when (btb_predict_taken_ID(1) = '0' and bubble_branch_ID(1) = '1' and branch_decision(0) = '0') else -- prevision not taken, but was taken, verify branch_decision(0) because if '1' the (BRANCH, JUMP) in the slot 2 is invalid
                     jumpTarget(1)                                             when uins_ID(1).instruction = JALR else
-                    STD_LOGIC_VECTOR(UNSIGNED(PC_ID(1)) + TO_UNSIGNED(4,32))  when (btb_predict_taken_ID(1) = '1' and bubble_branch_ID(1) = '1') else -- prevision taken, but was not taken
+                    STD_LOGIC_VECTOR(UNSIGNED(PC_ID(1)) + TO_UNSIGNED(4,32))  when (btb_predict_taken_ID(1) = '1' and bubble_branch_ID(1) = '1' and branch_decision(0) = '0') else -- prevision taken, but was not taken
                     btb_predict_target_IF(0)                                  when btb_predict_taken_IF(0) = '1' else
                     btb_predict_target_IF(1)                                  when btb_predict_taken_IF(1) = '1' else
                     incrementedPC_IF;
@@ -505,13 +505,13 @@ begin
         --███████████████████████████████████████████████████████████████████████████████████████████
 
         -- MUX BUBBLE ID
-        MUX_BUBBLE_PC_IF: PC_IF_mux(i) <= PC_IF(i) when bubble_branch_ID(0) = '0' and bubble_branch_ID(1) = '0' and bubble_dep_inst0_ID(i) = '0' else
+        MUX_BUBBLE_PC_IF: PC_IF_mux(i) <= PC_IF(i) when bubble_branch_ID(0) = '0' and (bubble_branch_ID(1) = '0' or branch_decision(0) = '1') and bubble_dep_inst0_ID(i) = '0' else
                                           (others=>'0');
 
-        MUX_BUBBLE_instruction_IF: instruction_IF_mux(i) <= instruction_IF(i) when bubble_branch_ID(0) = '0' and bubble_branch_ID(1) = '0' and bubble_dep_inst0_ID(i) = '0' else 
+        MUX_BUBBLE_instruction_IF: instruction_IF_mux(i) <= instruction_IF(i) when bubble_branch_ID(0) = '0' and (bubble_branch_ID(1) = '0' or branch_decision(0) = '1') and bubble_dep_inst0_ID(i) = '0' else 
                                                             (others=>'0');
         
-        MUX_BUBBLE_btb_predict_taken_IF_mux: btb_predict_taken_IF_mux(i) <= btb_predict_taken_IF(i) when bubble_branch_ID(0) = '0' and bubble_branch_ID(1) = '0' and bubble_dep_inst0_ID(i) = '0' else
+        MUX_BUBBLE_btb_predict_taken_IF_mux: btb_predict_taken_IF_mux(i) <= btb_predict_taken_IF(i) when bubble_branch_ID(0) = '0' and (bubble_branch_ID(1) = '0' or branch_decision(0) = '1') and bubble_dep_inst0_ID(i) = '0' else
                                                                             '0';
         -- MUX BUBBLE EX
 
