@@ -1,6 +1,10 @@
 
 { 
+<<<<<<< HEAD
     crc :  8288095473679249898  , 
+=======
+    crc :  1264114379927175103  , 
+>>>>>>> ceda60ddfc75d59fb2a1aa00c0b5268d28960921
     ccp_crc :  0  , 
     cmdline : " --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip -L xpm --snapshot RISCV_superscalar_tb_behav xil_defaultlib.RISCV_superscalar_tb" , 
     buildDate : "May 22 2025" , 
