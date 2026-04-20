@@ -80,6 +80,10 @@ architecture structural of DataPath is
     signal ForwardWb_A, ForwardWb_B : Select_array_2b; -->  (0 to 1) of std_logic_vector(1 downto 0); 
     signal uins_bubble : Microinstruction;
 
+    -- CSR Registers
+    signal cycles : std_logic_vector(63 downto 0);
+    signal inst : std_logic_vector(63 downto 0);
+
     -- SIMULATION Signals:
     type Instruction_type_array is array (0 to 1) of Instruction_type;
     type Instruction_format_array is array (0 to 1) of Instruction_format;
@@ -91,8 +95,6 @@ architecture structural of DataPath is
     signal opcode: op_func7_array;
     signal funct3: func3_array;
     signal funct7: op_func7_array; 
-    signal cycles : integer := 0;
-    signal inst : integer := 0;
 
 begin
 
@@ -533,22 +535,27 @@ begin
 --██ ╚═════╝  ╚══════╝╚═════╝  ╚═════╝  ╚═════╝        ╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚══════╝ ██
 --██████████████████████████████████████████████████████████████████████████████████████████████████████████████
 
+
+process(clock, reset) begin 
+    if reset = '1' then
+        cycles <= (others=>'0');
+        inst <= (others=>'0');
+
+    elsif rising_edge(clock) then
+        cycles <= STD_LOGIC_VECTOR(UNSIGNED(cycles) + TO_UNSIGNED(1,64));
+
+        if uins_WB(0).instruction /= INVALID_INSTRUCTION and uins_WB(1).instruction /= INVALID_INSTRUCTION then
+            inst <= STD_LOGIC_VECTOR(UNSIGNED(inst) + TO_UNSIGNED(2,64));
+            
+        elsif (uins_WB(0).instruction /= INVALID_INSTRUCTION and uins_WB(1).instruction = INVALID_INSTRUCTION) or (uins_WB(0).instruction = INVALID_INSTRUCTION and uins_WB(1).instruction /= INVALID_INSTRUCTION) then
+            inst <= STD_LOGIC_VECTOR(UNSIGNED(inst) + TO_UNSIGNED(1,64));
+
+        end if;
+    end if;
+end process;
+
     DECODE_STAGE_IF: -- Decoded Instruction of Instruction Fetch Stage for SIMULATION
     if SYNTHESIS = '0' generate
-
-        process(clock, reset) begin 
-            if reset = '1' then
-                cycles <= 0;
-                inst <= 0;
-            elsif rising_edge(clock) then
-                cycles <= cycles + 1;
-                if uins_WB(0).instruction /= INVALID_INSTRUCTION and uins_WB(1).instruction /= INVALID_INSTRUCTION then
-                    inst  <= inst + 2;
-                elsif (uins_WB(0).instruction /= INVALID_INSTRUCTION and uins_WB(1).instruction = INVALID_INSTRUCTION) or (uins_WB(0).instruction = INVALID_INSTRUCTION and uins_WB(1).instruction /= INVALID_INSTRUCTION) then
-                    inst <= inst + 1;
-                end if;
-            end if;
-        end process;
     
         gen_tb : for k in 0 to ISSUE_WIDTH-1 generate
 
