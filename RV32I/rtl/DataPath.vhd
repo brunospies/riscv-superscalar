@@ -21,7 +21,7 @@ use work.RISCV_package.all;
 entity DataPath is
     generic (
         PC_START_ADDRESS    : integer := 0;
-        SYNTHESIS           : std_logic := '0';
+        SYNTHESIS           : boolean := false;
         DATA_WIDTH          : integer := 32;
         INST_WIDTH          : integer := 64;
         ISSUE_WIDTH         : natural := 2
@@ -555,7 +555,7 @@ process(clock, reset) begin
 end process;
 
     DECODE_STAGE_IF: -- Decoded Instruction of Instruction Fetch Stage for SIMULATION
-    if SYNTHESIS = '0' generate
+    if not SYNTHESIS generate
     
         gen_tb : for k in 0 to ISSUE_WIDTH-1 generate
 

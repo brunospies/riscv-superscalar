@@ -35,7 +35,7 @@ architecture structural of RISCV_superscalar is
     signal uins : Microinstruction_array;
     signal instructions_to_decode : Data_array;
 
-    constant SYNTHESIS : std_logic := '0'; -- SYNTHESIS OFF = '0', SYNTHESIS OFF = '1'
+    constant SYNTHESIS : boolean := false; 
 
 
 begin

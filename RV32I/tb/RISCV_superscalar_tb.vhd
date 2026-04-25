@@ -22,8 +22,7 @@ architecture structural of RISCV_superscalar_tb is
     signal instructionAddress : std_logic_vector(31 downto 0);
     signal dataAddress, data_i, data_o : Data_array;
     signal instruction : std_logic_vector(63 downto 0);
-    signal uins: Microinstruction;
-
+    
     constant INSTRUCTION_OFFSET    : std_logic_vector(31 downto 0) := x"00400000";
     constant DATA_OFFSET           : std_logic_vector(31 downto 0) := x"10010000";
 
