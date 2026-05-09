@@ -18,13 +18,8 @@ entity HazardDetection_unit is
         rs2_ID                : in  Reg_array;
         rs1_ID                : in  Reg_array;
         rd_EX                 : in  Reg_array; -- Hazard [ID] add x3, x3, x4; [EX] lw x4, 0(x6) -> stall ID creates bubble EX
-        rd_MEM                : in  Reg_array; -- Hazard [ID] beq x3, x4, END; [MEM] lw x4, 0(x6) -> stall ID creates bubble EX
-        format_INS_ID_0       : in  Instruction_format;
-        format_INS_ID_1       : in  Instruction_format;
         MemToReg_EX_0         : in  std_logic;
         MemToReg_EX_1         : in  std_logic;
-        MemToReg_MEM_0        : in  std_logic;
-        MemToReg_MEM_1        : in  std_logic;
         ce_pc                 : out std_logic;
         ce_stage_ID           : out std_logic;
         bubble_hazard_EX      : out std_logic
@@ -38,14 +33,10 @@ signal ce : std_logic;
 begin
 
     
-    ce <= '0' when (MemToReg_EX_0  = '1' and (rd_EX(0)  = rs1_ID(0) or rd_EX(0)  = rs2_ID(0)) and rd_EX(0)  /= "00000") or                            -- Hazard INS_ID[0] -> INS_EX[0]
-                   (MemToReg_EX_1  = '1' and (rd_EX(1)  = rs1_ID(0) or rd_EX(1)  = rs2_ID(0)) and rd_EX(1)  /= "00000") or                            -- Hazard INS_ID[0] -> INS_EX[1]
-                   (MemToReg_MEM_0 = '1' and (rd_MEM(0) = rs1_ID(0) or rd_MEM(0) = rs2_ID(0)) and rd_MEM(0) /= "00000" and format_INS_ID_0 = B) or    -- Hazard INS_ID[0] -> INS_MEM[0] [BRANCH]
-                   (MemToReg_MEM_1 = '1' and (rd_MEM(1) = rs1_ID(0) or rd_MEM(1) = rs2_ID(0)) and rd_MEM(1) /= "00000" and format_INS_ID_0 = B) or    -- Hazard INS_ID[0] -> INS_MEM[1] [BRANCH]
-                   (MemToReg_EX_0  = '1' and (rd_EX(0)  = rs1_ID(1) or rd_EX(0)  = rs2_ID(1)) and rd_EX(0)  /= "00000") or                            -- Hazard INS_ID[1] -> INS_EX[0]
-                   (MemToReg_EX_1  = '1' and (rd_EX(1)  = rs1_ID(1) or rd_EX(1)  = rs2_ID(1)) and rd_EX(1)  /= "00000") or                            -- Hazard INS_ID[1] -> INS_EX[1]
-                   (MemToReg_MEM_0 = '1' and (rd_MEM(0) = rs1_ID(1) or rd_MEM(0) = rs2_ID(1)) and rd_MEM(0) /= "00000" and format_INS_ID_1 = B) or    -- Hazard INS_ID[1] -> INS_MEM[0] [BRANCH] --[JALR] ??
-                   (MemToReg_MEM_1 = '1' and (rd_MEM(1) = rs1_ID(1) or rd_MEM(1) = rs2_ID(1)) and rd_MEM(1) /= "00000" and format_INS_ID_1 = B) else  -- Hazard INS_ID[1] -> INS_MEM[1] [BRANCH]
+    ce <= '0' when (MemToReg_EX_0  = '1' and (rd_EX(0)  = rs1_ID(0) or rd_EX(0)  = rs2_ID(0)) and rd_EX(0)  /= "00000") or   -- Hazard INS_ID[0] -> INS_EX[0]
+                   (MemToReg_EX_1  = '1' and (rd_EX(1)  = rs1_ID(0) or rd_EX(1)  = rs2_ID(0)) and rd_EX(1)  /= "00000") or   -- Hazard INS_ID[0] -> INS_EX[1]
+                   (MemToReg_EX_0  = '1' and (rd_EX(0)  = rs1_ID(1) or rd_EX(0)  = rs2_ID(1)) and rd_EX(0)  /= "00000") or   -- Hazard INS_ID[1] -> INS_EX[0]
+                   (MemToReg_EX_1  = '1' and (rd_EX(1)  = rs1_ID(1) or rd_EX(1)  = rs2_ID(1)) and rd_EX(1)  /= "00000") else -- Hazard INS_ID[1] -> INS_EX[1]
           '1';
         
     ce_pc <= ce;

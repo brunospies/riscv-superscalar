@@ -15,6 +15,7 @@ entity Stage_ID is
     port (  
         clock               : in  std_logic;
         reset               : in  std_logic;
+        valid               : in  boolean;
         ce                  : in  std_logic;  
 	    pc_in               : in  std_logic_vector(31 downto 0);  
         pc_out              : out std_logic_vector(31 downto 0);
@@ -25,11 +26,15 @@ end Stage_ID;
 
 
 architecture behavioral of Stage_ID is 
+
+    signal pc, instruction : std_logic_vector(31 downto 0);
     
 begin
 
+    pc <= pc_in when valid else (others => '0');
+
     -- PC register
-    PC:    entity work.RegisterNbits
+    PC_REG:    entity work.RegisterNbits
         generic map (
             LENGTH      => 32,
             INIT_VALUE  => INIT
@@ -38,12 +43,14 @@ begin
             clock       => clock,
             reset       => reset,
             ce          => ce, 
-            d           => pc_in, 
+            d           => pc, 
             q           => pc_out
         );
     
+    instruction <= instruction_in when valid else (others => '0');
+    
     -- Instruction register
-    Instruction:    entity work.RegisterNbits
+    Instruction_REG:    entity work.RegisterNbits
         generic map (
             LENGTH      => 32,
             INIT_VALUE  => INIT
@@ -52,7 +59,7 @@ begin
             clock       => clock,
             reset       => reset,
             ce          => ce, 
-            d           => instruction_in, 
+            d           => instruction, 
             q           => instruction_out
         );
     

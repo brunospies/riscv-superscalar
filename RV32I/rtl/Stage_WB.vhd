@@ -22,6 +22,8 @@ entity Stage_WB is
         read_data_out    : out std_logic_vector(31 downto 0); 
 	    alu_result_in    : in  std_logic_vector(31 downto 0);  
         alu_result_out   : out std_logic_vector(31 downto 0);  
+        CSR_in           : in  std_logic_vector(11 downto 0);
+        CSR_out          : out std_logic_vector(11 downto 0);
         uins_in          : in  Microinstruction;
         uins_out         : out Microinstruction                
     );
@@ -74,6 +76,20 @@ begin
             q           => rd_out
         );
         
+    -- CSR register
+    CSR_reg:    entity work.RegisterNbits
+        generic map (
+            LENGTH      => 12,
+            INIT_VALUE  => INIT
+        )
+        port map (
+            clock       => clock,
+            reset       => reset,
+            ce          => '1', 
+            d           => CSR_in, 
+            q           => CSR_out
+        );
+
     -- Control register   
     process(clock, reset)
     begin

@@ -11,7 +11,7 @@ entity UART_top is
     generic (
         CLK_FREQ    : integer := 50000000;  -- Clock frequency in Hz
         BAUD_RATE   : integer := 115200;    -- UART baud rate
-        MEM_SIZE    : integer := 16384      -- Memory size in words
+        MEM_SIZE    : integer := 100      -- Memory size in words
     );
     port (
         clk         : in  std_logic;
@@ -67,7 +67,7 @@ architecture behavioral of UART_top is
     signal tx_send     : std_logic;
     signal tx_busy     : std_logic;
 
-    type state_type is (IDLE, RECEIVE_ADDR, RECEIVE_DATA, WRITE_MEM, SEND_ACK, WAIT_ACK, SEND_ADDR, SEND_DATA, WAIT_SCAN_RELEASE, DONE_state);
+    type state_type is (IDLE, RECEIVE_ADDR, RECEIVE_DATA, WRITE_MEM, SEND_ACK, WAIT_ACK, SEND_ADDR, SEND_DATA, WAIT_SCAN_RELEASE, MEM_SCAN_DEBOUNCE, DONE_state);
     signal state       : state_type := IDLE;
 
     signal addr_reg     : std_logic_vector(31 downto 0);
@@ -75,6 +75,7 @@ architecture behavioral of UART_top is
     signal byte_count   : integer range 0 to 3 := 0;
     signal word_count   : integer range 0 to MEM_SIZE-1;
     signal mem_addr_reg : std_logic_vector(31 downto 0);
+    signal cnt_debounce : integer range 0 to 800_000;
 
     signal done_reg : std_logic;
 
@@ -122,6 +123,7 @@ begin
             done_reg <= '0';
             tx_send <= '0';
             inst_data <= '0';
+            cnt_debounce <= 0;
 
         elsif rising_edge(clk) then
             case state is
@@ -234,7 +236,7 @@ begin
                             
                             addr_reg <= std_logic_vector(unsigned(addr_reg) + 4);
 
-                            if unsigned(addr_reg) >= x"1001002C" then --(MEM_SIZE * 4) - 4 then 
+                            if unsigned(addr_reg) >= x"10010034" then --(MEM_SIZE * 4) - 4 then 
                                 state <= WAIT_SCAN_RELEASE;
                             end if;
                         else
@@ -244,8 +246,16 @@ begin
                 
                 when WAIT_SCAN_RELEASE =>
                     if mem_scan = '0' then
-                        state <= IDLE;
+                        state <= MEM_SCAN_DEBOUNCE;
                         done_reg <= '1';
+                    end if;
+                    
+                when MEM_SCAN_DEBOUNCE =>
+                    if cnt_debounce >= 800_000 then
+                        state <= IDLE;
+                        cnt_debounce <= 0;
+                    else
+                        cnt_debounce <= cnt_debounce + 1;
                     end if;
 
                 when others =>

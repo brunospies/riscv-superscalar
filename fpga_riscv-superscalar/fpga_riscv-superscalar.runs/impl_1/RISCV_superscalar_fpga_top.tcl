@@ -1,5 +1,5 @@
 namespace eval ::optrace {
-  variable script "C:/Users/Bruno/Documents/ENSEIRB/S8/Projet-Thematique/fpga_riscv-superscalar/fpga_riscv-superscalar.runs/impl_1/RISCV_superscalar_fpga_top.tcl"
+  variable script "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga_riscv-superscalar/fpga_riscv-superscalar.runs/impl_1/RISCV_superscalar_fpga_top.tcl"
   variable category "vivado_impl"
 }
 
@@ -106,6 +106,7 @@ set rc [catch {
   create_msg_db init_design.pb
   set_param chipscope.maxJobs 2
   set_param general.usePosixSpawnForFork 1
+  set_param xicom.use_bs_reader 1
   set_param runs.launchOptions { -jobs 4  }
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xc7a100tcsg324-1
@@ -113,17 +114,17 @@ OPTRACE "create in-memory project" START { }
   set_param project.singleFileAddWarning.threshold 0
 OPTRACE "create in-memory project" END { }
 OPTRACE "set parameters" START { }
-  set_property webtalk.parent_dir C:/Users/Bruno/Documents/ENSEIRB/S8/Projet-Thematique/fpga_riscv-superscalar/fpga_riscv-superscalar.cache/wt [current_project]
-  set_property parent.project_path C:/Users/Bruno/Documents/ENSEIRB/S8/Projet-Thematique/fpga_riscv-superscalar/fpga_riscv-superscalar.xpr [current_project]
-  set_property ip_output_repo C:/Users/Bruno/Documents/ENSEIRB/S8/Projet-Thematique/fpga_riscv-superscalar/fpga_riscv-superscalar.cache/ip [current_project]
+  set_property webtalk.parent_dir C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga_riscv-superscalar/fpga_riscv-superscalar.cache/wt [current_project]
+  set_property parent.project_path C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga_riscv-superscalar/fpga_riscv-superscalar.xpr [current_project]
+  set_property ip_output_repo C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga_riscv-superscalar/fpga_riscv-superscalar.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
   set_property XPM_LIBRARIES XPM_CDC [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
-  add_files -quiet C:/Users/Bruno/Documents/ENSEIRB/S8/Projet-Thematique/fpga_riscv-superscalar/fpga_riscv-superscalar.runs/synth_1/RISCV_superscalar_fpga_top.dcp
-  read_ip -quiet C:/Users/Bruno/Documents/ENSEIRB/S8/Projet-Thematique/fpga_riscv-superscalar/fpga_riscv-superscalar.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
+  add_files -quiet C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga_riscv-superscalar/fpga_riscv-superscalar.runs/synth_1/RISCV_superscalar_fpga_top.dcp
+  read_ip -quiet C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga_riscv-superscalar/fpga_riscv-superscalar.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
 OPTRACE "read constraints: implementation" START { }
-  read_xdc C:/Users/Bruno/Documents/ENSEIRB/S8/Projet-Thematique/fpga_riscv-superscalar/fpga_riscv-superscalar.srcs/constrs_1/new/NexysA7_100t.xdc
+  read_xdc C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga_riscv-superscalar/fpga_riscv-superscalar.srcs/constrs_1/new/NexysA7_100t.xdc
 OPTRACE "read constraints: implementation" END { }
 OPTRACE "read constraints: implementation_pre" START { }
 OPTRACE "read constraints: implementation_pre" END { }

@@ -5,4 +5,37 @@ Running: C:/AMD/2025.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typ
 Using 2 slave threads.
 Starting static elaboration
 Completed static elaboration
-INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.riscv_package
+Compiling package xil_defaultlib.util_package
+Compiling architecture behavioral of entity xil_defaultlib.Decode_Unit [decode_unit_default]
+Compiling architecture behavioral of entity xil_defaultlib.ControlPath [controlpath_default]
+Compiling architecture arch2 of entity xil_defaultlib.ImmediateDataExtractor [immediatedataextractor_default]
+Compiling architecture behavioral of entity xil_defaultlib.Stage_ID [stage_id_default]
+Compiling architecture behavioral of entity xil_defaultlib.RegisterNbits [\RegisterNbits(length=5)\]
+Compiling architecture behavioral of entity xil_defaultlib.Stage_EX [stage_ex_default]
+Compiling architecture behavioral of entity xil_defaultlib.RegisterNbits [\RegisterNbits(length=12)\]
+Compiling architecture behavioral of entity xil_defaultlib.Stage_MEM [stage_mem_default]
+Compiling architecture behavioral of entity xil_defaultlib.Stage_WB [stage_wb_default]
+Compiling architecture behavioral of entity xil_defaultlib.shift_unit [shift_unit_default]
+Compiling architecture behavioral of entity xil_defaultlib.ALU [alu_default]
+Compiling architecture behavioral of entity xil_defaultlib.RegisterNbits [\RegisterNbits(init_value=419430...]
+Compiling architecture behavioral of entity xil_defaultlib.RegisterNbits [registernbits_default]
+Compiling architecture behavioral of entity xil_defaultlib.RegisterNbits [\RegisterNbits(init_value=16384)...]
+Compiling architecture structural of entity xil_defaultlib.RegisterFile [registerfile_default]
+Compiling architecture arch1 of entity xil_defaultlib.Double_issue_dep [double_issue_dep_default]
+Compiling architecture arch1 of entity xil_defaultlib.Forwarding_unit [forwarding_unit_default]
+Compiling architecture arch1 of entity xil_defaultlib.HazardDetection_unit [hazarddetection_unit_default]
+Compiling architecture behavioral of entity xil_defaultlib.CSR_module [csr_module_default]
+Compiling architecture structural of entity xil_defaultlib.DataPath [\DataPath(pc_start_address=41943...]
+Compiling architecture structural of entity xil_defaultlib.RISCV_superscalar [riscv_superscalar_default]
+Compiling architecture behavioral of entity xil_defaultlib.Memory [\Memory(size=100,start_address="...]
+Compiling architecture behavioral of entity xil_defaultlib.Memory_2_ports [\Memory_2_ports(size=100,start_a...]
+Compiling architecture structural of entity xil_defaultlib.riscv_superscalar_tb
+Built simulation snapshot RISCV_superscalar_tb_behav

@@ -10,11 +10,13 @@ use work.RISCV_package.all;
 
 entity ALU is
     port( 
-        operand1    : in std_logic_vector(31 downto 0);
-        operand2    : in std_logic_vector(31 downto 0);
-        pc          : in std_logic_vector(31 downto 0);
-        result      : out std_logic_vector(31 downto 0);
-        operation   : in Instruction_type 
+        operand1        : in std_logic_vector(31 downto 0);
+        operand2        : in std_logic_vector(31 downto 0);
+        pc              : in std_logic_vector(31 downto 0);
+        result          : out std_logic_vector(31 downto 0);
+        branch_decision : out std_logic;
+        bubble_branch   : out std_logic;
+        operation       : in Instruction_type 
     );
 end ALU;
 
@@ -27,6 +29,8 @@ architecture behavioral of ALU is
     constant zero : STD_LOGIC_VECTOR(31 downto 0):= (others=>'0'); 
     constant one  : STD_LOGIC_VECTOR(31 downto 0):= x"00000001";
     constant four : UNSIGNED(31 downto 0)        := x"00000004"; 
+
+    signal branch_prediction, branch_decision_sig : std_logic;
 
 begin
 
@@ -55,6 +59,24 @@ begin
             result         => result_shift, 
             operation      => operation
     );
+
+    -- BRANCH DETECTION --
+
+    branch_prediction <= '0'; -- move to input when implement branch predictor
+
+    branch_decision_sig <= '1' when operation = JAL  or 
+                                   (operation = BEQ  and operand1 = operand2) or
+                                   (operation = BNE  and operand1 /= operand2) or
+                                   (operation = BLT  and signed(operand1) < signed(operand2)) or
+                                   (operation = BGE  and signed(operand1) >= signed(operand2)) or
+                                   (operation = BLTU and operand1 < operand2) or
+                                   (operation = BGEU and operand1 >= operand2) else
+                       '0';
+    
+    bubble_branch <= '1' when branch_decision_sig /= branch_prediction else
+                     '0';
+                        
+    branch_decision <= branch_decision_sig;
               
 end behavioral;
 
