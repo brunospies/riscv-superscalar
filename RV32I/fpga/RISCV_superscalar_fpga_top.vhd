@@ -116,14 +116,14 @@ architecture structural of RISCV_superscalar_fpga_top is
         );
     end component;
     
-    --component clk_wiz_0
-    --    port (
-    --      clk_in1  : in  std_logic;
-    --      clk_out1 : out std_logic
-    --    );
-    --end component;
+    component clk_wiz_0
+        port (
+          clk_in1  : in  std_logic;
+          clk_out1 : out std_logic
+        );
+    end component;
     
-    signal clk_50mhz : std_logic;
+    signal clk_70mhz : std_logic;
 
     signal MemWrite_uart : std_logic;
     signal data_uart : std_logic_vector(31 downto 0);
@@ -144,13 +144,12 @@ architecture structural of RISCV_superscalar_fpga_top is
 begin
     
     -- Clock Wizard 50Mhz
-    --PLL_inst : clk_wiz_0
-    --    port map (
-    --       clk_in1  => clock,      
-    --       clk_out1 => clk_50mhz   
-    --    );
+    PLL_inst : clk_wiz_0
+        port map (
+           clk_in1  => clock,      
+           clk_out1 => clk_70mhz   
+        );
 
-    clk_50mhz <= clock;
     -- DUV component instance for RISCV_SUPERSCALAR
     DUV: RISCV_SUPERSCALAR
         generic map (
@@ -159,7 +158,7 @@ begin
             INST_WIDTH => INST_WIDTH
         )
         port map (
-            clock               => clk_50mhz,
+            clock               => clk_70mhz,
             reset               => reset_core,
             
             -- instruction memory interface
@@ -182,7 +181,7 @@ begin
             START_ADDRESS   => INSTRUCTION_OFFSET
         )
         port map (
-            clock           => clk_50mhz,
+            clock           => clk_70mhz,
             MemWrite        => MemWrite_inst,
             address         => instructionAddress_mux,    
             data_i          => data_uart,
@@ -197,7 +196,7 @@ begin
             START_ADDRESS   => DATA_OFFSET
         )
         port map (
-            clock           => clk_50mhz,
+            clock           => clk_70mhz,
             MemWrite_0      => MemWrite_data, --MemWrite(0),
             MemWrite_1      => MemWrite(1),
             address_0       => data_addr_mux, --dataAddress(0),   
@@ -211,12 +210,12 @@ begin
     -- UART wrapper instance
     UART: UART_top
         generic map (
-            CLK_FREQ    => 100_000_000,
+            CLK_FREQ    => 70_000_000,
             BAUD_RATE   => 115200,
             MEM_SIZE    => 100
         )
         port map (
-            clk         => clk_50mhz,
+            clk         => clk_70mhz,
             reset       => reset,
             rx          => rx,
             tx          => tx,
