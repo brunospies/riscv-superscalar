@@ -46,14 +46,15 @@ architecture structural of DataPath is
     -- Instruction Fetch Stage Signals:
     signal incrementedPC_IF, pc_d, pc_q : std_logic_vector(31 downto 0);
     signal ce_pc, ce_pc_dep, ce_pc_hazard : std_logic;
-    signal instruction_IF, PC_IF : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
+    signal instruction_IF, PC_IF, btb_predict_target_IF : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
+    signal btb_predict_taken_IF : std_logic_vector(1 downto 0);
 
     -- Instruction Decode Stage Signals:
     signal instruction_ID : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal PC_ID, readData1_ID, readData2_ID, imm_data_ID, jumpTarget : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal branchTarget, Data1_ID, Data2_ID : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal rs1_ID, rs2_ID, rd_ID : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
-    signal ce_stage_ID, bubble_dep_inst0_ID, bubble_branch, branch_decision : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
+    signal ce_stage_ID, bubble_dep_inst0_ID, bubble_branch, branch_decision, btb_predict_taken_ID : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
     signal ce_stage_ID_dep, ce_stage_ID_hazard : std_logic;
     signal valid_ID : Boolean_vector(1 downto 0); --> (0 to 1) of boolean;
 
@@ -62,7 +63,7 @@ architecture structural of DataPath is
     signal ALUoperand2, imm_data_EX, PC_EX : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal uins_EX : Microinstruction_array; --> (0 to 1) of Microinstruction;
     signal rd_EX, rs2_EX, rs1_EX : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
-    signal bubble_dep_inst1_EX, bubble_branch_inst1_MEM : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
+    signal bubble_dep_inst1_EX, bubble_branch_inst1_MEM, btb_predict_taken_EX : std_logic_vector(1 downto 0); --> (0 to 1) of std_logic; 
     signal bubble_hazard_EX : std_logic;
     signal valid_EX : Boolean_vector(1 downto 0); --> (0 to 1) of boolean;
 
@@ -112,12 +113,16 @@ begin
     
     PC_IF(0) <= pc_q; -- actual pc ins[0]
     PC_IF(1) <= STD_LOGIC_VECTOR(UNSIGNED(pc_q) + TO_UNSIGNED(4,32)); -- actual pc ins[1]
-
+    
     -- MUX which selects the PC value
-    MUX_PC: pc_d <= branchTarget(0) when branch_decision(0) = '1' else
-                    jumpTarget(0)   when uins_EX(0).instruction = JALR else
-                    branchTarget(1) when branch_decision(1) = '1' else
-                    jumpTarget(1)   when uins_EX(1).instruction = JALR else
+    MUX_PC: pc_d <= branchTarget(0)                                           when (btb_predict_taken_EX(0) = '0' and bubble_branch(0) = '1') else -- prevision not taken, but was taken
+                    jumpTarget(0)                                             when uins_EX(0).instruction = JALR else
+                    branchTarget(1)                                           when (btb_predict_taken_EX(1) = '0' and bubble_branch(1) = '1' and branch_decision(0) = '0') else -- prevision not taken, but was taken, verify branch_decision(0) because if '1' the (BRANCH, JUMP) in the slot 2 is invalid / prioritize the branch in slot 0 because we always execute the instruction in slot 1, so if the branch in slot 0 is not taken, the instruction in slot 1 is correct and if is branch need to change the PC to jumpTarget(1) not PC+8
+                    jumpTarget(1)                                             when uins_EX(1).instruction = JALR and branch_decision(0) = '0' else -- the same priority for jalr
+                    STD_LOGIC_VECTOR(UNSIGNED(PC_EX(0)) + TO_UNSIGNED(8,32))  when (btb_predict_taken_EX(0) = '1' and bubble_branch(0) = '1') else -- prevision taken, but was not taken (PC_ID + 8 because we always execute the instrcution PC_ID + 4 in the slot 2)
+                    STD_LOGIC_VECTOR(UNSIGNED(PC_EX(1)) + TO_UNSIGNED(4,32))  when (btb_predict_taken_EX(1) = '1' and bubble_branch(1) = '1' and branch_decision(0) = '0') else -- prevision taken, but was not taken
+                    btb_predict_target_IF(0)                                  when btb_predict_taken_IF(0) = '1' else
+                    btb_predict_target_IF(1)                                  when btb_predict_taken_IF(1) = '1' else
                     incrementedPC_IF;
 
     -----------------------------------------------------------------------------------------------------------------------
@@ -134,6 +139,24 @@ begin
             ce          => ce_pc, 
             d           => pc_d, 
             q           => pc_q
+        );
+    
+    -- Branch Predictor
+    BRANCH_PREDICTOR: entity work.BTB_superscalar
+        generic map(
+            BTB_BITS => 4 -- 2^4 = 16 linhas
+        )
+        port map(
+            clock         => clock,
+            reset         => reset,
+            pc_in         => PC_IF,
+            predict_taken => btb_predict_taken_IF,
+            predict_pc    => btb_predict_target_IF,
+            inst_format_0 => uins_EX(0).format,
+            inst_format_1 => uins_EX(1).format,
+            pc_update     => PC_EX,
+            target_real   => branchTarget,
+            taken_real    => branch_decision
         );
 
     -- Register file
@@ -178,7 +201,7 @@ begin
     bubble_dep_inst0_ID(1) <= '0'; -- bubble only in inst0, signal necessary for gen_duplicate 
 
     bubble_branch_inst1_MEM(0) <= '0'; -- bubble only in inst1, signal necessary for gen_duplicate  
-    bubble_branch_inst1_MEM(1) <= '1' when bubble_branch(0) = '1' or uins_EX(0).instruction = JALR else
+    bubble_branch_inst1_MEM(1) <= '1' when branch_decision(0) = '1' or uins_EX(0).instruction = JALR else
                                   '0'; -- bubble in inst1_MEM when inst0_EX have a branch and is taken
 
     forwarding_unit_i: entity work.Forwarding_unit(arch1)
@@ -271,8 +294,10 @@ begin
                 pc_in               => PC_IF(i), 
                 pc_out              => PC_ID(i),
                 instruction_in      => instruction_IF(i),
-                instruction_out     => instruction_ID(i)
-            );
+                instruction_out     => instruction_ID(i),
+                branch_taken_in     => btb_predict_taken_IF(i),
+                branch_taken_out    => btb_predict_taken_ID(i)
+            ); 
 
         --██████████████████████████████████████████████████████████████████████████████████████████████
         --██                                                                                          ██
@@ -305,7 +330,9 @@ begin
                 rd_in                 => rd_ID(i),  
                 rd_out                => rd_EX(i),
                 uins_in               => uins_ID(i), 
-                uins_out              => uins_EX(i)
+                uins_out              => uins_EX(i),
+                branch_taken_in       => btb_predict_taken_ID(i),
+                branch_taken_out      => btb_predict_taken_EX(i)
             );
 
         --██████████████████████████████████████████████████████████████████████████████████████████████████████████
@@ -376,13 +403,14 @@ begin
         -- Arithmetic/Logic Unit
         ALU_i: entity work.ALU(behavioral)
             port map (
-                operand1        => operand1(i),
-                operand2        => ALUoperand2(i),
-                pc              => PC_EX(i),
-                result          => result_EX(i),
-                branch_decision => branch_decision(i),
-                bubble_branch   => bubble_branch(i),
-                operation       => uins_EX(i).instruction
+                operand1          => operand1(i),
+                operand2          => ALUoperand2(i),
+                pc                => PC_EX(i),
+                result            => result_EX(i),
+                branch_prediction => btb_predict_taken_EX(i),
+                branch_decision   => branch_decision(i),
+                bubble_branch     => bubble_branch(i),
+                operation         => uins_EX(i).instruction
             );
         
         -- Branch or Jump target address
@@ -446,9 +474,9 @@ begin
         --██   ╚═══╝  ╚═╝  ╚═╝╚══════╝╚═╝╚═════╝         ╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚══════╝ ██
         --████████████████████████████████████████████████████████████████████████████████████████████████████████
 
-        valid_ID(i) <= bubble_branch(0) = '0' and bubble_branch(1) = '0' and bubble_dep_inst0_ID(i) = '0' and uins_EX(0).instruction /= JALR and uins_EX(1).instruction /= JALR;
+        valid_ID(i) <= bubble_branch(0) = '0' and (bubble_branch(1) = '0' or branch_decision(0) = '1') and bubble_dep_inst0_ID(i) = '0' and uins_EX(0).instruction /= JALR and uins_EX(1).instruction /= JALR;
 
-        valid_EX(i) <= bubble_hazard_EX = '0' and bubble_dep_inst1_EX(i) = '0' and bubble_branch(0) = '0' and bubble_branch(1) = '0' and uins_EX(0).instruction /= JALR and uins_EX(1).instruction /= JALR;
+        valid_EX(i) <= bubble_hazard_EX = '0' and bubble_dep_inst1_EX(i) = '0' and bubble_branch(0) = '0' and (bubble_branch(1) = '0' or branch_decision(0) = '1') and uins_EX(0).instruction /= JALR and uins_EX(1).instruction /= JALR;
 
         valid_MEM(i) <= bubble_branch_inst1_MEM(i) = '0';
 

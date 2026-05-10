@@ -20,7 +20,9 @@ entity Stage_ID is
 	    pc_in               : in  std_logic_vector(31 downto 0);  
         pc_out              : out std_logic_vector(31 downto 0);
         instruction_in      : in  std_logic_vector(31 downto 0);  
-        instruction_out     : out std_logic_vector(31 downto 0)                
+        instruction_out     : out std_logic_vector(31 downto 0);
+        branch_taken_in     : in  std_logic;
+        branch_taken_out    : out std_logic                
     );
 end Stage_ID;
 
@@ -28,6 +30,7 @@ end Stage_ID;
 architecture behavioral of Stage_ID is 
 
     signal pc, instruction : std_logic_vector(31 downto 0);
+    signal branch_taken : std_logic;
     
 begin
 
@@ -62,5 +65,18 @@ begin
             d           => instruction, 
             q           => instruction_out
         );
+
+    branch_taken <= branch_taken_in when valid else '0';
+
+    process(clock, reset)
+    begin
+        if reset = '1' then
+            branch_taken_out <= '0';
+        elsif rising_edge(clock) then
+            if ce = '1' then
+                branch_taken_out <= branch_taken;
+            end if;
+        end if;
+    end process;
     
 end behavioral;

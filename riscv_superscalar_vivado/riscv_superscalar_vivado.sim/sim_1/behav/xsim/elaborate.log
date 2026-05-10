@@ -26,6 +26,7 @@ Compiling architecture behavioral of entity xil_defaultlib.Stage_WB [stage_wb_de
 Compiling architecture behavioral of entity xil_defaultlib.shift_unit [shift_unit_default]
 Compiling architecture behavioral of entity xil_defaultlib.ALU [alu_default]
 Compiling architecture behavioral of entity xil_defaultlib.RegisterNbits [\RegisterNbits(init_value=419430...]
+Compiling architecture behavioral of entity xil_defaultlib.BTB_superscalar [btb_superscalar_default]
 Compiling architecture behavioral of entity xil_defaultlib.RegisterNbits [registernbits_default]
 Compiling architecture behavioral of entity xil_defaultlib.RegisterNbits [\RegisterNbits(init_value=16384)...]
 Compiling architecture structural of entity xil_defaultlib.RegisterFile [registerfile_default]

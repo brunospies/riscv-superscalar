@@ -12,15 +12,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="9,225.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="9,655.001 ns"></ZoomEndTime>
-      <Cursor1Time time="9,425.000 ns"></Cursor1Time>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="21.000001 us"></ZoomEndTime>
+      <Cursor1Time time="6.255000 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="279"></NameColumnWidth>
-      <ValueColumnWidth column_width="143"></ValueColumnWidth>
+      <NameColumnWidth column_width="314"></NameColumnWidth>
+      <ValueColumnWidth column_width="151"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="18" />
+   <WVObjectSize size="19" />
    <wave_markers>
       <marker time="565000" label="" />
    </wave_markers>
@@ -368,7 +368,6 @@
    <wvobject fp_name="group14" type="group">
       <obj_property name="label">INSTRUCTIONS</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/RISCV_superscalar_tb/clock" type="logic">
          <obj_property name="ElementShortName">clock</obj_property>
          <obj_property name="ObjectShortName">clock</obj_property>
@@ -529,6 +528,7 @@
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/REGISTER_FILE/reg" type="array">
          <obj_property name="ElementShortName">reg[0:31][31:0]</obj_property>
          <obj_property name="ObjectShortName">reg[0:31][31:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/REGISTER_FILE/writeEnable" type="array">
          <obj_property name="ElementShortName">writeEnable[31:0]</obj_property>
@@ -1240,7 +1240,6 @@
    <wvobject fp_name="group540" type="group">
       <obj_property name="label">CSR_MODULE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/CSR_unit_i/clock" type="logic">
          <obj_property name="ElementShortName">clock</obj_property>
          <obj_property name="ObjectShortName">clock</obj_property>
@@ -1260,7 +1259,6 @@
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/CSR_unit_i/CSR_DATA_WB" type="array">
          <obj_property name="ElementShortName">CSR_DATA_WB[0:1][31:0]</obj_property>
          <obj_property name="ObjectShortName">CSR_DATA_WB[0:1][31:0]</obj_property>
-         <obj_property name="isExpanded"></obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/CSR_unit_i/CSR_cycles" type="array">
          <obj_property name="ElementShortName">CSR_cycles[63:0]</obj_property>
@@ -1381,10 +1379,83 @@
          <obj_property name="ObjectShortName">ISSUE_WIDTH</obj_property>
       </wvobject>
    </wvobject>
+   <wvobject fp_name="group1779" type="group">
+      <obj_property name="label">BTB</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/clock" type="logic">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/pc_in" type="array">
+         <obj_property name="ElementShortName">pc_in[0:1][31:0]</obj_property>
+         <obj_property name="ObjectShortName">pc_in[0:1][31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/predict_taken" type="array">
+         <obj_property name="ElementShortName">predict_taken[1:0]</obj_property>
+         <obj_property name="ObjectShortName">predict_taken[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/predict_pc" type="array">
+         <obj_property name="ElementShortName">predict_pc[0:1][31:0]</obj_property>
+         <obj_property name="ObjectShortName">predict_pc[0:1][31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/inst_format_0" type="other">
+         <obj_property name="ElementShortName">inst_format_0</obj_property>
+         <obj_property name="ObjectShortName">inst_format_0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/inst_format_1" type="other">
+         <obj_property name="ElementShortName">inst_format_1</obj_property>
+         <obj_property name="ObjectShortName">inst_format_1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/pc_update" type="array">
+         <obj_property name="ElementShortName">pc_update[0:1][31:0]</obj_property>
+         <obj_property name="ObjectShortName">pc_update[0:1][31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/target_real" type="array">
+         <obj_property name="ElementShortName">target_real[0:1][31:0]</obj_property>
+         <obj_property name="ObjectShortName">target_real[0:1][31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/taken_real" type="array">
+         <obj_property name="ElementShortName">taken_real[1:0]</obj_property>
+         <obj_property name="ObjectShortName">taken_real[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/btb_valid" type="array">
+         <obj_property name="ElementShortName">btb_valid[15:0]</obj_property>
+         <obj_property name="ObjectShortName">btb_valid[15:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/BTB" type="array">
+         <obj_property name="ElementShortName">BTB[0:15]</obj_property>
+         <obj_property name="ObjectShortName">BTB[0:15]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/index_fetch" type="array">
+         <obj_property name="ElementShortName">index_fetch[0:1]</obj_property>
+         <obj_property name="ObjectShortName">index_fetch[0:1]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/hit" type="array">
+         <obj_property name="ElementShortName">hit[1:0]</obj_property>
+         <obj_property name="ObjectShortName">hit[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/Branch_inst" type="array">
+         <obj_property name="ElementShortName">Branch_inst[1:0]</obj_property>
+         <obj_property name="ObjectShortName">Branch_inst[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/BTB_BITS" type="other">
+         <obj_property name="ElementShortName">BTB_BITS</obj_property>
+         <obj_property name="ObjectShortName">BTB_BITS</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RISCV_superscalar_tb/DUV/DATA_PATH/BRANCH_PREDICTOR/BTB_SIZE" type="other">
+         <obj_property name="ElementShortName">BTB_SIZE</obj_property>
+         <obj_property name="ObjectShortName">BTB_SIZE</obj_property>
+      </wvobject>
+   </wvobject>
    <wvobject fp_name="group523" type="group">
       <obj_property name="label">DATA_MEMORY</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/RISCV_superscalar_tb/DATA_MEMORY/clock" type="logic">
          <obj_property name="ElementShortName">clock</obj_property>
          <obj_property name="ObjectShortName">clock</obj_property>

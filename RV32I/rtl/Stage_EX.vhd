@@ -31,6 +31,8 @@ entity Stage_EX is
         rs2_out               : out std_logic_vector(4 downto 0);
         rd_in                 : in  std_logic_vector(4 downto 0);  
         rd_out                : out std_logic_vector(4 downto 0);
+        branch_taken_in       : in  std_logic;
+        branch_taken_out      : out std_logic;
         uins_in               : in  Microinstruction;
         uins_out              : out Microinstruction                
     );
@@ -42,7 +44,7 @@ architecture behavioral of Stage_EX is
     signal pc, read_data_1, read_data_2, imm_data : std_logic_vector(31 downto 0);
     signal rs1, rs2, rd : std_logic_vector(4 downto 0);
     signal uins, uins_bubble : Microinstruction;
-
+    signal branch_taken : std_logic;
     
 begin
 
@@ -157,6 +159,18 @@ begin
             d           => rs1, 
             q           => rs1_out
         );
+    
+    branch_taken <= branch_taken_in when valid else '0';
+
+     -- Branch taken register
+    process(clock, reset)
+    begin
+        if reset = '1' then
+            branch_taken_out <= '0';
+        elsif rising_edge(clock) then
+            branch_taken_out <= branch_taken;
+        end if;
+    end process;
 
     uins <= uins_in when valid else uins_bubble;
 

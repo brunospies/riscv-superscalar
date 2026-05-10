@@ -13,6 +13,7 @@ entity RISCV_superscalar is
         PC_START_ADDRESS    : integer := 4194304;
         DATA_WIDTH          : integer := 32;
         INST_WIDTH          : integer := 64;
+        SYNTHESIS           : boolean := false;
         ISSUE_WIDTH         : natural := 2
     );
     port ( 
@@ -34,8 +35,6 @@ architecture structural of RISCV_superscalar is
     
     signal uins : Microinstruction_array;
     signal instructions_to_decode : Data_array;
-
-    constant SYNTHESIS : boolean := true; 
 
 begin
 

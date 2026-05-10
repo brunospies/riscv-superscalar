@@ -34,6 +34,7 @@ architecture structural of RISCV_superscalar_tb is
         generic (
             PC_START_ADDRESS    : integer := 4194304;
             DATA_WIDTH          : integer := 32;
+            SYNTHESIS           : boolean := false;
             INST_WIDTH          : integer := 64     
         );
         port (
@@ -100,6 +101,7 @@ begin
         generic map (
             PC_START_ADDRESS => TO_INTEGER(UNSIGNED(INSTRUCTION_OFFSET)),
             DATA_WIDTH => DATA_WIDTH,
+            SYNTHESIS => false,
             INST_WIDTH => INST_WIDTH
         )
         port map (

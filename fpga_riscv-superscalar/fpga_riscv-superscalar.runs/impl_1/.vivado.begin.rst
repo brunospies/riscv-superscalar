@@ -1,20 +1,15 @@
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Bruno" Host="DESKTOP-7DCFGKU" Pid="19748" HostCore="8" HostMemory="016407719936">
+    <Process Command="vivado.bat" Owner="Bruno" Host="DESKTOP-7DCFGKU" Pid="14988" HostCore="8" HostMemory="016407719936">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Bruno" Host="DESKTOP-7DCFGKU" Pid="18368" HostCore="8" HostMemory="016407719936">
+    <Process Command="vivado.bat" Owner="Bruno" Host="DESKTOP-7DCFGKU" Pid="15388" HostCore="8" HostMemory="016407719936">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Bruno" Host="DESKTOP-7DCFGKU" Pid="2212" HostCore="8" HostMemory="016407719936">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Bruno" Host="DESKTOP-7DCFGKU" Pid="21124" HostCore="8" HostMemory="016407719936">
+    <Process Command="vivado.bat" Owner="Bruno" Host="DESKTOP-7DCFGKU" Pid="15788" HostCore="8" HostMemory="016407719936">
     </Process>
 </ProcessHandle>

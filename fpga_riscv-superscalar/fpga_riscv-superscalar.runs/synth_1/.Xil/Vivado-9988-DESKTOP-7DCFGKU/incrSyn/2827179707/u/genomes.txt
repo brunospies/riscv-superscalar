@@ -1,5 +1,0 @@
-Memory_2_ports__GB0
-Memory_2_ports__GB1
-Memory_2_ports__GB2
-Memory_2_ports__GB3
-RISCV_superscalar_fpga_top__GC0
