@@ -3,7 +3,7 @@
 Report : area
 Design : RISCV_superscalar
 Version: H-2013.03-SP5
-Date   : Mon May 11 09:32:36 2026
+Date   : Sat May  9 17:14:13 2026
 ****************************************
 
 Library(s) Used:
@@ -11,20 +11,20 @@ Library(s) Used:
     c35_CORELIB_WC (File: /opt/ams/synopsys/c35_1.8V/c35_CORELIB_WC.db)
 
 Number of ports:                          298
-Number of nets:                          5204
-Number of cells:                         3747
-Number of combinational cells:           3727
-Number of sequential cells:                 0
+Number of nets:                          6297
+Number of cells:                         5562
+Number of combinational cells:           4725
+Number of sequential cells:               832
 Number of macros/black boxes:               0
-Number of buf/inv:                        954
-Number of references:                     101
+Number of buf/inv:                       1071
+Number of references:                      95
 
-Combinational area:            1622366.203835
-Buf/Inv area:                   217162.404427
-Noncombinational area:          893401.587769
+Combinational area:            1348310.606697
+Buf/Inv area:                   174519.803513
+Noncombinational area:          606769.788055
 Macro/Black Box area:                0.000000
-Net Interconnect area:          611360.993240
+Net Interconnect area:          490114.829510
 
-Total cell area:               2515767.791603
-Total area:                    3127128.784843
+Total cell area:               1955080.394753
+Total area:                    2445195.224262
 1

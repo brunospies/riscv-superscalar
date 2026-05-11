@@ -3,16 +3,16 @@
 Report : qor
 Design : RISCV_superscalar
 Version: H-2013.03-SP5
-Date   : Mon May 11 09:32:38 2026
+Date   : Sat May  9 17:14:13 2026
 ****************************************
 
 
   Timing Path Group 'my_clock'
   -----------------------------------
-  Levels of Logic:              39.00
-  Critical Path Length:         33.33
+  Levels of Logic:              31.00
+  Critical Path Length:         28.38
   Critical Path Slack:           0.00
-  Critical Path Clk Period:     33.33
+  Critical Path Clk Period:     28.57
   Total Negative Slack:          0.00
   No. of Violating Paths:        0.00
   Worst Hold Violation:          0.00
@@ -23,53 +23,53 @@ Date   : Mon May 11 09:32:38 2026
 
   Cell Count
   -----------------------------------
-  Hierarchical Cell Count:         22
-  Hierarchical Port Count:       3217
-  Leaf Cell Count:              23920
-  Buf/Inv Cell Count:            4210
-  Buf Cell Count:                 719
-  Inv Cell Count:                3491
+  Hierarchical Cell Count:          7
+  Hierarchical Port Count:        922
+  Leaf Cell Count:              19189
+  Buf/Inv Cell Count:            3227
+  Buf Cell Count:                 599
+  Inv Cell Count:                2628
   CT Buf/Inv Cell Count:            0
-  Combinational Cell Count:     20950
-  Sequential Cell Count:         2970
+  Combinational Cell Count:     17237
+  Sequential Cell Count:         1952
   Macro Count:                      0
   -----------------------------------
 
 
   Area
   -----------------------------------
-  Combinational Area:  1622366.203835
+  Combinational Area:  1348310.606697
   Noncombinational Area:
-                        893401.587769
-  Buf/Inv Area:         217162.404427
-  Total Buffer Area:         61952.80
-  Total Inverter Area:      155209.60
+                        606769.788055
+  Buf/Inv Area:         174519.803513
+  Total Buffer Area:         56875.00
+  Total Inverter Area:      117644.80
   Macro/Black Box Area:      0.000000
-  Net Area:             611360.993240
+  Net Area:             490114.829510
   -----------------------------------
-  Cell Area:           2515767.791603
-  Design Area:         3127128.784843
+  Cell Area:           1955080.394753
+  Design Area:         2445195.224262
 
 
   Design Rules
   -----------------------------------
-  Total Number of Nets:         24732
+  Total Number of Nets:         19980
   Nets With Violations:             0
   Max Trans Violations:             0
   Max Cap Violations:               0
   -----------------------------------
 
 
-  Hostname: hamster
+  Hostname: mandrill
 
   Compile CPU Statistics
   -----------------------------------------
-  Resource Sharing:                    3.22
-  Logic Optimization:                 52.47
-  Mapping Optimization:              208.47
+  Resource Sharing:                    3.06
+  Logic Optimization:                119.87
+  Mapping Optimization:              196.59
   -----------------------------------------
-  Overall Compile Time:              279.20
-  Overall Compile Wall Clock Time:   282.99
+  Overall Compile Time:              332.67
+  Overall Compile Wall Clock Time:   336.60
 
   --------------------------------------------------------------------
 
