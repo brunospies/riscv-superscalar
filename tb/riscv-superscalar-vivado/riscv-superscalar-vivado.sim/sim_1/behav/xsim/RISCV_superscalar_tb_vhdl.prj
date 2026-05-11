@@ -1,0 +1,29 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../../../rtl/core/RISCV_package.vhd" \
+"../../../../../../rtl/core/shift_unit.vhd" \
+"../../../../../../rtl/core/ALU.vhd" \
+"../../../../../../rtl/core/BTB_SuperScalar.vhd" \
+"../../../../../../rtl/core/BranchDetection_unit.vhd" \
+"../../../../../../rtl/core/CSR_Module.vhd" \
+"../../../../../../rtl/core/Decode_unit.vhd" \
+"../../../../../../rtl/core/ControlPath.vhd" \
+"../../../../../../rtl/core/RegisterNbits.vhd" \
+"../../../../../../rtl/core/RegisterFile.vhd" \
+"../../../../../../rtl/core/Double_issue_dep.vhd" \
+"../../../../../../rtl/core/Forwarding_unit.vhd" \
+"../../../../../../rtl/core/HazardDetection_unit.vhd" \
+"../../../../../../rtl/core/ImmediateDataExtractor.vhd" \
+"../../../../../../rtl/core/Stage_ID.vhd" \
+"../../../../../../rtl/core/Stage_EX.vhd" \
+"../../../../../../rtl/core/Stage_MEM.vhd" \
+"../../../../../../rtl/core/Stage_WB.vhd" \
+"../../../../../../rtl/core/DataPath.vhd" \
+"../../../../../Util_package.vhd" \
+"../../../../../../rtl/uncore/Memory.vhd" \
+"../../../../../../rtl/uncore/Memory_2_ports.vhd" \
+"../../../../../../rtl/core/RISCV_superscalar.vhd" \
+"../../../../../RISCV_superscalar_tb.vhd" \
+
+# Do not sort compile order
+nosort
