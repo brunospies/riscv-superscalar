@@ -1,0 +1,8 @@
+.TH
+.SH NAME
+ENCPP-220
+.SH SYNOPSIS
+The power planner does not create core rings outside the design boundary. Check the design boundary, or specify valid offsets.
+
+.SH DESCRIPTION
+There are no further details for this message

@@ -1,0 +1,86 @@
+Loading db file '/opt/ams/synopsys/c35_1.8V/c35_CORELIB_WC.db'
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : RISCV_superscalar
+Version: H-2013.03-SP5
+Date   : Mon May 11 09:32:38 2026
+****************************************
+
+
+Library(s) Used:
+
+    c35_CORELIB_WC (File: /opt/ams/synopsys/c35_1.8V/c35_CORELIB_WC.db)
+
+
+Operating Conditions: WORST-MIL   Library: c35_CORELIB_WC
+Wire Load Model Mode: segmented
+
+Design        Wire Load Model            Library
+------------------------------------------------
+RISCV_superscalar      30k               c35_CORELIB_WC
+ControlPath_INST_WIDTH64_ISSUE_WIDTH2
+                       10k               c35_CORELIB_WC
+RegisterNbits_LENGTH32_INIT_VALUE4194304
+                       10k               c35_CORELIB_WC
+BTB_superscalar_BTB_BITS4
+                       10k               c35_CORELIB_WC
+RegisterFile           10k               c35_CORELIB_WC
+Double_issue_dep       10k               c35_CORELIB_WC
+Forwarding_unit_ISSUE_WIDTH2
+                       10k               c35_CORELIB_WC
+HazardDetection_unit_ISSUE_WIDTH2
+                       10k               c35_CORELIB_WC
+CSR_module             10k               c35_CORELIB_WC
+ImmediateDataExtractor_1
+                       10k               c35_CORELIB_WC
+Stage_ID_INIT0_1       10k               c35_CORELIB_WC
+Stage_EX_INIT0_1       10k               c35_CORELIB_WC
+Stage_MEM_INIT0_1      10k               c35_CORELIB_WC
+Stage_WB_INIT0_1       10k               c35_CORELIB_WC
+ALU_1                  10k               c35_CORELIB_WC
+Stage_EX_INIT0_0       10k               c35_CORELIB_WC
+Stage_MEM_INIT0_0      10k               c35_CORELIB_WC
+ALU_0                  10k               c35_CORELIB_WC
+shift_unit_1           10k               c35_CORELIB_WC
+shift_unit_0           10k               c35_CORELIB_WC
+Stage_ID_INIT0_0       10k               c35_CORELIB_WC
+Stage_WB_INIT0_0       10k               c35_CORELIB_WC
+ImmediateDataExtractor_0
+                       10k               c35_CORELIB_WC
+
+
+Global Operating Voltage = 1.62 
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1pW
+
+
+  Cell Internal Power  =   7.3553 mW   (87%)
+  Net Switching Power  =   1.1270 mW   (13%)
+                         ---------
+Total Dynamic Power    =   8.4822 mW  (100%)
+
+Cell Leakage Power     =  25.9916 uW
+
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network      0.0000            0.0000            0.0000            0.0000  (   0.00%)
+register           6.9285            0.1158        9.4135e+06            7.0537  (  82.91%)
+sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
+combinational      0.4268            1.0111        1.6578e+07            1.4545  (  17.09%)
+--------------------------------------------------------------------------------------------------
+Total              7.3553 mW         1.1270 mW     2.5992e+07 pW         8.5082 mW
+1

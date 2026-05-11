@@ -1,0 +1,97 @@
+Checking out Encounter license ...
+Virtuoso_Digital_Implem_XL 13.1 license checkout succeeded.
+	Maximum number of instance allowed (1 x 50000).
+This Encounter release has been compiled with OA version 22.43-p014.
+Cannot open libm.so, trying libm.so.6
+
+*******************************************************************
+*   Copyright (c)  Cadence Design Systems, Inc.  1996 - 2013.     *
+*                     All rights reserved.                        *
+*                                                                 *
+*                                                                 *
+*                                                                 *
+* This program contains confidential and trade secret information *
+* of Cadence Design Systems, Inc. and is protected by copyright   *
+* law and international treaties.  Any reproduction, use,         *
+* distribution or disclosure of this program or any portion of it,*
+* or any attempt to obtain a human-readable version of this       *
+* program, without the express, prior written consent of          *
+* Cadence Design Systems, Inc., is strictly prohibited.           *
+*                                                                 *
+*                 Cadence Design Systems, Inc.                    *
+*                    2655 Seely Avenue                            *
+*                   San Jose, CA 95134,  USA                      *
+*                                                                 *
+*                                                                 *
+*******************************************************************
+
+@(#)CDS: Encounter v13.13-s017_1 (64bit) 07/30/2013 13:03 (Linux 2.6)
+@(#)CDS: NanoRoute v13.13-s005 NR130716-1135/13_10-UB (database version 2.30, 190.4.1) {superthreading v1.19}
+@(#)CDS: CeltIC v13.13-s001_1 (64bit) 07/19/2013 04:50:05 (Linux 2.6.18-194.el5)
+@(#)CDS: AAE 13.13-e003 (64bit) 07/30/2013 (Linux 2.6.18-194.el5)
+@(#)CDS: CTE 13.13-s004_1 (64bit) Jul 30 2013 05:44:27 (Linux 2.6.18-194.el5)
+@(#)CDS: CPE v13.13-s001
+@(#)CDS: IQRC/TQRC 12.1.1-s225 (64bit) Wed Jun 12 20:28:41 PDT 2013 (Linux 2.6.18-194.el5)
+--- Starting "Encounter v13.13-s017_1" on Sat May  9 17:16:54 2026 (mem=78.7M) ---
+--- Running on mandrill (x86_64 w/Linux 5.14.0-362.8.1.el9_3.x86_64) ---
+This version was compiled on Tue Jul 30 13:03:02 PDT 2013.
+Set DBUPerIGU to 1000.
+Set net toggle Scale Factor to 1.00
+Set Shrink Factor to 1.00000
+
+**INFO:  MMMC transition support version v31-84 
+
+<CMD> set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+<CMD> suppressMessage ENCEXT-2799
+<CMD> win
+<CMD> setDesignMode -process 130 -flowEffort high
+Applying the recommended capacitance filtering threshold values for 130nm process node: total_c_th=0, relative_c_th=1 and coupling_c_th=0.4.
+	These values will be used by all post-route extraction engines, including TQRC, IQRC and QRC extraction.
+	Capacitance filtering mode(-capFilterMode option of the setExtractRCMode) is 'relAndCoup' for all engines.
+	The accuracy mode for postRoute effortLevel low extraction will be set to 'standard'.
+	Default value for EffortLevel(-effortLevel option of the setExtractRCMode) in postRoute extraction mode is 'low'.
+<CMD> set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+<CMD> set defHierChar /
+<CMD> set defHierChar /
+<CMD> set init_verilog ../../synthesis/RISCV_superscalar_syn.v
+<CMD> set init_top_cell RISCV_superscalar
+<CMD> set init_design_settop 1
+<CMD> set init_design_netlisttype Verilog
+<CMD> set init_lef_file { /opt/ams/cds/HK_C35/LEF/c35b3/c35b3.lef  /opt/ams/cds/HK_C35/LEF/c35b3/CORELIB.lef}
+<CMD> set init_mmmc_file ../mmmc_definition.tcl
+<CMD> set init_cpf_file {}
+<CMD> set init_import_mode {-treatUndefinedCellAsBbox 0 -keepEmptyModule 1}
+<CMD> set init_assign_buffer 0
+<CMD> set init_pwr_net vdd!
+<CMD> set init_gnd_net gnd!
+<CMD> set init_oa_search_lib {}
+<CMD> init_design
+**ERROR: (TCLCMD-989):	cannot open SDC file '../../synthesis/counter_syn.sdc' for mode 'constraint_mode'
+
+<CMD> setDesignMode -process 130 -flowEffort high
+Applying the recommended capacitance filtering threshold values for 130nm process node: total_c_th=0, relative_c_th=1 and coupling_c_th=0.4.
+	These values will be used by all post-route extraction engines, including TQRC, IQRC and QRC extraction.
+	Capacitance filtering mode(-capFilterMode option of the setExtractRCMode) is 'relAndCoup' for all engines.
+	The accuracy mode for postRoute effortLevel low extraction will be set to 'standard'.
+	Default value for EffortLevel(-effortLevel option of the setExtractRCMode) in postRoute extraction mode is 'low'.
+<CMD> set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+<CMD> set defHierChar /
+<CMD> set defHierChar /
+<CMD> set init_verilog ../../synthesis/RISCV_superscalar_syn.v
+<CMD> set init_top_cell RISCV_superscalar
+<CMD> set init_design_settop 1
+<CMD> set init_design_netlisttype Verilog
+<CMD> set init_lef_file { /opt/ams/cds/HK_C35/LEF/c35b3/c35b3.lef  /opt/ams/cds/HK_C35/LEF/c35b3/CORELIB.lef}
+<CMD> set init_mmmc_file ../mmmc_definition.tcl
+<CMD> set init_cpf_file {}
+<CMD> set init_import_mode {-treatUndefinedCellAsBbox 0 -keepEmptyModule 1}
+<CMD> set init_assign_buffer 0
+<CMD> set init_pwr_net vdd!
+<CMD> set init_gnd_net gnd!
+<CMD> set init_oa_search_lib {}
+<CMD> init_design
+**ERROR: (TCLCMD-995):	Can not open file '/opt/ams/cds/HK_C35/LEF/en' for RC corner
+
+
+*** Memory Usage v#1 (Current mem = 282.523M, initial mem = 78.707M) ***
+--- Ending "Encounter" (totcpu=0:00:11.3, real=0:04:13, mem=282.5M) ---

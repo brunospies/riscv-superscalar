@@ -1,0 +1,8 @@
+.TH
+.SH NAME
+ENCOAX-503
+.SH SYNOPSIS
+Cannot open OA library '%s'. Make sure the library exists on disk and its entry is present correctly in the library definition file.
+
+.SH DESCRIPTION
+There are no further details for this message

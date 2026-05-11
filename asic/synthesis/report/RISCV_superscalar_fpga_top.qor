@@ -1,0 +1,84 @@
+ 
+****************************************
+Report : qor
+Design : RISCV_superscalar_fpga_top
+Version: H-2013.03-SP5
+Date   : Sat May  9 15:35:54 2026
+****************************************
+
+
+  Timing Path Group 'my_clock'
+  -----------------------------------
+  Levels of Logic:              53.00
+  Critical Path Length:         44.86
+  Critical Path Slack:         -20.71
+  Critical Path Clk Period:     25.00
+  Total Negative Slack:     -78240.34
+  No. of Violating Paths:     7929.00
+  Worst Hold Violation:          0.00
+  Total Hold Violation:          0.00
+  No. of Hold Violations:        0.00
+  -----------------------------------
+
+
+  Cell Count
+  -----------------------------------
+  Hierarchical Cell Count:         27
+  Hierarchical Port Count:       3909
+  Leaf Cell Count:              58402
+  Buf/Inv Cell Count:            6980
+  Buf Cell Count:                1724
+  Inv Cell Count:                5256
+  CT Buf/Inv Cell Count:            0
+  Combinational Cell Count:     49054
+  Sequential Cell Count:         9348
+  Macro Count:                      0
+  -----------------------------------
+
+
+  Area
+  -----------------------------------
+  Combinational Area:  3936223.203339
+  Noncombinational Area:
+                       2839964.402100
+  Buf/Inv Area:         450013.204918
+  Total Buffer Area:        178851.40
+  Total Inverter Area:      271161.80
+  Macro/Black Box Area:      0.000000
+  Net Area:            1673103.781609
+  -----------------------------------
+  Cell Area:           6776187.605438
+  Design Area:         8449291.387047
+
+
+  Design Rules
+  -----------------------------------
+  Total Number of Nets:         59580
+  Nets With Violations:             8
+  Max Trans Violations:             8
+  Max Cap Violations:               0
+  -----------------------------------
+
+
+  Hostname: mandrill
+
+  Compile CPU Statistics
+  -----------------------------------------
+  Resource Sharing:                    9.28
+  Logic Optimization:                285.91
+  Mapping Optimization:              488.40
+  -----------------------------------------
+  Overall Compile Time:              852.79
+  Overall Compile Wall Clock Time:   869.11
+
+  --------------------------------------------------------------------
+
+  Design  WNS: 20.71  TNS: 78240.34  Number of Violating Paths: 7929
+
+
+  Design (Hold)  WNS: 0.00  TNS: 0.00  Number of Violating Paths: 0
+
+  --------------------------------------------------------------------
+
+
+1

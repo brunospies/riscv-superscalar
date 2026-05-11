@@ -1,0 +1,8 @@
+.TH
+.SH NAME
+ENCEXT-1224
+.SH SYNOPSIS
+Consecutive cut layers '%s' and '%s' found in QRC technology file '%s' but not in LEF data of Encounter. The data in the QRC technology file should be consistent with the layer information in the LEF data. Modify the ICT file based on layer information in the LEF file and regenerate the QRC technology file. Alternatively, specify a layermap file with the -lefTechFileMap parameter of the setExtractRCMode command
+
+.SH DESCRIPTION
+There are no further details for this message

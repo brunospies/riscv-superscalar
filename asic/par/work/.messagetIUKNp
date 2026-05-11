@@ -1,0 +1,8 @@
+.TH
+.SH NAME
+ENCCK-3179
+.SH SYNOPSIS
+Clock %s does not have any sync pin based on clock tree spec file and CTS tracing algorithm. Please check your spec file to see if AutoCTSRootPin is correctly set, and, if any LeafPin/ThroughPin is left undefined for the clock tree.
+
+.SH DESCRIPTION
+There are no further details for this message

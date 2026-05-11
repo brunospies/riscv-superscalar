@@ -1,0 +1,134 @@
+---
+rtl_path: "//net/netud/e/mcirolinimic/S8/ProjThematique/RISCV_SuperScalar/ODATIX_ASIC/rtl"
+
+# ============================================================
+# Source files
+# IMPORTANT: compilation order matters
+# ============================================================
+
+rtl_files:
+
+  # ----------------------------------------------------------
+  # packages
+  # ----------------------------------------------------------
+  - "RISCV_package.vhd"
+  - "Util_package.vhd"
+
+  # ----------------------------------------------------------
+  # low-level blocks
+  # ----------------------------------------------------------
+  - "RegisterNbits.vhd"
+  - "shift_unit.vhd"
+  - "ImmediateDataExtractor.vhd"
+
+  # ----------------------------------------------------------
+  # combinational units
+  # ----------------------------------------------------------
+  - "ALU.vhd"
+  - "Decode_unit.vhd"
+  - "BranchDetection_unit.vhd"
+  - "Forwarding_unit.vhd"
+  - "HazardDetection_unit.vhd"
+  - "Double_issue_dep.vhd"
+
+  # ----------------------------------------------------------
+  # memories
+  # ----------------------------------------------------------
+  - "memory_edit.vhd"
+  - "Memory.vhd"
+  - "Memory_2_ports.vhd"
+
+  # ----------------------------------------------------------
+  # register file
+  # ----------------------------------------------------------
+  - "RegisterFile.vhd"
+
+  # ----------------------------------------------------------
+  # pipeline stages
+  # ----------------------------------------------------------
+  - "Stage_ID.vhd"
+  - "Stage_EX.vhd"
+  - "Stage_MEM.vhd"
+  - "Stage_WB.vhd"
+
+  # ----------------------------------------------------------
+  # architectural blocks
+  # ----------------------------------------------------------
+  - "BTB_SuperScalar.vhd"
+  - "ControlPath.vhd"
+  - "DataPath.vhd"
+
+  # ----------------------------------------------------------
+  # processor
+  # ----------------------------------------------------------
+  - "RISCV_superscalar.vhd"
+
+  # ----------------------------------------------------------
+  # UART / bootloader
+  # ----------------------------------------------------------
+  - "UART_RX.vhd"
+  - "UART_TX.vhd"
+  - "UART_top.vhd"
+
+  # ----------------------------------------------------------
+  # clock wizard wrapper
+  # ----------------------------------------------------------
+  - "clk_wiz_0.vhd"
+
+  # ----------------------------------------------------------
+  # top level
+  # ----------------------------------------------------------
+  - "RISCV_superscalar_fpga_top.vhd"
+
+# ============================================================
+# Top level
+# ============================================================
+
+top_level_file: "RISCV_superscalar_fpga_top.vhd"
+top_level_module: "RISCV_superscalar_fpga_top"
+
+# ============================================================
+# Clock / reset
+# ============================================================
+
+clock_signal: "clock"
+reset_signal: "reset"
+
+# ============================================================
+# Optional file copy
+# ============================================================
+
+file_copy_enable: No
+file_copy_source: "/dev/null"
+file_copy_dest: "/dev/null"
+
+# ============================================================
+# Parameter delimiters
+# ============================================================
+
+use_parameters: Yes
+start_delimiter: "#("
+stop_delimiter: ")("
+
+# ============================================================
+# FPGA targets
+# ============================================================
+
+xc7s25-csga225-1:
+   fmax_synthesis:
+      lower_bound: 100
+      upper_bound: 450
+
+   custom_freq_synthesis:
+      list: [50, 100]
+
+xc7a100t-csg324-1:
+   fmax_synthesis:
+      lower_bound: 50
+      upper_bound: 120
+
+   custom_freq_synthesis:
+      lower_bound: 200
+      upper_bound: 1000
+      step: 200
+...

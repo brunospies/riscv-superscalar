@@ -1,0 +1,244 @@
+#######################################################
+#                                                     #
+#  Encounter Command Logging File                     #
+#  Created on Sat May  9 17:21:09 2026                #
+#                                                     #
+#######################################################
+
+#@(#)CDS: Encounter v13.13-s017_1 (64bit) 07/30/2013 13:03 (Linux 2.6)
+#@(#)CDS: NanoRoute v13.13-s005 NR130716-1135/13_10-UB (database version 2.30, 190.4.1) {superthreading v1.19}
+#@(#)CDS: CeltIC v13.13-s001_1 (64bit) 07/19/2013 04:50:05 (Linux 2.6.18-194.el5)
+#@(#)CDS: AAE 13.13-e003 (64bit) 07/30/2013 (Linux 2.6.18-194.el5)
+#@(#)CDS: CTE 13.13-s004_1 (64bit) Jul 30 2013 05:44:27 (Linux 2.6.18-194.el5)
+#@(#)CDS: CPE v13.13-s001
+#@(#)CDS: IQRC/TQRC 12.1.1-s225 (64bit) Wed Jun 12 20:28:41 PDT 2013 (Linux 2.6.18-194.el5)
+
+set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+suppressMessage ENCEXT-2799
+win
+setDesignMode -process 130 -flowEffort high
+set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+set defHierChar /
+set defHierChar /
+set init_verilog ../../synthesis/RISCV_superscalar_syn.v
+set init_top_cell RISCV_superscalar
+set init_design_settop 1
+set init_design_netlisttype Verilog
+set init_lef_file { /opt/ams/cds/HK_C35/LEF/c35b3/c35b3.lef  /opt/ams/cds/HK_C35/LEF/c35b3/CORELIB.lef}
+set init_mmmc_file ../mmmc_definition.tcl
+set init_cpf_file {}
+set init_import_mode {-treatUndefinedCellAsBbox 0 -keepEmptyModule 1}
+set init_assign_buffer 0
+set init_pwr_net vdd!
+set init_gnd_net gnd!
+set init_oa_search_lib {}
+init_design
+floorPlan -site standard -r 1.0 0.7 20 20 20 20
+redraw
+saveDesign ./RISCV_superscalar_floorplan.enc
+addRing -stacked_via_top_layer MET3 -stacked_via_bottom_layer MET1 -around core -nets {gnd! vdd!} -layer {bottom MET1 top MET1 right MET2 left MET2} -width 1.6 -spacing 1.6 -offset 1.7
+verifyGeometry
+verify_drc
+verifyConnectivity
+clearDrc
+saveDesign ./RISCV_superscalar_power.enc
+setMultiCpuUsage -localCpu 4
+setPlaceMode -congEffort medium -timingDriven 1 -clkGateAware 1 -powerDriven 0 -placeIOPins 1
+placeDesign -prePlaceOpt
+checkPlace RISCV_superscalar.checkPlace
+refinePlace
+saveDesign ./RISCV_superscalar_placed.enc
+setOptMode -fixFanoutLoad true
+optDesign -preCTS
+cleanupSpecifyClockTree
+specifyClockTree -file ../Clock.ctstch
+fit
+fit
+fit
+specifyClockTree -file ../Clock.ctstch
+report_timing
+clockDesign -specFile ../Clock.ctstch -outDir clock_report
+deleteTrialRoute
+saveDesign ./RISCV_superscalar_CTS.enc
+optDesign -postCTS
+globalNetConnect gnd! -type tielo -verbose
+globalNetConnect vdd! -type tiehi -verbose
+globalNetConnect vdd! -type pgpin -pin vdd! -inst * -verbose
+globalNetConnect gnd! -type pgpin -pin gnd! -inst * -verbose
+applyGlobalNets
+sroute -connect {corePin floatingStripe}
+verifyGeometry
+verify_drc
+clearDrc
+saveDesign ./RISCV_superscalar_preroute.enc
+routeDesign -globalDetail
+setOptMode -fixFanoutLoad true
+setAnalysisMode -analysisType onChipVariation -cppr both
+optDesign -postRoute -hold
+saveDesign ./RISCV_superscalar_postroute.enc
+addFiller -cell FILL1 FILL2 FILL5 FILL10 -prefix FILLER
+verifyGeometry
+verify_drc
+verifyConnectivity -type regular -error 1000 -warning 50
+verifyProcessAntenna
+clearDrc
+setAnalysisMode -checkType setup
+report_timing
+setAnalysisMode -checkType hold
+report_timing
+report_power
+saveNetlist ../Results/RISCV_superscalar_routed.v
+rcOut -setload RISCV_superscalar.setload -rc_corner rc_corner_worst
+rcOut -setres RISCV_superscalar.setres -rc_corner rc_corner_worst
+rcOut -spf RISCV_superscalar.spf -rc_corner rc_corner_worst
+rcOut -spef RISCV_superscalar.spef -rc_corner rc_corner_worst
+timeDesign -reportOnly -pathReports -drvReports -slackReports -numPaths 50 -prefix RISCV_superscalar -outDir timingReports
+write_sdf \
+    ../Results/${DESIGN_NAME}_routed.sdf
+report_timing
+fit
+fit
+fit
+zoomBox 22.943 704.070 16.188 703.494
+panCenter 23.979 702.800
+fit
+report_power
+setAnalysisMode -checkType setup
+report_timing > reports/setup_timing.rpt
+setAnalysisMode -checkType hold
+report_timing > reports/hold_timing.rpt
+report_power > reports/power.rpt
+verify_drc > reports/drc.rpt
+verifyConnectivity -type regular -error 1000 -warning 100 > reports/connectivity.rpt
+verifyProcessAntenna > reports/antenna.rpt
+reportClockTree > reports/clock_tree.rpt
+saveNetlist results/RISCV_superscalar_routed.v
+write_sdf results/RISCV_superscalar_routed.sdf
+rcOut -spef results/RISCV_superscalar.spef -rc_corner rc_corner_worst
+saveDesign results/RISCV_superscalar_final.enc
+report_timing
+report_timing > reports/timing.rpt
+report_timing > reports/timing.rpt
+report_timing > reports/timing.rpt
+report_timing > reports/timing.rpt
+report_power > reports/power.rpt
+fit
+report_power -outfile reports/power.rpt
+reportGateCount -outfile reports/area.rpt
+summaryReport -outfile reports/summary.rpt
+reportClockTree -outfile reports/clock_tree.rpt
+reportClockTree
+reportClockTree
+fit
+selectNet clock
+fit
+zoomSelected
+saveDesign RISCV_superscalar_postroute.enc
+deselectAll
+selectInst DATA_PATH/REGISTER_FILE/U3633
+reportClockTree -postCTS
+clockDesign -specFile {} -outDir clock_report -fixedInstBeforeCTS
+displayClockTree -skew -allLevel -postRoute
+displayClockTree -skew -allLevel -postCTS
+displayClockTree -skew -allLevel -postCTS
+displayClockTree -skew -allLevel -postCTS
+displayClockTree -skew -allLevel -preRoute
+selectNet clock
+clearClockDisplay
+selectNet clock
+displayClockTree -skew -allLevel -postRoute
+displayClockTree -skew -allLevel -postRoute
+setLayerPreference allM0 -isVisible 0
+setLayerPreference allM0 -isVisible 1
+setLayerPreference allM0 -isSelectable 0
+setLayerPreference allM0 -isVisible 0
+setLayerPreference allM1Cont -isVisible 0
+setLayerPreference allM1 -isVisible 0
+setLayerPreference allM2Cont -isVisible 0
+setLayerPreference allM2 -isVisible 0
+setLayerPreference allM3Cont -isVisible 0
+setLayerPreference allM3 -isVisible 0
+setLayerPreference term -isVisible 0
+setLayerPreference violation -isVisible 0
+setLayerPreference busguide -isVisible 0
+setLayerPreference select -isVisible 0
+setLayerPreference text -isVisible 0
+setLayerPreference pinText -isVisible 0
+setLayerPreference channel -isVisible 0
+setLayerPreference flightLine -isVisible 0
+setLayerPreference reduced -isVisible 0
+setLayerPreference portNum -isVisible 0
+setLayerPreference gridRes -isVisible 0
+setLayerPreference densityMap -isVisible 0
+setLayerPreference clkTree -isVisible 0
+setLayerPreference thermal -isVisible 0
+setLayerPreference checkFPlanSpace -isVisible 0
+setLayerPreference flColors -isVisible 0
+setLayerPreference gtdObj -isVisible 0
+setLayerPreference dpt -isVisible 0
+setLayerPreference congest -isVisible 0
+setLayerPreference congestObj -isVisible 0
+setLayerPreference gcellOvflow -isVisible 0
+setLayerPreference congChan -isVisible 0
+setLayerPreference congestH -isVisible 0
+setLayerPreference congestV -isVisible 0
+setLayerPreference blackBlob -isVisible 0
+setLayerPreference blackBox -isVisible 0
+setLayerPreference areaIo -isVisible 0
+setLayerPreference phyCell -isVisible 0
+setLayerPreference coverCell -isVisible 0
+setLayerPreference stdCell -isVisible 0
+setLayerPreference block -isVisible 0
+setLayerPreference inst -isVisible 0
+setLayerPreference block -isVisible 0
+setLayerPreference stdCell -isVisible 0
+setLayerPreference coverCell -isVisible 0
+setLayerPreference phyCell -isVisible 0
+setLayerPreference io -isVisible 0
+setLayerPreference areaIo -isVisible 0
+setLayerPreference blackBox -isVisible 0
+setLayerPreference blackBlob -isVisible 0
+setLayerPreference hinst -isVisible 0
+setLayerPreference guide -isVisible 0
+setLayerPreference fence -isVisible 0
+setLayerPreference region -isVisible 0
+setLayerPreference partition -isVisible 0
+setLayerPreference net -isVisible 0
+setLayerPreference power -isVisible 0
+setLayerPreference pg -isVisible 0
+setLayerPreference metalFill -isVisible 0
+setLayerPreference pinObj -isVisible 1
+setLayerPreference cellBlkgObj -isVisible 1
+setLayerPreference layoutObj -isVisible 1
+setLayerPreference net -isVisible 1
+setLayerPreference power -isVisible 1
+setLayerPreference pg -isVisible 1
+setLayerPreference metalFill -isVisible 1
+setLayerPreference hinst -isVisible 1
+setLayerPreference guide -isVisible 1
+setLayerPreference fence -isVisible 1
+setLayerPreference region -isVisible 1
+setLayerPreference partition -isVisible 1
+fit
+setLayerPreference allM0 -isVisible 1
+setLayerPreference allM1Cont -isVisible 1
+setLayerPreference allM1 -isVisible 1
+setLayerPreference allM2Cont -isVisible 1
+setLayerPreference allM2 -isVisible 1
+setLayerPreference allM3Cont -isVisible 1
+setLayerPreference allM3 -isVisible 1
+setLayerPreference allM0 -isSelectable 1
+setLayerPreference blackBlob -isVisible 1
+setLayerPreference blackBox -isVisible 1
+setLayerPreference areaIo -isVisible 1
+setLayerPreference io -isVisible 1
+setLayerPreference phyCell -isVisible 1
+setLayerPreference coverCell -isVisible 1
+setLayerPreference stdCell -isVisible 1
+setLayerPreference block -isVisible 1
+setLayerPreference inst -isVisible 1
+clearClockDisplay
+setLayerPreference allM3 -isVisible 0
+setLayerPreference allM3Cont -isVisible 0
+setLayerPreference allM3 -isVisible 1
+setLayerPreference allM3Cont -isVisible 1

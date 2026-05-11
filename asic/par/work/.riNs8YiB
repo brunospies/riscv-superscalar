@@ -1,0 +1,30 @@
+
+module counter ( rst, clk, enable, value );
+  output [5:0] value;
+  input rst, clk, enable;
+  wire   N3, N4, N5, N6, N7, \add_23/carry[5] , \add_23/carry[4] ,
+         \add_23/carry[3] , \add_23/carry[2] , n2;
+
+  ADD22 \add_23/U1_1_1  ( .A(value[1]), .B(value[0]), .CO(\add_23/carry[2] ), 
+        .S(N3) );
+  ADD22 \add_23/U1_1_2  ( .A(value[2]), .B(\add_23/carry[2] ), .CO(
+        \add_23/carry[3] ), .S(N4) );
+  ADD22 \add_23/U1_1_3  ( .A(value[3]), .B(\add_23/carry[3] ), .CO(
+        \add_23/carry[4] ), .S(N5) );
+  ADD22 \add_23/U1_1_4  ( .A(value[4]), .B(\add_23/carry[4] ), .CO(
+        \add_23/carry[5] ), .S(N6) );
+  DFEC1 \bit_counter_reg[5]  ( .D(N7), .E(enable), .C(clk), .RN(n2), .Q(
+        value[5]) );
+  DFEC1 \bit_counter_reg[4]  ( .D(N6), .E(enable), .C(clk), .RN(n2), .Q(
+        value[4]) );
+  DFEC1 \bit_counter_reg[3]  ( .D(N5), .E(enable), .C(clk), .RN(n2), .Q(
+        value[3]) );
+  DFEC1 \bit_counter_reg[1]  ( .D(N3), .E(enable), .C(clk), .RN(n2), .Q(
+        value[1]) );
+  DFEC1 \bit_counter_reg[2]  ( .D(N4), .E(enable), .C(clk), .RN(n2), .Q(
+        value[2]) );
+  TFEC1 \bit_counter_reg[0]  ( .T(enable), .C(clk), .RN(n2), .Q(value[0]) );
+  INV3 U4 ( .A(rst), .Q(n2) );
+  XOR20 U5 ( .A(\add_23/carry[5] ), .B(value[5]), .Q(N7) );
+endmodule
+

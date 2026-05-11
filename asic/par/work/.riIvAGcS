@@ -1,0 +1,46 @@
+//###################################################################
+// Padring Verilog netlist (wrapping the topcell TOP_FIR)
+// File Name:    :    PAD_COUNTER.v
+// Encounter version :11.12
+// Date          :    07-Jul-2015
+// Version:      :    1.4 
+// Authors       :    Ch. RABACHE, K.TORKI, CMP, Grenoble, France
+// Support contact :  Christelle.Rabache@imag.fr / Kholdoun.Torki@imag.fr
+//###################################################################
+
+module PAD_counter  ( rst, clk, enable, value );
+
+  output [5:0] value;
+  input clk, rst, enable ; 
+
+  wire w_clk, w_rst, w_enable;
+  wire [5:0] w_value;
+
+  wire [8:0] node_float;
+
+  wire netTie1, netTie0;
+
+
+counter  I_COUNTER (.clk(w_clk), .rst(w_rst), .enable(w_enable), .value(w_value));
+//counter  I_COUNTER (.clk(clk), .rst(rst), .enable(enable), .value(value));
+
+INV8 LEV1 ( .A(1'b0), .Q(netTie1) );
+INV8 LEV0 ( .A(1'b1), .Q(netTie0) );
+
+// INPUT
+ICCK16P_3B P_clk (.PAD(clk), .Y(w_clk));
+
+//BBCD1P_3B P_clk (.A(node_float[0]), .EN(netTie1), .PAD(clk), .Y(w_clk));
+BBCD1P_3B P_rst (.A(node_float[1]), .EN(netTie1), .PAD(rst), .Y(w_rst));
+BBCD1P_3B P_enable (.A(node_float[2]), .EN(netTie1), .PAD(enable), .Y(w_enable));
+
+
+//OUTPUT
+BBCD1P_3B P_value_0 (.A(w_value[0]), .EN(netTie0), .PAD(value[0]), .Y(node_float[3]));
+BBCD1P_3B P_value_1 (.A(w_value[1]), .EN(netTie0), .PAD(value[1]), .Y(node_float[4]));
+BBCD1P_3B P_value_2 (.A(w_value[2]), .EN(netTie0), .PAD(value[2]), .Y(node_float[5]));
+BBCD1P_3B P_value_3 (.A(w_value[3]), .EN(netTie0), .PAD(value[3]), .Y(node_float[6]));
+BBCD1P_3B P_value_4 (.A(w_value[4]), .EN(netTie0), .PAD(value[4]), .Y(node_float[7]));
+BBCD1P_3B P_value_5 (.A(w_value[5]), .EN(netTie0), .PAD(value[5]), .Y(node_float[8]));
+
+endmodule

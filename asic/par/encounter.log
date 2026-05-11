@@ -1,0 +1,164 @@
+Checking out Encounter license ...
+Virtuoso_Digital_Implem_XL 13.1 license checkout succeeded.
+	Maximum number of instance allowed (1 x 50000).
+This Encounter release has been compiled with OA version 22.43-p014.
+Cannot open libm.so, trying libm.so.6
+
+*******************************************************************
+*   Copyright (c)  Cadence Design Systems, Inc.  1996 - 2013.     *
+*                     All rights reserved.                        *
+*                                                                 *
+*                                                                 *
+*                                                                 *
+* This program contains confidential and trade secret information *
+* of Cadence Design Systems, Inc. and is protected by copyright   *
+* law and international treaties.  Any reproduction, use,         *
+* distribution or disclosure of this program or any portion of it,*
+* or any attempt to obtain a human-readable version of this       *
+* program, without the express, prior written consent of          *
+* Cadence Design Systems, Inc., is strictly prohibited.           *
+*                                                                 *
+*                 Cadence Design Systems, Inc.                    *
+*                    2655 Seely Avenue                            *
+*                   San Jose, CA 95134,  USA                      *
+*                                                                 *
+*                                                                 *
+*******************************************************************
+
+@(#)CDS: Encounter v13.13-s017_1 (64bit) 07/30/2013 13:03 (Linux 2.6)
+@(#)CDS: NanoRoute v13.13-s005 NR130716-1135/13_10-UB (database version 2.30, 190.4.1) {superthreading v1.19}
+@(#)CDS: CeltIC v13.13-s001_1 (64bit) 07/19/2013 04:50:05 (Linux 2.6.18-194.el5)
+@(#)CDS: AAE 13.13-e003 (64bit) 07/30/2013 (Linux 2.6.18-194.el5)
+@(#)CDS: CTE 13.13-s004_1 (64bit) Jul 30 2013 05:44:27 (Linux 2.6.18-194.el5)
+@(#)CDS: CPE v13.13-s001
+@(#)CDS: IQRC/TQRC 12.1.1-s225 (64bit) Wed Jun 12 20:28:41 PDT 2013 (Linux 2.6.18-194.el5)
+--- Starting "Encounter v13.13-s017_1" on Mon May 11 09:59:21 2026 (mem=78.7M) ---
+--- Running on hamster (x86_64 w/Linux 5.14.0-362.8.1.el9_3.x86_64) ---
+This version was compiled on Tue Jul 30 13:03:02 PDT 2013.
+Set DBUPerIGU to 1000.
+Set net toggle Scale Factor to 1.00
+Set Shrink Factor to 1.00000
+
+**INFO:  MMMC transition support version v31-84 
+
+<CMD> set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+<CMD> suppressMessage ENCEXT-2799
+<CMD> win
+<CMD> setDesignMode -process 130 -flowEffort high
+Applying the recommended capacitance filtering threshold values for 130nm process node: total_c_th=0, relative_c_th=1 and coupling_c_th=0.4.
+	These values will be used by all post-route extraction engines, including TQRC, IQRC and QRC extraction.
+	Capacitance filtering mode(-capFilterMode option of the setExtractRCMode) is 'relAndCoup' for all engines.
+	The accuracy mode for postRoute effortLevel low extraction will be set to 'standard'.
+	Default value for EffortLevel(-effortLevel option of the setExtractRCMode) in postRoute extraction mode is 'low'.
+<CMD> set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+<CMD> set defHierChar /
+<CMD> set defHierChar /
+<CMD> set init_verilog ../../synthesis/RISCV_superscalar_syn.v
+<CMD> set init_top_cell RISCV_superscalar
+<CMD> set init_design_settop 1
+<CMD> set init_design_netlisttype Verilog
+<CMD> set init_lef_file { /opt/ams/cds/HK_C35/LEF/c35b3/c35b3.lef  /opt/ams/cds/HK_C35/LEF/c35b3/CORELIB.lef}
+<CMD> set init_mmmc_file ../mmmc_definition.tcl
+<CMD> set init_cpf_file {}
+<CMD> set init_import_mode {-treatUndefinedCellAsBbox 0 -keepEmptyModule 1}
+<CMD> set init_assign_buffer 0
+<CMD> set init_pwr_net vdd!
+<CMD> set init_gnd_net gnd!
+<CMD> set init_oa_search_lib {}
+<CMD> init_design
+**ERROR: (ENCSYT-6284):	Failed to open file ../mmmc_definition.tcl for read.
+
+Loading LEF file /opt/ams/cds/HK_C35/LEF/c35b3/c35b3.lef...
+**WARN: (ENCLF-228):	 ANTENNAOUTPUTDIFFAREA is specified and will be
+applied to any OUTPUT PIN or INOUT PIN without ANTENNADIFFAREA. This often
+causes a mismatch between process antenna violations found in Encounter
+(during routing or verification) and violations found by external physical
+verification tools. This global defaulting mechanism is obsolete in LEF
+5.5. The recommended solution is to remove ANTENNAOUTPUTDIFFAREA and add
+ANTENNADIFFAREA to all OUTPUT or INOUT PINS in the MACROS in order to
+avoid a mismatch in violations.
+**WARN: (ENCLF-230):	 ANTENNAINOUTDIFFAREA is specified and will be
+applied to any INOUT PIN without ANTENNADIFFAREA. This often causes a
+mismatch between process antenna violations found in Encounter (during
+routing or verification) and violations found by external physical
+verification tools. This global defaulting mechanism is obsolete in
+LEF 5.5. The recommended solution is to remove ANTENNAINOUTDIFFAREA
+and add ANTENNADIFFAREA to all INOUT PINS in the MACROS in order to
+avoid a mismatch in violations.
+
+Loading LEF file /opt/ams/cds/HK_C35/LEF/c35b3/CORELIB.lef...
+Set DBUPerIGU to M2 pitch 1400.
+**WARN: (ENCLF-201):	Pin 'Q' in macro 'TIEHIGH' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'Q' in macro 'TIELOW' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'Q' in macro 'LOGIC0' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'Q' in macro 'LOGIC1' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'GCK' in macro 'DLSG1' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-200):	Pin 'ANT1' in macro 'FILLANT10' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-200' for more detail.
+**WARN: (ENCLF-200):	Pin 'ANT1' in macro 'FILLANT25' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-200' for more detail.
+**WARN: (ENCLF-200):	Pin 'ANT1' in macro 'FILLANT1' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-200' for more detail.
+**WARN: (ENCLF-200):	Pin 'ANT1' in macro 'FILLANT2' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-200' for more detail.
+**WARN: (ENCLF-200):	Pin 'ANT1' in macro 'FILLANT5' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-200' for more detail.
+**WARN: (ENCLF-201):	Pin 'Q' in macro 'DFSECP1' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'QN' in macro 'DFSECP1' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'Q' in macro 'DFSEC3' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'QN' in macro 'DFSEC3' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'Q' in macro 'DFSECP3' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'QN' in macro 'DFSECP3' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'Q' in macro 'DFSEP1' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'QN' in macro 'DFSEP1' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'Q' in macro 'DFSEP3' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'QN' in macro 'DFSEP3' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'Q' in macro 'DL1' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'QN' in macro 'DL1' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'Q' in macro 'DLC3' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'QN' in macro 'DLC3' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (ENCLF-201):	Pin 'Q' in macro 'DL3' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-201' for more detail.
+**WARN: (EMS-63):	Message <ENCLF-201> has exceeded the default message display limit of 20.
+To avoid this warning, increase the display limit per unique message
+by using the setMessageLimit <number> command.
+The message limit can be removed by using the unsetMessageLimit command.
+Note that setting a very large number using the setMessageLimit command
+or removing the message limit using the unsetMessageLimit command can
+significantly increase the log file size.
+To suppress a message, use the suppressMessage command.
+**WARN: (ENCLF-200):	Pin 'A' in macro 'BUSHD' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man ENCLF-200' for more detail.
+
+viaInitial starts at Mon May 11 09:59:34 2026
+viaInitial ends at Mon May 11 09:59:34 2026
+**ERROR: (ENCSYT-16038):	'../../synthesis/RISCV_superscalar_syn.v' not found.
+Reading netlist ...
+Backslashed names will retain backslash and a trailing blank character.
+
+*** Memory Usage v#1 (Current mem = 291.102M, initial mem = 78.707M) ***
+*** End netlist parsing (cpu=0:00:00.0, real=0:00:00.0, mem=291.1M) ***
+**ERROR: (ENCSYC-300):	Cell RISCV_superscalar not found.
+**ERROR: (ENCVL-904):	Can't set top cell to "RISCV_superscalar" because it does not exist.  Exiting Encounter!
+
+*** Memory Usage v#1 (Current mem = 291.250M, initial mem = 78.707M) ***
+--- Ending "Encounter" (totcpu=0:00:05.0, real=0:00:19.0, mem=291.2M) ---

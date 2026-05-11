@@ -1,0 +1,156 @@
+Information: Updating design information... (UID-85)
+Warning: Design 'RISCV_superscalar_fpga_top' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : RISCV_superscalar_fpga_top
+Version: H-2013.03-SP5
+Date   : Sat May  9 15:35:50 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: WORST-MIL   Library: c35_CORELIB_WC
+Wire Load Model Mode: segmented
+
+  Startpoint: DUV/DATA_PATH/wb_i_0/Write_reg/q_reg_4
+              (rising edge-triggered flip-flop clocked by my_clock)
+  Endpoint: DUV/DATA_PATH/PROGRAM_COUNTER/q_reg_14
+            (rising edge-triggered flip-flop clocked by my_clock)
+  Path Group: my_clock
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  Stage_MEM_INIT0_0  10k                   c35_CORELIB_WC
+  Stage_WB_INIT0_0   10k                   c35_CORELIB_WC
+  Stage_ID_INIT0_0   10k                   c35_CORELIB_WC
+  Stage_EX_INIT0_0   10k                   c35_CORELIB_WC
+  Stage_WB_INIT0_1   10k                   c35_CORELIB_WC
+  Stage_MEM_INIT0_1  10k                   c35_CORELIB_WC
+  Stage_EX_INIT0_1   10k                   c35_CORELIB_WC
+  Stage_ID_INIT0_1   10k                   c35_CORELIB_WC
+  RegisterFile       10k                   c35_CORELIB_WC
+  BTB_superscalar_BTB_BITS4
+                     10k                   c35_CORELIB_WC
+  RegisterNbits_LENGTH32_INIT_VALUE4194304
+                     10k                   c35_CORELIB_WC
+  ControlPath_INST_WIDTH64_ISSUE_WIDTH2
+                     10k                   c35_CORELIB_WC
+  UART_top_CLK_FREQ40000000_BAUD_RATE115200_MEM_SIZE16384
+                     10k                   c35_CORELIB_WC
+  Memory_2_ports_100_32_10010000_UNUSED
+                     30k                   c35_CORELIB_WC
+  Memory_100_64_32_00400000_UNUSED
+                     30k                   c35_CORELIB_WC
+  RISCV_superscalar_fpga_top
+                     100k                  c35_CORELIB_WC
+  RISCV_superscalar_PC_START_ADDRESS4194304_DATA_WIDTH32_INST_WIDTH64
+                     30k                   c35_CORELIB_WC
+  Forwarding_unit_ISSUE_WIDTH2
+                     10k                   c35_CORELIB_WC
+  shift_unit_1       10k                   c35_CORELIB_WC
+  ALU_1              10k                   c35_CORELIB_WC
+  BranchDetection_unit_0
+                     10k                   c35_CORELIB_WC
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock my_clock (rise edge)                              0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  DUV/DATA_PATH/wb_i_0/Write_reg/q_reg_4/C (DFC3)         0.00 #     0.00 r
+  DUV/DATA_PATH/wb_i_0/Write_reg/q_reg_4/Q (DFC3)         3.46       3.46 f
+  DUV/DATA_PATH/wb_i_0/U7/Q (INV6)                        0.48       3.94 r
+  DUV/DATA_PATH/wb_i_0/U8/Q (INV12)                       0.42       4.36 f
+  DUV/DATA_PATH/wb_i_0/rd_out_4 (Stage_WB_INIT0_1)        0.00       4.36 f
+  DUV/DATA_PATH/forwarding_unit_i/rd_stage_WB_0][4 (Forwarding_unit_ISSUE_WIDTH2)
+                                                          0.00       4.36 f
+  DUV/DATA_PATH/forwarding_unit_i/U297/Q (NOR24)          0.46       4.82 r
+  DUV/DATA_PATH/forwarding_unit_i/U367/Q (NAND24)         0.36       5.18 f
+  DUV/DATA_PATH/forwarding_unit_i/U300/Q (NOR24)          0.45       5.64 r
+  DUV/DATA_PATH/forwarding_unit_i/U361/Q (NOR24)          0.66       6.30 f
+  DUV/DATA_PATH/forwarding_unit_i/U360/Q (NAND33)         0.79       7.09 r
+  DUV/DATA_PATH/forwarding_unit_i/U359/Q (INV6)           0.40       7.49 f
+  DUV/DATA_PATH/forwarding_unit_i/U15/Q (NAND26)          0.47       7.96 r
+  DUV/DATA_PATH/forwarding_unit_i/U253/Q (NAND34)         0.45       8.41 f
+  DUV/DATA_PATH/forwarding_unit_i/U559/Q (NOR33)          1.12       9.53 r
+  DUV/DATA_PATH/forwarding_unit_i/ForwardB_0][2 (Forwarding_unit_ISSUE_WIDTH2)
+                                                          0.00       9.53 r
+  DUV/U166/Q (BUF15)                                      1.09      10.62 r
+  DUV/U5001/Q (XOR22)                                     1.47      12.10 r
+  DUV/U4522/Q (BUF15)                                     1.58      13.68 r
+  DUV/U155/Q (NAND24)                                     0.47      14.15 f
+  DUV/U290/Q (NAND33)                                     1.11      15.26 r
+  DUV/U201/Q (NAND26)                                     0.48      15.73 f
+  DUV/U202/Q (NAND28)                                     0.64      16.38 r
+  DUV/DATA_PATH/ALU_i_0/operand2_22 (ALU_1)               0.00      16.38 r
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/operand2_22 (shift_unit_1)
+                                                          0.00      16.38 r
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/U943/Q (NOR24)       0.48      16.85 f
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/U932/Q (NAND43)      1.18      18.03 r
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/U930/Q (NOR24)       1.01      19.05 f
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/U61/Q (NAND24)       0.65      19.70 r
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/U1306/Q (NOR24)      0.53      20.23 f
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/U335/Q (INV12)       0.50      20.72 r
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/U362/Q (INV12)       0.36      21.08 f
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/U859/Q (NAND28)      0.47      21.55 r
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/U945/Q (INV15)       0.53      22.07 f
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/U552/Q (BUF15)       1.20      23.28 f
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/U196/Q (AOI220)      1.43      24.71 r
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/U197/Q (NAND22)      0.82      25.53 f
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/U1299/Q (OAI212)     1.11      26.64 r
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/U1298/Q (NAND33)     0.66      27.30 f
+  DUV/DATA_PATH/ALU_i_0/i_shift_unit/result_20 (shift_unit_1)
+                                                          0.00      27.30 f
+  DUV/DATA_PATH/ALU_i_0/U6/Q (NAND28)                     0.57      27.87 r
+  DUV/DATA_PATH/ALU_i_0/U1192/Q (NAND28)                  0.47      28.33 f
+  DUV/DATA_PATH/ALU_i_0/result_20 (ALU_1)                 0.00      28.33 f
+  DUV/U2972/Q (AOI212)                                    1.12      29.46 r
+  DUV/U210/Q (NAND28)                                     0.76      30.22 f
+  DUV/DATA_PATH/BranchDetection_unit_1/Data1_ID_20 (BranchDetection_unit_0)
+                                                          0.00      30.22 f
+  DUV/DATA_PATH/BranchDetection_unit_1/U114/Q (NAND28)
+                                                          0.86      31.08 r
+  DUV/DATA_PATH/BranchDetection_unit_1/U58/Q (INV6)       0.49      31.57 f
+  DUV/DATA_PATH/BranchDetection_unit_1/U531/Q (AOI212)
+                                                          0.81      32.38 r
+  DUV/DATA_PATH/BranchDetection_unit_1/U294/Q (NOR22)     0.75      33.13 f
+  DUV/DATA_PATH/BranchDetection_unit_1/U141/Q (NAND33)
+                                                          0.75      33.88 r
+  DUV/DATA_PATH/BranchDetection_unit_1/U390/Q (NOR33)     1.03      34.91 f
+  DUV/DATA_PATH/BranchDetection_unit_1/U528/Q (OAI312)
+                                                          1.35      36.27 r
+  DUV/DATA_PATH/BranchDetection_unit_1/U261/Q (INV6)      0.46      36.73 f
+  DUV/DATA_PATH/BranchDetection_unit_1/U524/Q (NAND43)
+                                                          1.53      38.26 r
+  DUV/DATA_PATH/BranchDetection_unit_1/U523/Q (INV12)     0.72      38.98 f
+  DUV/DATA_PATH/BranchDetection_unit_1/bubble_branch_ID (BranchDetection_unit_0)
+                                                          0.00      38.98 f
+  DUV/U3096/Q (INV6)                                      0.51      39.49 r
+  DUV/U3290/Q (NOR33)                                     0.63      40.11 f
+  DUV/U1203/Q (BUF15)                                     1.26      41.37 f
+  DUV/U3670/Q (NAND20)                                    1.33      42.70 r
+  DUV/U3669/Q (NAND31)                                    0.98      43.68 f
+  DUV/U2813/Q (AOI212)                                    0.76      44.44 r
+  DUV/U116/Q (NAND23)                                     0.42      44.86 f
+  DUV/DATA_PATH/PROGRAM_COUNTER/d_14 (RegisterNbits_LENGTH32_INIT_VALUE4194304)
+                                                          0.00      44.86 f
+  DUV/DATA_PATH/PROGRAM_COUNTER/q_reg_14/D (DFEC3)        0.00      44.86 f
+  data arrival time                                                 44.86
+
+  clock my_clock (rise edge)                             25.00      25.00
+  clock network delay (ideal)                             0.00      25.00
+  DUV/DATA_PATH/PROGRAM_COUNTER/q_reg_14/C (DFEC3)        0.00      25.00 r
+  library setup time                                     -0.85      24.15
+  data required time                                                24.15
+  --------------------------------------------------------------------------
+  data required time                                                24.15
+  data arrival time                                                -44.86
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                 -20.71
+
+
+1

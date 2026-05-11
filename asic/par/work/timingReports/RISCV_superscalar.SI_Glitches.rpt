@@ -1,0 +1,8 @@
+NetName                                 vlPeak      vlView              vhPeak      vhView              
+#
+dataAddress_1][17  0.6685  (RIP) analysis_view_setup  0.6965  (RIP) analysis_view_setup
+DATA_PATH/n28  0.8131  (RIP) analysis_view_setup  0.8488  (RIP) analysis_view_setup
+n1849  0.6676  (RIP) analysis_view_setup  0.6838  (RIP) analysis_view_setup
+n1949  0.762  (RIP) analysis_view_setup  0.8123  (RIP) analysis_view_setup
+
+Total number of glitch violations: 4

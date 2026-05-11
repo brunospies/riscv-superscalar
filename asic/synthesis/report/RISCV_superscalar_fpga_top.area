@@ -1,0 +1,30 @@
+ 
+****************************************
+Report : area
+Design : RISCV_superscalar_fpga_top
+Version: H-2013.03-SP5
+Date   : Sat May  9 15:35:50 2026
+****************************************
+
+Library(s) Used:
+
+    c35_CORELIB_WC (File: /opt/ams/synopsys/c35_1.8V/c35_CORELIB_WC.db)
+
+Number of ports:                            6
+Number of nets:                           480
+Number of cells:                          130
+Number of combinational cells:            126
+Number of sequential cells:                 0
+Number of macros/black boxes:               0
+Number of buf/inv:                         28
+Number of references:                      21
+
+Combinational area:            3936223.203339
+Buf/Inv area:                   450013.204918
+Noncombinational area:         2839964.402100
+Macro/Black Box area:                0.000000
+Net Interconnect area:         1673103.781609
+
+Total cell area:               6776187.605438
+Total area:                    8449291.387047
+1

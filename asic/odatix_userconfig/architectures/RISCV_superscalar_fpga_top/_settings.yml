@@ -1,0 +1,81 @@
+---
+rtl_path: "/net/netud/e/mcirolinimic/S8/ProjThematique/RISCV_SuperScalar/ODATIX_ASIC/rtl"
+
+rtl_files:
+
+  # PACKAGES FIRST
+  - "RISCV_package.vhd"
+  - "Util_package.vhd"
+
+  # BASIC COMPONENTS
+  - "RegisterNbits.vhd"
+  - "ImmediateDataExtractor.vhd"
+  - "shift_unit.vhd"
+  - "ALU.vhd"
+  - "Decode_unit.vhd"
+  #- "BranchDetection_unit.vhd"
+  - "CSR_module.vhd"
+  - "Forwarding_unit.vhd"
+  - "HazardDetection_unit.vhd"
+  - "Double_issue_dep.vhd"
+
+  # PIPELINE STAGES
+  - "Stage_ID.vhd"
+  - "Stage_EX.vhd"
+  - "Stage_MEM.vhd"
+  - "Stage_WB.vhd"
+
+  # MAIN BLOCKS
+  - "RegisterFile.vhd"
+  - "ControlPath.vhd"
+  #- "BTB_SuperScalar.vhd"
+  - "DataPath.vhd"
+
+  # MEMORIES
+  - "Memory.vhd"
+  - "Memory_2_ports.vhd"
+
+  # UART
+  - "UART_Receiver.vhd"
+  - "UART_Transmitter.vhd"
+  - "UART_top.vhd"
+
+  # CPU
+  - "RISCV_superscalar.vhd"
+
+  # FPGA TOP
+  - "RISCV_superscalar_fpga_top.vhd"
+
+# top level
+top_level_file: "RISCV_superscalar_fpga_top.vhd"
+top_level_module: "RISCV_superscalar_fpga_top"
+
+clock_signal: "clock"
+reset_signal: "reset"
+
+file_copy_enable: No
+file_copy_source: "/dev/null"
+file_copy_dest: "/dev/null"
+
+use_parameters: No
+start_delimiter: "#("
+stop_delimiter: ")("
+
+xc7s25-csga225-1:
+   fmax_synthesis:
+      lower_bound: 100
+      upper_bound: 450
+
+   custom_freq_synthesis:
+      list: [50, 100]
+
+xc7a100t-csg324-1:
+   fmax_synthesis:
+      lower_bound: 50
+      upper_bound: 120
+
+   custom_freq_synthesis:
+      lower_bound: 200
+      upper_bound: 1000
+      step: 200
+...
