@@ -1,0 +1,23 @@
+# ASIC generated files
+*.spf
+*.vcd
+*.fsdb
+*.saif
+*.db
+*.enc.dat
+*.log
+*.tmp
+
+# Work directories
+WORK/
+work/
+INCA_libs/
+
+# Cadence/Synopsys outputs
+encounter.log
+innovus.log
+command.log
+
+# Reports generated automatically
+report/
+reports/
