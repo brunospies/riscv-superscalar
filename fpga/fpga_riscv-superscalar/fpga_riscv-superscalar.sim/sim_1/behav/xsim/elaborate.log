@@ -1,0 +1,50 @@
+Vivado Simulator v2025.1.0
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: C:/AMD/2025.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot RISCV_superscalar_fpga_top_behav xil_defaultlib.RISCV_superscalar_fpga_top xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.riscv_package
+Compiling package vl.vl_types
+Compiling module xil_defaultlib.glbl
+Compiling module unisims_ver.IBUF
+Compiling module unisims_ver.MMCME2_ADV(CLKFBOUT_MULT_F=10.0,...
+Compiling module unisims_ver.BUFG
+Compiling module xil_defaultlib.clk_wiz_0_clk_wiz
+Compiling module xil_defaultlib.clk_wiz_0
+Compiling architecture behavioral of entity xil_defaultlib.Decode_Unit [decode_unit_default]
+Compiling architecture behavioral of entity xil_defaultlib.ControlPath [controlpath_default]
+Compiling architecture arch2 of entity xil_defaultlib.ImmediateDataExtractor [immediatedataextractor_default]
+Compiling architecture behavioral of entity xil_defaultlib.Stage_ID [stage_id_default]
+Compiling architecture behavioral of entity xil_defaultlib.RegisterNbits [\RegisterNbits(length=5)\]
+Compiling architecture behavioral of entity xil_defaultlib.Stage_EX [stage_ex_default]
+Compiling architecture behavioral of entity xil_defaultlib.Stage_MEM [stage_mem_default]
+Compiling architecture behavioral of entity xil_defaultlib.Stage_WB [stage_wb_default]
+Compiling architecture behavioral of entity xil_defaultlib.shift_unit [shift_unit_default]
+Compiling architecture behavioral of entity xil_defaultlib.ALU [alu_default]
+Compiling architecture arch1 of entity xil_defaultlib.BranchDetection_unit [branchdetection_unit_default]
+Compiling architecture behavioral of entity xil_defaultlib.RegisterNbits [\RegisterNbits(init_value=419430...]
+Compiling architecture behavioral of entity xil_defaultlib.RegisterNbits [registernbits_default]
+Compiling architecture behavioral of entity xil_defaultlib.RegisterNbits [\RegisterNbits(init_value=16384)...]
+Compiling architecture structural of entity xil_defaultlib.RegisterFile [registerfile_default]
+Compiling architecture arch1 of entity xil_defaultlib.Double_issue_dep [double_issue_dep_default]
+Compiling architecture arch1 of entity xil_defaultlib.Forwarding_unit [forwarding_unit_default]
+Compiling architecture arch1 of entity xil_defaultlib.HazardDetection_unit [hazarddetection_unit_default]
+Compiling architecture structural of entity xil_defaultlib.DataPath [\DataPath(pc_start_address=41943...]
+Compiling architecture structural of entity xil_defaultlib.RISCV_superscalar [\RISCV_superscalar(synthesis=tru...]
+Compiling architecture behavioral of entity xil_defaultlib.Memory [\Memory(size=100,start_address="...]
+Compiling architecture behavioral of entity xil_defaultlib.Memory_2_ports [\Memory_2_ports(size=100,start_a...]
+Compiling architecture behavioral of entity xil_defaultlib.UART_Receiver [\UART_Receiver(clk_freq=40000000...]
+Compiling architecture behavioral of entity xil_defaultlib.UART_Transmitter [\UART_Transmitter(clk_freq=40000...]
+Compiling architecture behavioral of entity xil_defaultlib.UART_top [\UART_top(clk_freq=40000000)\]
+Compiling architecture structural of entity xil_defaultlib.riscv_superscalar_fpga_top
+Built simulation snapshot RISCV_superscalar_fpga_top_behav

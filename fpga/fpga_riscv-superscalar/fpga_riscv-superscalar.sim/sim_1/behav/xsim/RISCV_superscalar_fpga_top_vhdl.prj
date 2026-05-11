@@ -1,0 +1,30 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../../../rtl/core/RISCV_package.vhd" \
+"../../../../../rtl/Memory_2_ports.vhd" \
+"../../../../../rtl/UART_Receiver.vhd" \
+"../../../../../rtl/UART_top.vhd" \
+"../../../../../../rtl/core/shift_unit.vhd" \
+"../../../../../../rtl/core/RegisterNbits.vhd" \
+"../../../../../../rtl/core/HazardDetection_unit.vhd" \
+"../../../../../../rtl/core/Double_issue_dep.vhd" \
+"../../../../../../rtl/core/Stage_MEM.vhd" \
+"../../../../../../rtl/core/ALU.vhd" \
+"../../../../../../rtl/core/Decode_unit.vhd" \
+"../../../../../../rtl/core/Forwarding_unit.vhd" \
+"../../../../../../rtl/core/Stage_ID.vhd" \
+"../../../../../../rtl/core/BranchDetection_unit.vhd" \
+"../../../../../../rtl/core/RegisterFile.vhd" \
+"../../../../../rtl/Memory.vhd" \
+"../../../../../../rtl/core/ImmediateDataExtractor.vhd" \
+"../../../../../../rtl/core/Stage_WB.vhd" \
+"../../../../../rtl/UART_Transmitter.vhd" \
+"../../../../../../rtl/core/Stage_EX.vhd" \
+"../../../../../../rtl/core/ControlPath.vhd" \
+"../../../../../../rtl/core/DataPath.vhd" \
+"../../../../../../rtl/core/RISCV_superscalar.vhd" \
+"../../../../../rtl/RISCV_superscalar_fpga_top.vhd" \
+"../../../../../../tb/Util_package.vhd" \
+
+# Do not sort compile order
+nosort

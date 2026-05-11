@@ -1,0 +1,132 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Mon May 11 13:28:32 2026
+| Host         : DESKTOP-7DCFGKU running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file RISCV_superscalar_fpga_top_control_sets_placed.rpt
+| Design       : RISCV_superscalar_fpga_top
+| Device       : xc7a100t
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    54 |
+|    Minimum number of control sets                        |    54 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    31 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    54 |
+| >= 0 to < 4        |     1 |
+| >= 4 to < 6        |     1 |
+| >= 6 to < 8        |     1 |
+| >= 8 to < 10       |    11 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |    40 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |               1 |            1 |
+| No           | No                    | Yes                    |             664 |          335 |
+| No           | Yes                   | No                     |               0 |            0 |
+| Yes          | No                    | No                     |            3264 |         3122 |
+| Yes          | No                    | Yes                    |            1265 |          837 |
+| Yes          | Yes                   | No                     |               7 |            3 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++-------------------------+---------------------------------------------------------------------------+--------------------------------------+------------------+----------------+--------------+
+|       Clock Signal      |                               Enable Signal                               |           Set/Reset Signal           | Slice Load Count | Bel Load Count | Bels / Slice |
++-------------------------+---------------------------------------------------------------------------+--------------------------------------+------------------+----------------+--------------+
+|  PLL_inst/inst/clk_out1 |                                                                           |                                      |                1 |              1 |         1.00 |
+|  PLL_inst/inst/clk_out1 | UART/UART_TX/bit_cnt[3]_i_1_n_0                                           | reset_IBUF                           |                2 |              5 |         2.50 |
+|  PLL_inst/inst/clk_out1 | UART/UART_TX/tx_data0                                                     | UART/UART_TX/FSM_onehot_state_reg[5] |                3 |              7 |         2.33 |
+|  PLL_inst/inst/clk_out1 | UART/UART_RX/E[1]                                                         | reset_IBUF                           |                3 |              8 |         2.67 |
+|  PLL_inst/inst/clk_out1 | UART/UART_RX/E[3]                                                         | reset_IBUF                           |                4 |              8 |         2.00 |
+|  PLL_inst/inst/clk_out1 | UART/UART_RX/E[0]                                                         | reset_IBUF                           |                4 |              8 |         2.00 |
+|  PLL_inst/inst/clk_out1 | UART/UART_RX/E[2]                                                         | reset_IBUF                           |                3 |              8 |         2.67 |
+|  PLL_inst/inst/clk_out1 | UART/UART_RX/FSM_onehot_state_reg[3][2]                                   | reset_IBUF                           |                2 |              8 |         4.00 |
+|  PLL_inst/inst/clk_out1 | UART/UART_RX/FSM_onehot_state_reg[3][0]                                   | reset_IBUF                           |                2 |              8 |         4.00 |
+|  PLL_inst/inst/clk_out1 | UART/UART_RX/FSM_onehot_state_reg[3][1]                                   | reset_IBUF                           |                1 |              8 |         8.00 |
+|  PLL_inst/inst/clk_out1 | UART/UART_RX/FSM_onehot_state_reg[3][3]                                   | reset_IBUF                           |                2 |              8 |         4.00 |
+|  PLL_inst/inst/clk_out1 | UART/UART_TX/shift_reg[7]_i_1_n_0                                         | reset_IBUF                           |                2 |              8 |         4.00 |
+|  PLL_inst/inst/clk_out1 | UART/UART_RX/clk_count_0                                                  | reset_IBUF                           |                4 |              9 |         2.25 |
+|  PLL_inst/inst/clk_out1 | UART/UART_TX/E[0]                                                         | reset_IBUF                           |                2 |              9 |         4.50 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[23]             | UART/done_reg_reg_0                  |               27 |             32 |         1.19 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[24]             | UART/done_reg_reg_0                  |               19 |             32 |         1.68 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[25]             | UART/done_reg_reg_0                  |               21 |             32 |         1.52 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[4]              | UART/done_reg_reg_0                  |               26 |             32 |         1.23 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[16]             | UART/done_reg_reg_0                  |               23 |             32 |         1.39 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[18]             | UART/done_reg_reg_0                  |               28 |             32 |         1.14 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[26]             | UART/done_reg_reg_0                  |               20 |             32 |         1.60 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[6]              | UART/done_reg_reg_0                  |               24 |             32 |         1.33 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[27]             | UART/done_reg_reg_0                  |               22 |             32 |         1.45 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[8]              | UART/done_reg_reg_0                  |               18 |             32 |         1.78 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[11]             | UART/done_reg_reg_0                  |               23 |             32 |         1.39 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[7]              | UART/done_reg_reg_0                  |               24 |             32 |         1.33 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[12]             | UART/done_reg_reg_0                  |               21 |             32 |         1.52 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[0]              | UART/done_reg_reg_0                  |               24 |             32 |         1.33 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[2]              | UART/done_reg_reg_0                  |               24 |             32 |         1.33 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[14]             | UART/done_reg_reg_0                  |               24 |             32 |         1.33 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[15]             | UART/done_reg_reg_0                  |               26 |             32 |         1.23 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[3]              | UART/done_reg_reg_0                  |               26 |             32 |         1.23 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[17]             | UART/done_reg_reg_0                  |               23 |             32 |         1.39 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[19]             | UART/done_reg_reg_0                  |               27 |             32 |         1.19 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[30]             | UART/done_reg_reg_0                  |               24 |             32 |         1.33 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[29]             | UART/done_reg_reg_0                  |               21 |             32 |         1.52 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[28]             | UART/done_reg_reg_0                  |               22 |             32 |         1.45 |
+|  PLL_inst/inst/clk_out1 |                                                                           | reset_IBUF                           |               14 |             32 |         2.29 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[10]             | UART/done_reg_reg_0                  |               22 |             32 |         1.45 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[20]             | UART/done_reg_reg_0                  |               24 |             32 |         1.33 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[9]              | UART/done_reg_reg_0                  |               22 |             32 |         1.45 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[21]             | UART/done_reg_reg_0                  |               24 |             32 |         1.33 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[1]              | UART/done_reg_reg_0                  |               24 |             32 |         1.33 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[13]             | UART/done_reg_reg_0                  |               24 |             32 |         1.33 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[5]              | UART/done_reg_reg_0                  |               24 |             32 |         1.33 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/writeEnable[22]             | UART/done_reg_reg_0                  |               28 |             32 |         1.14 |
+|  PLL_inst/inst/clk_out1 | UART/mem_data_o0                                                          |                                      |                7 |             32 |         4.57 |
+|  PLL_inst/inst/clk_out1 | UART/addr_reg_reg[8]_5                                                    |                                      |                8 |             64 |         8.00 |
+|  PLL_inst/inst/clk_out1 | UART/addr_reg_reg[6]_2                                                    |                                      |                8 |             64 |         8.00 |
+|  PLL_inst/inst/clk_out1 | UART/q_reg[8]                                                             |                                      |               16 |             64 |         4.00 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].id_i/Instruction/uins_ID_mux[0][RegWrite]1 | UART/done_reg_reg_0                  |               31 |             76 |         2.45 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[0].id_i/Instruction/q_reg[10]_0               | UART/done_reg_reg_0                  |               46 |            102 |         2.22 |
+|  PLL_inst/inst/clk_out1 |                                                                           | UART/done_reg_reg_0                  |              321 |            632 |         1.97 |
+|  PLL_inst/inst/clk_out1 | DUV/DATA_PATH/gen_duplicate[1].mem_i/ALU_result/E[0]                      |                                      |             3115 |           3232 |         1.04 |
++-------------------------+---------------------------------------------------------------------------+--------------------------------------+------------------+----------------+--------------+
+
+

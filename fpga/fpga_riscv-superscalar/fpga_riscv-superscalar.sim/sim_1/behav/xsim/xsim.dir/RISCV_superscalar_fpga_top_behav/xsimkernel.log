@@ -1,0 +1,7 @@
+Running: xsim.dir/RISCV_superscalar_fpga_top_behav/xsimk.exe -simmode gui -wdb RISCV_superscalar_fpga_top_behav.wdb -simrunnum 0 -socket 51202
+Design successfully loaded
+Design Loading Memory Usage: 11964 KB (Peak: 11964 KB)
+Design Loading CPU Usage: 46 ms
+Simulation completed
+Simulation Memory Usage: 13580 KB (Peak: 13580 KB)
+Simulation CPU Usage: 108 ms

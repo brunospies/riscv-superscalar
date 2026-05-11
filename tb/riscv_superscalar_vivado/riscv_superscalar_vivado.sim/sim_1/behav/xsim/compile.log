@@ -1,0 +1,46 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RISCV_package.vhd" into library xil_defaultlib
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/shift_unit.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'shift_unit'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/ALU.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'ALU'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/BranchDetection_unit.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'BranchDetection_unit'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Decode_unit.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Decode_Unit'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/ControlPath.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'ControlPath'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RegisterNbits.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'RegisterNbits'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RegisterFile.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'RegisterFile'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Double_issue_dep.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Double_issue_dep'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Forwarding_unit.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Forwarding_unit'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/HazardDetection_unit.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'HazardDetection_unit'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/ImmediateDataExtractor.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'ImmediateDataExtractor'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_ID.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Stage_ID'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_EX.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Stage_EX'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_MEM.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Stage_MEM'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_WB.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Stage_WB'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/DataPath.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'DataPath'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/tb/Util_package.vhd" into library xil_defaultlib
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/uncore/Memory.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Memory'
+WARNING: [VRFC 10-393] cannot access 'imagefile' from inside pure function 'memoryload'. [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/uncore/Memory.vhd:66]
+WARNING: [VRFC 10-393] cannot access 'imagefile' from inside pure function 'memoryload'. [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/uncore/Memory.vhd:69]
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/uncore/Memory_2_ports.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Memory_2_ports'
+WARNING: [VRFC 10-393] cannot access 'imagefile' from inside pure function 'memoryload'. [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/uncore/Memory_2_ports.vhd:69]
+WARNING: [VRFC 10-393] cannot access 'imagefile' from inside pure function 'memoryload'. [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/uncore/Memory_2_ports.vhd:72]
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RISCV_superscalar.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'RISCV_superscalar'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/tb/RISCV_superscalar_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'RISCV_superscalar_tb'

@@ -1,0 +1,483 @@
+
+*** Running vivado
+    with args -log RISCV_superscalar_fpga_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source RISCV_superscalar_fpga_top.tcl
+
+
+
+****** Vivado v2025.1 (64-bit)
+  **** SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
+  **** IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+  **** SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+  **** Start of session at: Mon May 11 13:24:28 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source RISCV_superscalar_fpga_top.tcl -notrace
+create_project: Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 493.199 ; gain = 213.781
+Command: read_checkpoint -auto_incremental -incremental C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/fpga_riscv-superscalar/fpga_riscv-superscalar.srcs/utils_1/imports/synth_1/RISCV_superscalar_fpga_top.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/fpga_riscv-superscalar/fpga_riscv-superscalar.srcs/utils_1/imports/synth_1/RISCV_superscalar_fpga_top.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top RISCV_superscalar_fpga_top -part xc7a100tcsg324-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 18164
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1200.918 ; gain = 490.371
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'RISCV_superscalar_fpga_top' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/RISCV_superscalar_fpga_top.vhd:24]
+INFO: [Synth 8-3491] module 'clk_wiz_0' declared at 'C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/fpga_riscv-superscalar/fpga_riscv-superscalar.runs/synth_1/.Xil/Vivado-7272-DESKTOP-7DCFGKU/realtime/clk_wiz_0_stub.vhdl:6' bound to instance 'PLL_inst' of component 'clk_wiz_0' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/RISCV_superscalar_fpga_top.vhd:146]
+INFO: [Synth 8-638] synthesizing module 'clk_wiz_0' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/fpga_riscv-superscalar/fpga_riscv-superscalar.runs/synth_1/.Xil/Vivado-7272-DESKTOP-7DCFGKU/realtime/clk_wiz_0_stub.vhdl:16]
+	Parameter PC_START_ADDRESS bound to: 4194304 - type: integer 
+	Parameter DATA_WIDTH bound to: 32 - type: integer 
+	Parameter SYNTHESIS bound to: 1 - type: bool 
+	Parameter INST_WIDTH bound to: 64 - type: integer 
+INFO: [Synth 8-3491] module 'RISCV_superscalar' declared at 'C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RISCV_superscalar.vhd:11' bound to instance 'DUV' of component 'RISCV_SUPERSCALAR' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/RISCV_superscalar_fpga_top.vhd:153]
+INFO: [Synth 8-638] synthesizing module 'RISCV_superscalar' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RISCV_superscalar.vhd:34]
+	Parameter PC_START_ADDRESS bound to: 4194304 - type: integer 
+	Parameter DATA_WIDTH bound to: 32 - type: integer 
+	Parameter INST_WIDTH bound to: 64 - type: integer 
+	Parameter SYNTHESIS bound to: 1 - type: bool 
+INFO: [Synth 8-638] synthesizing module 'ControlPath' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/ControlPath.vhd:30]
+	Parameter INST_WIDTH bound to: 64 - type: integer 
+	Parameter ISSUE_WIDTH bound to: 2 - type: integer 
+INFO: [Synth 8-638] synthesizing module 'Decode_Unit' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Decode_unit.vhd:21]
+INFO: [Synth 8-256] done synthesizing module 'Decode_Unit' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Decode_unit.vhd:21]
+INFO: [Synth 8-256] done synthesizing module 'ControlPath' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/ControlPath.vhd:30]
+INFO: [Synth 8-638] synthesizing module 'DataPath' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/DataPath.vhd:44]
+	Parameter PC_START_ADDRESS bound to: 4194304 - type: integer 
+	Parameter SYNTHESIS bound to: 1 - type: bool 
+	Parameter DATA_WIDTH bound to: 32 - type: integer 
+	Parameter INST_WIDTH bound to: 64 - type: integer 
+	Parameter ISSUE_WIDTH bound to: 2 - type: integer 
+INFO: [Synth 8-638] synthesizing module 'RegisterNbits' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RegisterNbits.vhd:26]
+	Parameter LENGTH bound to: 32 - type: integer 
+	Parameter INIT_VALUE bound to: 4194304 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'RegisterNbits' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RegisterNbits.vhd:26]
+INFO: [Synth 8-638] synthesizing module 'RegisterFile' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RegisterFile.vhd:33]
+INFO: [Synth 8-638] synthesizing module 'RegisterNbits__parameterized0' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RegisterNbits.vhd:26]
+	Parameter LENGTH bound to: 32 - type: integer 
+	Parameter INIT_VALUE bound to: 0 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'RegisterNbits__parameterized0' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RegisterNbits.vhd:26]
+INFO: [Synth 8-638] synthesizing module 'RegisterNbits__parameterized1' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RegisterNbits.vhd:26]
+	Parameter LENGTH bound to: 32 - type: integer 
+	Parameter INIT_VALUE bound to: 16384 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'RegisterNbits__parameterized1' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RegisterNbits.vhd:26]
+INFO: [Synth 8-256] done synthesizing module 'RegisterFile' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RegisterFile.vhd:33]
+INFO: [Synth 8-638] synthesizing module 'Double_issue_dep' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Double_issue_dep.vhd:25]
+INFO: [Synth 8-256] done synthesizing module 'Double_issue_dep' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Double_issue_dep.vhd:25]
+INFO: [Synth 8-638] synthesizing module 'Forwarding_unit' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Forwarding_unit.vhd:39]
+	Parameter ISSUE_WIDTH bound to: 2 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'Forwarding_unit' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Forwarding_unit.vhd:39]
+INFO: [Synth 8-638] synthesizing module 'HazardDetection_unit' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/HazardDetection_unit.vhd:34]
+	Parameter ISSUE_WIDTH bound to: 2 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'HazardDetection_unit' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/HazardDetection_unit.vhd:34]
+INFO: [Synth 8-638] synthesizing module 'ImmediateDataExtractor' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/ImmediateDataExtractor.vhd:20]
+INFO: [Synth 8-256] done synthesizing module 'ImmediateDataExtractor' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/ImmediateDataExtractor.vhd:20]
+INFO: [Synth 8-638] synthesizing module 'Stage_ID' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_ID.vhd:27]
+INFO: [Synth 8-256] done synthesizing module 'Stage_ID' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_ID.vhd:27]
+INFO: [Synth 8-638] synthesizing module 'Stage_EX' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_EX.vhd:39]
+INFO: [Synth 8-638] synthesizing module 'RegisterNbits__parameterized2' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RegisterNbits.vhd:26]
+	Parameter LENGTH bound to: 5 - type: integer 
+	Parameter INIT_VALUE bound to: 0 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'RegisterNbits__parameterized2' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RegisterNbits.vhd:26]
+INFO: [Synth 8-256] done synthesizing module 'Stage_EX' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_EX.vhd:39]
+INFO: [Synth 8-638] synthesizing module 'Stage_MEM' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_MEM.vhd:31]
+INFO: [Synth 8-256] done synthesizing module 'Stage_MEM' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_MEM.vhd:31]
+INFO: [Synth 8-638] synthesizing module 'Stage_WB' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_WB.vhd:31]
+INFO: [Synth 8-256] done synthesizing module 'Stage_WB' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_WB.vhd:31]
+INFO: [Synth 8-638] synthesizing module 'ALU' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/ALU.vhd:21]
+INFO: [Synth 8-638] synthesizing module 'shift_unit' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/shift_unit.vhd:20]
+INFO: [Synth 8-256] done synthesizing module 'shift_unit' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/shift_unit.vhd:20]
+INFO: [Synth 8-256] done synthesizing module 'ALU' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/ALU.vhd:21]
+INFO: [Synth 8-638] synthesizing module 'BranchDetection_unit' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/BranchDetection_unit.vhd:22]
+INFO: [Synth 8-256] done synthesizing module 'BranchDetection_unit' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/BranchDetection_unit.vhd:22]
+INFO: [Synth 8-256] done synthesizing module 'DataPath' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/DataPath.vhd:44]
+INFO: [Synth 8-256] done synthesizing module 'RISCV_superscalar' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RISCV_superscalar.vhd:34]
+	Parameter SIZE bound to: 100 - type: integer 
+	Parameter INST_WIDTH bound to: 64 - type: integer 
+	Parameter DATA_WIDTH bound to: 32 - type: integer 
+	Parameter START_ADDRESS bound to: 32'b00000000010000000000000000000000 
+INFO: [Synth 8-3491] module 'Memory' declared at 'C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/Memory.vhd:11' bound to instance 'INSTRUCTION_MEMORY' of component 'Memory' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/RISCV_superscalar_fpga_top.vhd:176]
+INFO: [Synth 8-638] synthesizing module 'Memory' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/Memory.vhd:28]
+	Parameter SIZE bound to: 100 - type: integer 
+	Parameter DATA_WIDTH bound to: 32 - type: integer 
+	Parameter INST_WIDTH bound to: 64 - type: integer 
+	Parameter START_ADDRESS bound to: 32'b00000000010000000000000000000000 
+INFO: [Synth 8-256] done synthesizing module 'Memory' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/Memory.vhd:28]
+	Parameter SIZE bound to: 100 - type: integer 
+	Parameter DATA_WIDTH bound to: 32 - type: integer 
+	Parameter START_ADDRESS bound to: 32'b00010000000000010000000000000000 
+INFO: [Synth 8-3491] module 'Memory_2_ports' declared at 'C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/Memory_2_ports.vhd:12' bound to instance 'DATA_MEMORY' of component 'Memory_2_ports' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/RISCV_superscalar_fpga_top.vhd:192]
+INFO: [Synth 8-638] synthesizing module 'Memory_2_ports' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/Memory_2_ports.vhd:32]
+	Parameter SIZE bound to: 100 - type: integer 
+	Parameter DATA_WIDTH bound to: 32 - type: integer 
+	Parameter START_ADDRESS bound to: 32'b00010000000000010000000000000000 
+INFO: [Synth 8-256] done synthesizing module 'Memory_2_ports' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/Memory_2_ports.vhd:32]
+	Parameter CLK_FREQ bound to: 40000000 - type: integer 
+	Parameter BAUD_RATE bound to: 115200 - type: integer 
+	Parameter MEM_SIZE bound to: 16384 - type: integer 
+INFO: [Synth 8-3491] module 'UART_top' declared at 'C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/UART_top.vhd:10' bound to instance 'UART' of component 'UART_top' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/RISCV_superscalar_fpga_top.vhd:211]
+INFO: [Synth 8-638] synthesizing module 'UART_top' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/UART_top.vhd:31]
+	Parameter CLK_FREQ bound to: 40000000 - type: integer 
+	Parameter BAUD_RATE bound to: 115200 - type: integer 
+	Parameter MEM_SIZE bound to: 16384 - type: integer 
+	Parameter CLK_FREQ bound to: 40000000 - type: integer 
+	Parameter BAUD_RATE bound to: 115200 - type: integer 
+INFO: [Synth 8-3491] module 'UART_Receiver' declared at 'C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/UART_Receiver.vhd:10' bound to instance 'UART_RX' of component 'UART_Receiver' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/UART_top.vhd:84]
+INFO: [Synth 8-638] synthesizing module 'UART_Receiver' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/UART_Receiver.vhd:24]
+	Parameter CLK_FREQ bound to: 40000000 - type: integer 
+	Parameter BAUD_RATE bound to: 115200 - type: integer 
+INFO: [Synth 8-226] default block is never used [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/UART_Receiver.vhd:55]
+INFO: [Synth 8-256] done synthesizing module 'UART_Receiver' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/UART_Receiver.vhd:24]
+	Parameter CLK_FREQ bound to: 40000000 - type: integer 
+	Parameter BAUD_RATE bound to: 115200 - type: integer 
+INFO: [Synth 8-3491] module 'UART_Transmitter' declared at 'C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/UART_Transmitter.vhd:5' bound to instance 'UART_TX' of component 'UART_Transmitter' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/UART_top.vhd:98]
+INFO: [Synth 8-638] synthesizing module 'UART_Transmitter' [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/UART_Transmitter.vhd:20]
+	Parameter CLK_FREQ bound to: 40000000 - type: integer 
+	Parameter BAUD_RATE bound to: 115200 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'UART_Transmitter' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/UART_Transmitter.vhd:20]
+INFO: [Synth 8-256] done synthesizing module 'UART_top' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/UART_top.vhd:31]
+INFO: [Synth 8-256] done synthesizing module 'RISCV_superscalar_fpga_top' (0#1) [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/RISCV_superscalar_fpga_top.vhd:24]
+WARNING: [Synth 8-3848] Net uins_out[ALUSrc] in module/entity Stage_MEM does not have driver. [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_MEM.vhd:26]
+WARNING: [Synth 8-3848] Net uins_out[ALUSrc] in module/entity Stage_WB does not have driver. [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_WB.vhd:26]
+WARNING: [Synth 8-3848] Net uins_out[MemWrite] in module/entity Stage_WB does not have driver. [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Stage_WB.vhd:26]
+WARNING: [Synth 8-6014] Unused sequential element cycles_reg was removed.  [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/DataPath.vhd:541]
+WARNING: [Synth 8-6014] Unused sequential element inst_reg was removed.  [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/DataPath.vhd:542]
+WARNING: [Synth 8-4767] Trying to implement RAM 'memoryArray_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Invalid write to RAM. 
+	2: Unable to determine number of words or word size in RAM. 
+	3: No valid read/write found for RAM. 
+RAM "memoryArray_reg" dissolved into registers
+WARNING: [Synth 8-6014] Unused sequential element word_count_reg was removed.  [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/UART_top.vhd:120]
+WARNING: [Synth 8-7129] Port MemWrite_0[3] in module Memory_2_ports is either unconnected or has no load
+WARNING: [Synth 8-7129] Port MemWrite_0[2] in module Memory_2_ports is either unconnected or has no load
+WARNING: [Synth 8-7129] Port MemWrite_0[1] in module Memory_2_ports is either unconnected or has no load
+WARNING: [Synth 8-7129] Port MemWrite_1[3] in module Memory_2_ports is either unconnected or has no load
+WARNING: [Synth 8-7129] Port MemWrite_1[2] in module Memory_2_ports is either unconnected or has no load
+WARNING: [Synth 8-7129] Port MemWrite_1[1] in module Memory_2_ports is either unconnected or has no load
+WARNING: [Synth 8-7129] Port MemWrite[3] in module Memory is either unconnected or has no load
+WARNING: [Synth 8-7129] Port MemWrite[2] in module Memory is either unconnected or has no load
+WARNING: [Synth 8-7129] Port MemWrite[1] in module Memory is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_out[ALUSrc] in module Stage_WB is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_out[MemWrite][3] in module Stage_WB is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_out[MemWrite][2] in module Stage_WB is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_out[MemWrite][1] in module Stage_WB is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_out[MemWrite][0] in module Stage_WB is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_in[ALUSrc] in module Stage_WB is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_in[MemWrite][3] in module Stage_WB is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_in[MemWrite][2] in module Stage_WB is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_in[MemWrite][1] in module Stage_WB is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_in[MemWrite][0] in module Stage_WB is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_in[format][2] in module Stage_WB is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_in[format][1] in module Stage_WB is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_in[format][0] in module Stage_WB is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_out[ALUSrc] in module Stage_MEM is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_in[ALUSrc] in module Stage_MEM is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_in[format][2] in module Stage_MEM is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_in[format][1] in module Stage_MEM is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uins_in[format][0] in module Stage_MEM is either unconnected or has no load
+WARNING: [Synth 8-7129] Port clock in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port reset in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[31] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[29] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[28] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[27] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[26] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[25] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[24] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[23] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[22] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[21] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[19] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[18] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[17] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[16] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[15] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[11] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[10] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[9] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[8] in module Decode_Unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instruction[7] in module Decode_Unit is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:11 . Memory (MB): peak = 1350.629 ; gain = 640.082
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:09 ; elapsed = 00:00:11 . Memory (MB): peak = 1350.629 ; gain = 640.082
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:11 . Memory (MB): peak = 1350.629 ; gain = 640.082
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.161 . Memory (MB): peak = 1350.629 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [c:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/fpga_riscv-superscalar/fpga_riscv-superscalar.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'PLL_inst'
+Finished Parsing XDC File [c:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/fpga_riscv-superscalar/fpga_riscv-superscalar.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'PLL_inst'
+Parsing XDC File [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/fpga_riscv-superscalar/fpga_riscv-superscalar.srcs/constrs_1/new/NexysA7_100t.xdc]
+Finished Parsing XDC File [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/fpga_riscv-superscalar/fpga_riscv-superscalar.srcs/constrs_1/new/NexysA7_100t.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/fpga_riscv-superscalar/fpga_riscv-superscalar.srcs/constrs_1/new/NexysA7_100t.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/RISCV_superscalar_fpga_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/RISCV_superscalar_fpga_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1460.242 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.038 . Memory (MB): peak = 1460.242 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 1460.242 ; gain = 749.695
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 1460.242 ; gain = 749.695
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 1460.242 ; gain = 749.695
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Preparing Guide Design
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Doing Graph Differ : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 1460.242 ; gain = 749.695
+---------------------------------------------------------------------------------
+RISCV_superscalar_fpga_top__GC0Memory_2_ports__GB3Memory_2_ports__GB2Memory_2_ports__GB1Memory_2_ports__GB0---------------------------------------------------------------------------------
+Finished Preparing Guide Design : Time (s): cpu = 00:00:22 ; elapsed = 00:00:25 . Memory (MB): peak = 1460.242 ; gain = 749.695
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 1460.242 ; gain = 749.695
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Mimic Skeleton from Reference
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Mimic Skeleton from Reference : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 1460.242 ; gain = 749.695
+---------------------------------------------------------------------------------
+
+
+Incremental Synthesis Report Summary:
+
+1. Incremental synthesis run: yes
+
+   Stitch points used : changed
+
+
+2. Change Summary
+
+Report Incremental Modules: 
++-+----------------+------------+----------+----------+
+| |Changed Modules |Replication |Instances |Changed % |
++-+----------------+------------+----------+----------+
++-+----------------+------------+----------+----------+
+
+
+   Full Design Size (number of cells) : 118203
+   Resynthesis Design Size (number of cells) : 0
+   Resynth % : 0.0000,  Reuse % : 100.0000
+
+3. Reference Checkpoint Information
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| DCP Location:  | C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/fpga_riscv-superscalar/fpga_riscv-superscalar.srcs/utils_1/imports/synth_1/RISCV_superscalar_fpga_top.dcp |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++--------------------------------+------------------------------+
+|         DCP Information        |             Value            |
++--------------------------------+------------------------------+
+| Vivado Version                 |                    v2025.1 |
+| DCP State                      |                              |
++--------------------------------+------------------------------+
+
+
+
+Report RTL Partitions: 
++------+----------------------------------------+------------+----------+
+|      |RTL Partition                           |Replication |Instances |
++------+----------------------------------------+------------+----------+
+|1     |Memory_2_ports__GB0_#REUSE#             |           1|         0|
+|2     |Memory_2_ports__GB1_#REUSE#             |           1|         0|
+|3     |Memory_2_ports__GB2_#REUSE#             |           1|         0|
+|4     |Memory_2_ports__GB3_#REUSE#             |           1|         0|
+|5     |RISCV_superscalar_fpga_top__GC0_#REUSE# |           1|         0|
++------+----------------------------------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-7077] IncrSyn: subsequent runs will still be incremental as the reference run was parallel and that data is reused
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:26 ; elapsed = 00:00:28 . Memory (MB): peak = 1460.242 ; gain = 749.695
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Stitch Unchanged AreaOpt Partitions
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Stitch Unchanged AreaOpt Partitions : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 1460.242 ; gain = 749.695
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:33 ; elapsed = 00:00:36 . Memory (MB): peak = 1569.758 ; gain = 859.211
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:34 ; elapsed = 00:00:37 . Memory (MB): peak = 1570.785 ; gain = 860.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-7077] IncrSyn: subsequent runs will still be incremental as the reference run was parallel and that data is reused
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:34 ; elapsed = 00:00:37 . Memory (MB): peak = 1578.719 ; gain = 868.172
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Stitch Unchanged Partitions
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Stitch Unchanged Partitions : Time (s): cpu = 00:00:35 ; elapsed = 00:00:38 . Memory (MB): peak = 1611.086 ; gain = 900.539
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:49 ; elapsed = 00:00:52 . Memory (MB): peak = 1817.449 ; gain = 1106.902
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:49 ; elapsed = 00:00:52 . Memory (MB): peak = 1817.449 ; gain = 1106.902
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:52 ; elapsed = 00:00:56 . Memory (MB): peak = 1853.305 ; gain = 1142.758
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:54 ; elapsed = 00:00:57 . Memory (MB): peak = 1853.305 ; gain = 1142.758
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:56 ; elapsed = 00:01:00 . Memory (MB): peak = 1856.508 ; gain = 1145.961
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:57 ; elapsed = 00:01:00 . Memory (MB): peak = 1856.508 ; gain = 1145.961
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+--------------+----------+
+|      |BlackBox name |Instances |
++------+--------------+----------+
+|1     |clk_wiz_0     |         1|
++------+--------------+----------+
+
+Report Cell Usage: 
++------+---------------+------+
+|      |Cell           |Count |
++------+---------------+------+
+|1     |clk_wiz_0_bbox |     1|
+|2     |CARRY4         |   177|
+|3     |LUT1           |    21|
+|4     |LUT2           |   499|
+|5     |LUT3           |  2688|
+|6     |LUT4           |  1266|
+|7     |LUT5           |  6672|
+|8     |LUT6           | 12002|
+|9     |MUXF7          |  1344|
+|10    |MUXF8          |   384|
+|11    |RAM16X1D       |    32|
+|12    |RAM32X1D       |    32|
+|13    |RAM64X1D       |    32|
+|14    |FDCE           |  1907|
+|15    |FDPE           |    22|
+|16    |FDRE           |  3272|
+|17    |IBUF           |     3|
+|18    |OBUF           |     2|
++------+---------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:57 ; elapsed = 00:01:00 . Memory (MB): peak = 1856.508 ; gain = 1145.961
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 4 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:43 ; elapsed = 00:00:56 . Memory (MB): peak = 1856.508 ; gain = 1036.348
+Synthesis Optimization Complete : Time (s): cpu = 00:00:57 ; elapsed = 00:01:00 . Memory (MB): peak = 1856.508 ; gain = 1145.961
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.553 . Memory (MB): peak = 1886.949 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 2001 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.016 . Memory (MB): peak = 1893.582 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 96 instances were transformed.
+  RAM16X1D => RAM32X1D (RAMD32(x2)): 32 instances
+  RAM32X1D => RAM32X1D (RAMD32(x2)): 32 instances
+  RAM64X1D => RAM64X1D (RAMD64E(x2)): 32 instances
+
+Synth Design complete | Checksum: 1631eafb
+INFO: [Common 17-83] Releasing license: Synthesis
+78 Infos, 60 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:08 ; elapsed = 00:01:15 . Memory (MB): peak = 1893.582 ; gain = 1388.199
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.050 . Memory (MB): peak = 1893.582 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/fpga_riscv-superscalar/fpga_riscv-superscalar.runs/synth_1/RISCV_superscalar_fpga_top.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file RISCV_superscalar_fpga_top_utilization_synth.rpt -pb RISCV_superscalar_fpga_top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Mon May 11 13:26:13 2026...
