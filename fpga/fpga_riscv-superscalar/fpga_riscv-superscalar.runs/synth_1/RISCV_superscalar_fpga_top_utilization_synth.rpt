@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Sun May 10 15:53:53 2026
+| Date         : Mon May 11 23:12:30 2026
 | Host         : DESKTOP-7DCFGKU running 64-bit major release  (build 9200)
 | Command      : report_utilization -file RISCV_superscalar_fpga_top_utilization_synth.rpt -pb RISCV_superscalar_fpga_top_utilization_synth.pb
 | Design       : RISCV_superscalar_fpga_top
@@ -31,8 +31,8 @@ Table of Contents
 +----------------------------+-------+-------+------------+-----------+-------+
 |          Site Type         |  Used | Fixed | Prohibited | Available | Util% |
 +----------------------------+-------+-------+------------+-----------+-------+
-| Slice LUTs*                | 21156 |     0 |          0 |     63400 | 33.37 |
-|   LUT as Logic             | 20964 |     0 |          0 |     63400 | 33.07 |
+| Slice LUTs*                | 21167 |     0 |          0 |     63400 | 33.39 |
+|   LUT as Logic             | 20975 |     0 |          0 |     63400 | 33.08 |
 |   LUT as Memory            |   192 |     0 |          0 |     19000 |  1.01 |
 |     LUT as Distributed RAM |   192 |     0 |            |           |       |
 |     LUT as Shift Register  |     0 |     0 |            |           |       |
@@ -151,14 +151,14 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +----------+-------+---------------------+
 | Ref Name |  Used | Functional Category |
 +----------+-------+---------------------+
-| LUT6     | 12173 |                 LUT |
-| LUT5     |  5616 |                 LUT |
+| LUT6     | 12169 |                 LUT |
+| LUT5     |  5627 |                 LUT |
 | FDRE     |  4328 |        Flop & Latch |
-| LUT3     |  3720 |                 LUT |
+| LUT3     |  3717 |                 LUT |
 | FDCE     |  2137 |        Flop & Latch |
 | MUXF7    |  1539 |               MuxFx |
-| LUT4     |  1047 |                 LUT |
-| LUT2     |   718 |                 LUT |
+| LUT4     |  1051 |                 LUT |
+| LUT2     |   723 |                 LUT |
 | MUXF8    |   608 |               MuxFx |
 | CARRY4   |   220 |          CarryLogic |
 | RAMD32   |   128 |  Distributed Memory |

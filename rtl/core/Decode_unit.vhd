@@ -9,9 +9,7 @@ use work.RISCV_package.all;
 
 
 entity Decode_Unit is
-    port (  
-        clock           : in std_logic;
-        reset           : in std_logic;
+    port ( 
         instruction     : in std_logic_vector(31 downto 0);
         uins            : out microinstruction
     );

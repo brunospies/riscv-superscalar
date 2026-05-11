@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1778420983" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/RISCV_superscalar_fpga_top.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1778533474" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/RISCV_superscalar_fpga_top.dcp">
   <File Type="PA-TCL" Name="RISCV_superscalar_fpga_top.tcl"/>
   <File Type="REPORTS-TCL" Name="RISCV_superscalar_fpga_top_reports.tcl"/>
   <File Type="RDS-RDS" Name="RISCV_superscalar_fpga_top.vds"/>
@@ -11,157 +11,151 @@
   <File Type="VDS-TIMING-PB" Name="RISCV_superscalar_fpga_top_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
-    <File Path="$PPRDIR/../RV32I/rtl/RISCV_package.vhd">
+    <File Path="$PPRDIR/../../rtl/core/RISCV_package.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/shift_unit.vhd">
+    <File Path="$PPRDIR/../rtl/Memory_2_ports.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/ALU.vhd">
+    <File Path="$PPRDIR/../rtl/UART_Receiver.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/Decode_unit.vhd">
+    <File Path="$PPRDIR/../rtl/Memory.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/ControlPath.vhd">
+    <File Path="$PPRDIR/../rtl/UART_top.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/RegisterNbits.vhd">
+    <File Path="$PPRDIR/../rtl/RISCV_superscalar_fpga_top.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/RegisterFile.vhd">
+    <File Path="$PPRDIR/../rtl/UART_Transmitter.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/Double_issue_dep.vhd">
+    <File Path="$PPRDIR/../../rtl/core/CSR_module.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/Forwarding_unit.vhd">
+    <File Path="$PPRDIR/../../rtl/core/RISCV_superscalar.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/HazardDetection_unit.vhd">
+    <File Path="$PPRDIR/../../rtl/core/shift_unit.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/ImmediateDataExtractor.vhd">
+    <File Path="$PPRDIR/../../rtl/core/HazardDetection_unit.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/Stage_ID.vhd">
+    <File Path="$PPRDIR/../../rtl/core/Double_issue_dep.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/Stage_EX.vhd">
+    <File Path="$PPRDIR/../../rtl/core/Stage_MEM.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/Stage_MEM.vhd">
+    <File Path="$PPRDIR/../../rtl/core/RegisterNbits.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/Stage_WB.vhd">
+    <File Path="$PPRDIR/../../rtl/core/ALU.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/DataPath.vhd">
+    <File Path="$PPRDIR/../../rtl/core/Decode_unit.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/tb/Util_package.vhd">
+    <File Path="$PPRDIR/../../rtl/core/Forwarding_unit.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/fpga/Memory.vhd">
+    <File Path="$PPRDIR/../../rtl/core/Stage_ID.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/fpga/Memory_2_ports.vhd">
+    <File Path="$PPRDIR/../../rtl/core/RegisterFile.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/RISCV_superscalar.vhd">
+    <File Path="$PPRDIR/../../rtl/core/ControlPath.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/fpga/UART_Receiver.vhd">
+    <File Path="$PPRDIR/../../rtl/core/ImmediateDataExtractor.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/fpga/UART_Transmitter.vhd">
+    <File Path="$PPRDIR/../../rtl/core/Stage_WB.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/fpga/UART_top.vhd">
+    <File Path="$PPRDIR/../../rtl/core/Stage_EX.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/fpga/RISCV_superscalar_fpga_top.vhd">
+    <File Path="$PPRDIR/../../rtl/core/BTB_SuperScalar.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../RV32I/rtl/CSR_module.vhd">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PPRDIR/../RV32I/rtl/BTB_SuperScalar.vhd">
+    <File Path="$PPRDIR/../../rtl/core/DataPath.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>

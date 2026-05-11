@@ -7,8 +7,8 @@ import os
 PORT = 'COM11'  
 BAUD_RATE = 115200
 
-INSTRUCTIONS_FILE = 'BubbleSort_code.txt'
-DATA_FILE = 'BubbleSort_data.txt'
+INSTRUCTIONS_FILE = '../../software/Bubble_11_elements_CSR/BubbleSort_code.txt'
+DATA_FILE = '../../software/Bubble_11_elements_CSR/BubbleSort_data.txt'
 # =================================================
 
 def parse_and_send(file_path, serial_connection):

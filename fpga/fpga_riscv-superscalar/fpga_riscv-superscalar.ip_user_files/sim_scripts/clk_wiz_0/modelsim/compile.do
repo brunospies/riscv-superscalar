@@ -7,13 +7,13 @@ vlib modelsim_lib/msim/xil_defaultlib
 vmap xpm modelsim_lib/msim/xpm
 vmap xil_defaultlib modelsim_lib/msim/xil_defaultlib
 
-vlog -work xpm  -incr -mfcu  -sv "+incdir+../../../ipstatic" "+incdir+../../../../../../../../../../../../../AMD/2025.1/Vivado/data/rsb/busdef" \
+vlog -work xpm  -incr -mfcu  -sv "+incdir+../../../ipstatic" "+incdir+../../../../../../../../../../../../../../AMD/2025.1/Vivado/data/rsb/busdef" \
 "C:/AMD/2025.1/Vivado/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
 
 vcom -work xpm  -93  \
 "C:/AMD/2025.1/Vivado/data/ip/xpm/xpm_VCOMP.vhd" \
 
-vlog -work xil_defaultlib  -incr -mfcu  "+incdir+../../../ipstatic" "+incdir+../../../../../../../../../../../../../AMD/2025.1/Vivado/data/rsb/busdef" \
+vlog -work xil_defaultlib  -incr -mfcu  "+incdir+../../../ipstatic" "+incdir+../../../../../../../../../../../../../../AMD/2025.1/Vivado/data/rsb/busdef" \
 "../../../../fpga_riscv-superscalar.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v" \
 "../../../../fpga_riscv-superscalar.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.v" \
 

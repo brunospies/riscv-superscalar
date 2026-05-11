@@ -7,7 +7,6 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use ieee.numeric_std.all; 
 use std.textio.all;
-use work.Util_package.all;
 
 
 entity Memory is

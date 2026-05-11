@@ -211,7 +211,7 @@ begin
     -- UART wrapper instance
     UART: UART_top
         generic map (
-            CLK_FREQ    => 60_000_000,
+            CLK_FREQ    => 65_000_000,
             BAUD_RATE   => 115200,
             MEM_SIZE    => 100
         )
