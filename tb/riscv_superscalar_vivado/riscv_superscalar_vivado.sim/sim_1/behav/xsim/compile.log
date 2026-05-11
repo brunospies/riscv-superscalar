@@ -5,6 +5,8 @@ INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEI
 INFO: [VRFC 10-3107] analyzing entity 'ALU'
 INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/BranchDetection_unit.vhd" into library xil_defaultlib
 INFO: [VRFC 10-3107] analyzing entity 'BranchDetection_unit'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/CSR_Module.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'CSR_module'
 INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/Decode_unit.vhd" into library xil_defaultlib
 INFO: [VRFC 10-3107] analyzing entity 'Decode_Unit'
 INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/ControlPath.vhd" into library xil_defaultlib

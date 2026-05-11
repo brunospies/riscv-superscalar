@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date             : Mon May 11 13:32:35 2026
+| Date             : Mon May 11 20:53:28 2026
 | Host             : DESKTOP-7DCFGKU running 64-bit major release  (build 9200)
 | Command          : report_power -file RISCV_superscalar_fpga_top_power_routed.rpt -pb RISCV_superscalar_fpga_top_power_summary_routed.pb -rpx RISCV_superscalar_fpga_top_power_routed.rpx
 | Design           : RISCV_superscalar_fpga_top
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.294        |
+| Total On-Chip Power (W)  | 0.406        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.196        |
+| Dynamic (W)              | 0.308        |
 | Device Static (W)        | 0.098        |
 | Effective TJA (C/W)      | 4.6          |
-| Max Ambient (C)          | 83.7         |
-| Junction Temperature (C) | 26.3         |
+| Max Ambient (C)          | 83.1         |
+| Junction Temperature (C) | 26.9         |
 | Confidence Level         | Medium       |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -52,19 +52,19 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.025 |        8 |       --- |             --- |
-| Slice Logic              |     0.032 |    30497 |       --- |             --- |
-|   LUT as Logic           |     0.031 |    21139 |     63400 |           33.34 |
-|   Register               |    <0.001 |     5201 |    126800 |            4.10 |
-|   F7/F8 Muxes            |    <0.001 |     1728 |     63400 |            2.73 |
-|   CARRY4                 |    <0.001 |      177 |     15850 |            1.12 |
-|   Others                 |     0.000 |       52 |       --- |             --- |
-|   LUT as Distributed RAM |     0.000 |      128 |     19000 |            0.67 |
-| Signals                  |     0.034 |    22002 |       --- |             --- |
+| Clocks                   |     0.030 |        8 |       --- |             --- |
+| Slice Logic              |     0.081 |    30575 |       --- |             --- |
+|   LUT as Logic           |     0.079 |    20601 |     63400 |           32.49 |
+|   Register               |     0.001 |     5410 |    126800 |            4.27 |
+|   F7/F8 Muxes            |     0.001 |     1765 |     63400 |            2.78 |
+|   CARRY4                 |    <0.001 |      209 |     15850 |            1.32 |
+|   LUT as Distributed RAM |    <0.001 |      128 |     19000 |            0.67 |
+|   Others                 |     0.000 |       57 |       --- |             --- |
+| Signals                  |     0.091 |    22374 |       --- |             --- |
 | MMCM                     |     0.106 |        1 |         6 |           16.67 |
 | I/O                      |    <0.001 |        6 |       210 |            2.86 |
 | Static Power             |     0.098 |          |           |                 |
-| Total                    |     0.294 |          |           |                 |
+| Total                    |     0.406 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -74,7 +74,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.106 |       0.091 |      0.016 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.219 |       0.203 |      0.016 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.077 |       0.059 |      0.018 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.004 |       0.000 |      0.004 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -130,8 +130,8 @@ Table of Contents
 +----------------------+----------------------------------+-----------------+
 | Clock                | Domain                           | Constraint (ns) |
 +----------------------+----------------------------------+-----------------+
-| clk_out1_clk_wiz_0   | PLL_inst/inst/clk_out1_clk_wiz_0 |            25.0 |
-| clk_out1_clk_wiz_0_1 | PLL_inst/inst/clk_out1_clk_wiz_0 |            25.0 |
+| clk_out1_clk_wiz_0   | PLL_inst/inst/clk_out1_clk_wiz_0 |            20.0 |
+| clk_out1_clk_wiz_0_1 | PLL_inst/inst/clk_out1_clk_wiz_0 |            20.0 |
 | clkfbout_clk_wiz_0   | PLL_inst/inst/clkfbout_clk_wiz_0 |            10.0 |
 | clkfbout_clk_wiz_0_1 | PLL_inst/inst/clkfbout_clk_wiz_0 |            10.0 |
 | clock                | clock                            |            10.0 |
@@ -148,22 +148,24 @@ Table of Contents
 +------------------------------+-----------+
 | Name                         | Power (W) |
 +------------------------------+-----------+
-| RISCV_superscalar_fpga_top   |     0.196 |
-|   DATA_MEMORY                |     0.027 |
-|   DUV                        |     0.046 |
-|     DATA_PATH                |     0.046 |
-|       REGISTER_FILE          |     0.007 |
-|       gen_duplicate[0].ex_i  |     0.003 |
+| RISCV_superscalar_fpga_top   |     0.308 |
+|   DATA_MEMORY                |     0.049 |
+|   DUV                        |     0.104 |
+|     DATA_PATH                |     0.104 |
+|       CSR_unit_i             |     0.001 |
+|       REGISTER_FILE          |     0.009 |
+|       gen_duplicate[0].ex_i  |     0.008 |
 |       gen_duplicate[0].id_i  |     0.002 |
-|       gen_duplicate[0].wb_i  |     0.004 |
-|       gen_duplicate[1].ex_i  |     0.003 |
+|       gen_duplicate[0].mem_i |     0.002 |
+|       gen_duplicate[0].wb_i  |     0.007 |
+|       gen_duplicate[1].ex_i  |     0.006 |
 |       gen_duplicate[1].id_i  |     0.002 |
-|       gen_duplicate[1].mem_i |     0.021 |
-|       gen_duplicate[1].wb_i  |     0.002 |
+|       gen_duplicate[1].mem_i |     0.063 |
+|       gen_duplicate[1].wb_i  |     0.004 |
 |   INSTRUCTION_MEMORY         |     0.001 |
 |   PLL_inst                   |     0.106 |
 |     inst                     |     0.106 |
-|   UART                       |     0.017 |
+|   UART                       |     0.048 |
 +------------------------------+-----------+
 
 

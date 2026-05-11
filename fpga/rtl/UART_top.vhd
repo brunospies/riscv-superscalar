@@ -234,7 +234,7 @@ begin
                             
                             addr_reg <= std_logic_vector(unsigned(addr_reg) + 4);
 
-                            if unsigned(addr_reg) >= x"1001002C" then --(MEM_SIZE * 4) - 4 then 
+                            if unsigned(addr_reg) >= x"10010034" then --(MEM_SIZE * 4) - 4 then 
                                 state <= WAIT_SCAN_RELEASE;
                             end if;
                         else

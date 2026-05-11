@@ -4,6 +4,7 @@ vhdl xil_defaultlib  \
 "../../../../../../rtl/core/shift_unit.vhd" \
 "../../../../../../rtl/core/ALU.vhd" \
 "../../../../../../rtl/core/BranchDetection_unit.vhd" \
+"../../../../../../rtl/core/CSR_Module.vhd" \
 "../../../../../../rtl/core/Decode_unit.vhd" \
 "../../../../../../rtl/core/ControlPath.vhd" \
 "../../../../../../rtl/core/RegisterNbits.vhd" \

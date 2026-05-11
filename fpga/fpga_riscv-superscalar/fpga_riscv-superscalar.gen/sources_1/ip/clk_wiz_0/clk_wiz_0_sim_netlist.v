@@ -2,7 +2,7 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-// Date        : Sun May 10 22:45:59 2026
+// Date        : Mon May 11 20:34:02 2026
 // Host        : DESKTOP-7DCFGKU running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               c:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/fpga_riscv-superscalar/fpga_riscv-superscalar.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_sim_netlist.v
@@ -83,7 +83,7 @@ module clk_wiz_0_clk_wiz
     .CLKFBOUT_USE_FINE_PS("FALSE"),
     .CLKIN1_PERIOD(10.000000),
     .CLKIN2_PERIOD(0.000000),
-    .CLKOUT0_DIVIDE_F(25.000000),
+    .CLKOUT0_DIVIDE_F(20.000000),
     .CLKOUT0_DUTY_CYCLE(0.500000),
     .CLKOUT0_PHASE(0.000000),
     .CLKOUT0_USE_FINE_PS("FALSE"),

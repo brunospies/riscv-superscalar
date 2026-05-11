@@ -18,9 +18,7 @@ entity ControlPath is
         INST_WIDTH    : integer := 64;
         ISSUE_WIDTH   : natural := 2
     );
-    port (  
-        clock           : in  std_logic;
-        reset           : in  std_logic;
+    port (
         instruction     : in  Data_array;
         uins            : out Microinstruction_array
     );
@@ -34,8 +32,6 @@ begin
     decode_gen : for i in 0 to ISSUE_WIDTH-1 generate
         decode_i: entity work.Decode_Unit(behavioral)
          port map (
-             clock          => clock,
-             reset          => reset,
              instruction    => instruction(i),
              uins           => uins(i)
          );

@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Mon May 11 13:32:20 2026
+| Date         : Mon May 11 20:53:01 2026
 | Host         : DESKTOP-7DCFGKU running 64-bit major release  (build 9200)
 | Command      : report_methodology -file RISCV_superscalar_fpga_top_methodology_drc_routed.rpt -pb RISCV_superscalar_fpga_top_methodology_drc_routed.pb -rpx RISCV_superscalar_fpga_top_methodology_drc_routed.rpx
 | Design       : RISCV_superscalar_fpga_top
@@ -23,12 +23,13 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max checks: <unlimited>
-             Checks found: 5
+             Checks found: 7
 +-----------+------------------+------------------------------------------------------------------+--------+
 | Rule      | Severity         | Description                                                      | Checks |
 +-----------+------------------+------------------------------------------------------------------+--------+
 | TIMING-6  | Critical Warning | No common primary clock between related clocks                   | 2      |
 | LUTAR-1   | Warning          | LUT drives async reset alert                                     | 1      |
+| TIMING-16 | Warning          | Large setup violation                                            | 2      |
 | TIMING-56 | Warning          | Missing logically or physically excluded clock groups constraint | 2      |
 +-----------+------------------+------------------------------------------------------------------+--------+
 
@@ -46,22 +47,32 @@ Related violations: <none>
 
 LUTAR-1#1 Warning
 LUT drives async reset alert  
-LUT cell UART/q[31]_i_3__39, with 2 or more inputs, drives asynchronous preset/clear pin(s) DUV/DATA_PATH/gen_duplicate[1].wb_i/Read_data/q_reg[31]/CLR,
-DUV/DATA_PATH/gen_duplicate[1].wb_i/Read_data/q_reg[3]/CLR,
-DUV/DATA_PATH/gen_duplicate[1].wb_i/Read_data/q_reg[4]/CLR,
-DUV/DATA_PATH/gen_duplicate[1].wb_i/Read_data/q_reg[5]/CLR,
-DUV/DATA_PATH/gen_duplicate[1].wb_i/Read_data/q_reg[6]/CLR,
-DUV/DATA_PATH/gen_duplicate[1].wb_i/Read_data/q_reg[7]/CLR,
-DUV/DATA_PATH/gen_duplicate[1].wb_i/Read_data/q_reg[8]/CLR,
-DUV/DATA_PATH/gen_duplicate[1].wb_i/Read_data/q_reg[9]/CLR,
-DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/q_reg[0]/CLR,
-DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/q_reg[1]/CLR,
-DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/q_reg[2]/CLR,
-DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/q_reg[3]/CLR,
-DUV/DATA_PATH/gen_duplicate[1].wb_i/Write_reg/q_reg[4]/CLR,
+LUT cell UART/q[31]_i_3__41, with 2 or more inputs, drives asynchronous preset/clear pin(s) DUV/DATA_PATH/gen_duplicate[1].wb_i/CSR_reg/q_reg[3]/CLR,
+DUV/DATA_PATH/gen_duplicate[1].wb_i/CSR_reg/q_reg[4]/CLR,
+DUV/DATA_PATH/gen_duplicate[1].wb_i/CSR_reg/q_reg[5]/CLR,
+DUV/DATA_PATH/gen_duplicate[1].wb_i/CSR_reg/q_reg[6]/CLR,
+DUV/DATA_PATH/gen_duplicate[1].wb_i/CSR_reg/q_reg[7]/CLR,
+DUV/DATA_PATH/gen_duplicate[1].wb_i/CSR_reg/q_reg[8]/CLR,
+DUV/DATA_PATH/gen_duplicate[1].wb_i/CSR_reg/q_reg[9]/CLR,
 DUV/DATA_PATH/gen_duplicate[1].wb_i/uins_out_reg[MemToReg]/CLR,
-DUV/DATA_PATH/gen_duplicate[1].wb_i/uins_out_reg[RegWrite]/CLR
- (the first 15 of 1802 listed). The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+DUV/DATA_PATH/gen_duplicate[1].wb_i/uins_out_reg[RegWrite]/CLR,
+DUV/DATA_PATH/gen_duplicate[1].wb_i/uins_out_reg[instruction][0]/PRE,
+DUV/DATA_PATH/gen_duplicate[1].wb_i/uins_out_reg[instruction][1]/PRE,
+DUV/DATA_PATH/gen_duplicate[1].wb_i/uins_out_reg[instruction][2]/PRE,
+DUV/DATA_PATH/gen_duplicate[1].wb_i/uins_out_reg[instruction][3]/PRE,
+DUV/DATA_PATH/gen_duplicate[1].wb_i/uins_out_reg[instruction][4]/CLR,
+DUV/DATA_PATH/gen_duplicate[1].wb_i/uins_out_reg[instruction][5]/PRE
+ (the first 15 of 2011 listed). The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+TIMING-16#1 Warning
+Large setup violation  
+There is a large setup violation of -1.049 ns between DUV/DATA_PATH/gen_duplicate[1].mem_i/uins_out_reg[RegWrite]/C (clocked by clk_out1_clk_wiz_0) and DUV/DATA_PATH/PROGRAM_COUNTER/q_reg[31]/D (clocked by clk_out1_clk_wiz_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#2 Warning
+Large setup violation  
+There is a large setup violation of -1.057 ns between DUV/DATA_PATH/gen_duplicate[1].mem_i/uins_out_reg[RegWrite]/C (clocked by clk_out1_clk_wiz_0) and DUV/DATA_PATH/PROGRAM_COUNTER/q_reg[29]/D (clocked by clk_out1_clk_wiz_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-56#1 Warning

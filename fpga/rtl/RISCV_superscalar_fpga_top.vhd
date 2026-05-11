@@ -122,7 +122,7 @@ architecture structural of RISCV_superscalar_fpga_top is
     );
     end component;
     
-    signal clk_40mhz : std_logic;
+    signal clk_50mhz : std_logic;
 
     signal MemWrite_uart : std_logic;
     signal data_uart : std_logic_vector(31 downto 0);
@@ -142,11 +142,11 @@ architecture structural of RISCV_superscalar_fpga_top is
 
 begin
     
-    -- Clock Wizard 40Mhz
+    -- Clock Wizard 50Mhz
     PLL_inst : clk_wiz_0
         port map (
            clk_in1  => clock,      
-           clk_out1 => clk_40mhz   
+           clk_out1 => clk_50mhz   
         );
         
     -- DUV component instance for RISCV_SUPERSCALAR
@@ -158,7 +158,7 @@ begin
             INST_WIDTH => INST_WIDTH
         )
         port map (
-            clock               => clk_40mhz,
+            clock               => clk_50mhz,
             reset               => reset_core,
             
             -- instruction memory interface
@@ -181,7 +181,7 @@ begin
             START_ADDRESS   => INSTRUCTION_OFFSET
         )
         port map (
-            clock           => clk_40mhz,
+            clock           => clk_50mhz,
             MemWrite        => MemWrite_inst,
             address         => instructionAddress_mux,    
             data_i          => data_uart,
@@ -196,7 +196,7 @@ begin
             START_ADDRESS   => DATA_OFFSET
         )
         port map (
-            clock           => clk_40mhz,
+            clock           => clk_50mhz,
             MemWrite_0      => MemWrite_data, --MemWrite(0),
             MemWrite_1      => MemWrite(1),
             address_0       => data_addr_mux, --dataAddress(0),   
@@ -210,12 +210,12 @@ begin
     -- UART wrapper instance
     UART: UART_top
         generic map (
-            CLK_FREQ    => 40_000_000,
+            CLK_FREQ    => 50_000_000,
             BAUD_RATE   => 115200,
             MEM_SIZE    => 16384
         )
         port map (
-            clk         => clk_40mhz,
+            clk         => clk_50mhz,
             reset       => reset,
             rx          => rx,
             tx          => tx,

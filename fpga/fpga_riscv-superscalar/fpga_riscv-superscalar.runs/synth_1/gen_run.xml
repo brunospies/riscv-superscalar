@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1778498665" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/RISCV_superscalar_fpga_top.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1778524382" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/RISCV_superscalar_fpga_top.dcp">
   <File Type="PA-TCL" Name="RISCV_superscalar_fpga_top.tcl"/>
   <File Type="REPORTS-TCL" Name="RISCV_superscalar_fpga_top_reports.tcl"/>
   <File Type="RDS-RDS" Name="RISCV_superscalar_fpga_top.vds"/>
@@ -156,6 +156,12 @@
       </FileInfo>
     </File>
     <File Path="$PPRDIR/../../tb/Util_package.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../rtl/core/CSR_Module.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>

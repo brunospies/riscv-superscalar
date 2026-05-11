@@ -35,6 +35,7 @@ package RISCV_package is
 
     type Microinstruction_array is array (0 to 1) of Microinstruction;
     type Data_array             is array (0 to 1) of std_logic_vector(31 downto 0);
+    type CSR_array              is array (0 to 1) of std_logic_vector(11 downto 0);
     type Reg_array              is array (0 to 1) of std_logic_vector(4 downto 0);
     type Select_array_2b        is array (0 to 1) of std_logic_vector(1 downto 0);
     type Select_array_3b        is array (0 to 1) of std_logic_vector(2 downto 0);

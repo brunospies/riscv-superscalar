@@ -101,6 +101,7 @@ read_vhdl -library xil_defaultlib {
   C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/RISCV_superscalar.vhd
   C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/rtl/RISCV_superscalar_fpga_top.vhd
   C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/tb/Util_package.vhd
+  C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/rtl/core/CSR_Module.vhd
 }
 read_ip -quiet C:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/fpga_riscv-superscalar/fpga_riscv-superscalar.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
 set_property used_in_implementation false [get_files -all c:/Users/Bruno/OneDrive/Documents/ENSEIRB/S8/Projet-Thematique/riscv-superscalar/fpga/fpga_riscv-superscalar/fpga_riscv-superscalar.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc]

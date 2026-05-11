@@ -44,8 +44,6 @@ begin
             ISSUE_WIDTH => ISSUE_WIDTH
         )
          port map (
-             clock          => clock,
-             reset          => reset,
              instruction    => instructions_to_decode,
              uins           => uins
          );

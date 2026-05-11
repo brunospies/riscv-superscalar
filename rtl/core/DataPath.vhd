@@ -68,11 +68,13 @@ architecture structural of DataPath is
     -- Memory Stage Signals:
     signal result_MEM : Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal uins_MEM : Microinstruction_array; --> (0 to 1) of Microinstruction;
+    signal CSR_MEM : CSR_array; --> (0 to 1) of std_logic_vector(7 downto 0)
     signal rd_MEM : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
 
     -- Write Back Stage Signals:
-    signal writeData, data_i_WB, result_WB: Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
+    signal writeData, data_i_WB, result_WB, CSR_DATA_WB: Data_array; --> (0 to 1) of std_logic_vector(31 downto 0)
     signal uins_WB : Microinstruction_array; --> (0 to 1) of Microinstruction;
+    signal CSR_WB : CSR_array; --> (0 to 1) of std_logic_vector(7 downto 0)
     signal rd_WB : Reg_array; --> (0 to 1) of std_logic_vector(4 downto 0);
 
     -- Auxiliar Signals:
@@ -229,6 +231,15 @@ begin
             bubble_hazard_EX     => bubble_hazard_EX
         );
 
+    CSR_unit_i: entity work.CSR_module(behavioral)
+        port map (
+            clock           => clock,
+            reset           => reset,
+            uins_WB         => uins_WB,
+            csr_WB          => csr_WB,     -- CSR address in WB stage
+            CSR_DATA_WB     => CSR_DATA_WB -- Data to write in CSR from WB stage
+        );
+
     -------------------------------------------------------------------------------------------------------------------
 
     ------------------------------------------- DUPLICATE COMPONENTS --------------------------------------------------
@@ -329,6 +340,8 @@ begin
                 write_data_out   => data_o(i),
                 rd_in            => rd_EX(i),
                 rd_out           => rd_MEM(i),
+                CSR_in           => imm_data_EX(i)(11 downto 0),
+                CSR_out          => CSR_MEM(i),
                 uins_in          => uins_EX(i),
                 uins_out         => uins_MEM(i)
             );
@@ -354,6 +367,8 @@ begin
                 read_data_out    => data_i_WB(i),
                 alu_result_in    => result_MEM(i),
                 alu_result_out   => result_WB(i),
+                CSR_in           => CSR_MEM(i),
+                CSR_out          => CSR_WB(i),
                 uins_in          => uins_MEM(i),
                 uins_out         => uins_WB(i)
             );
@@ -411,7 +426,8 @@ begin
         
         -- Selects the data to be written in the register file
         -- MUX at the data memory output
-        MUX_DATA_MEM: writeData(i) <= data_i_WB(i) when uins_WB(i).memToReg = '1' else 
+        MUX_DATA_MEM: writeData(i) <= CSR_DATA_WB(i) when uins_WB(i).instruction = CSRRS else -- CHANGE WHEN ALL THE CSR INSTRUCTION WILL BE IMPLEMENTED
+                                      data_i_WB(i)   when uins_WB(i).memToReg = '1' else 
                                       result_WB(i);
 
         --███████████████████████████████████████████████████████████████████████████████████████████████████████████████████
@@ -534,25 +550,6 @@ begin
 --██ ██████╔╝ ███████╗██████╔╝╚██████╔╝╚██████╔╝       ███████║██║╚██████╔╝██║ ╚████║██║  ██║███████╗███████║ ██
 --██ ╚═════╝  ╚══════╝╚═════╝  ╚═════╝  ╚═════╝        ╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚══════╝ ██
 --██████████████████████████████████████████████████████████████████████████████████████████████████████████████
-
-
-process(clock, reset) begin 
-    if reset = '1' then
-        cycles <= (others=>'0');
-        inst <= (others=>'0');
-
-    elsif rising_edge(clock) then
-        cycles <= STD_LOGIC_VECTOR(UNSIGNED(cycles) + TO_UNSIGNED(1,64));
-
-        if uins_WB(0).instruction /= INVALID_INSTRUCTION and uins_WB(1).instruction /= INVALID_INSTRUCTION then
-            inst <= STD_LOGIC_VECTOR(UNSIGNED(inst) + TO_UNSIGNED(2,64));
-            
-        elsif (uins_WB(0).instruction /= INVALID_INSTRUCTION and uins_WB(1).instruction = INVALID_INSTRUCTION) or (uins_WB(0).instruction = INVALID_INSTRUCTION and uins_WB(1).instruction /= INVALID_INSTRUCTION) then
-            inst <= STD_LOGIC_VECTOR(UNSIGNED(inst) + TO_UNSIGNED(1,64));
-
-        end if;
-    end if;
-end process;
 
     DECODE_STAGE_IF: -- Decoded Instruction of Instruction Fetch Stage for SIMULATION
     if not SYNTHESIS generate
