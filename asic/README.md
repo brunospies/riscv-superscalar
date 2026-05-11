@@ -32,11 +32,9 @@ The synthesized processor is a:
 
 ```text
 asic/
-├── constraints/     # Timing and floorplan constraints
-├── synthesis/       # Design Compiler synthesis scripts
-├── par/             # Physical design flow (Encounter)
-├── reports/         # Timing, area and power reports
-└── work/            # Generated temporary files
+├── odatix_userconfig/     # Files for Odatix
+├── synthesis/             # Design Compiler synthesis scripts
+├── par/                   # Physical design flow (Encounter)
 ```
 
 ---
@@ -66,7 +64,7 @@ The following EDA tools were used:
 
 | Metric | Value |
 |---|---|
-| Frequency | ~30 MHz |
+| Frequency | ~37 MHz |
 | Total Power | ~28 mW |
 | Leakage Power | ~70 µW |
 
@@ -95,11 +93,12 @@ The superscalar control logic and branch redirection significantly increase the 
 
 - VHDL compilation order is important.
 - Packages must be analyzed before architectural blocks.
-- Generated files (`.spf`, `.enc.dat`, `.db`, `WORK/`) should not be committed to Git.
+- If you want to synthesize the design yourself, you must update the path variables present in the `par/` and `synthesis/` directories.
 
 ---
 
 ## Authors
+
 - Bruno Henrique Spies
 - Mathias Michelotti
 - Mathieu Escouteloup
