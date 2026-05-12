@@ -58,7 +58,7 @@ To test the processor on the physical board, a Python workflow is provided to se
    python fpga/scripts/test.py
    ```
 3. The script will send the compiled `.txt` code to the FPGA Instruction Memory.
-4. Toggle **Switch 1** to `OFF` to release the reset and start processor execution.
+4. Toggle **Switch 1** to `ON` to release the reset and start processor execution.
 5. Once the program finishes, press the **Center Button (BTNC)** on the FPGA to trigger the "Memory Scan".
 6. The Python script will receive the contents of the Data Memory and display the results in your terminal.
 
@@ -66,7 +66,7 @@ To test the processor on the physical board, a Python workflow is provided to se
 
 ## 3. ASIC Conception
 
-The backend flow for Application-Specific Integrated Circuit (ASIC) design is hosted in the `asic/` directory. This section will contain the synthesis (`synth/`), place and route (`pnr/`), and physical constraints (`constraints/`) required to map the RTL to a standard cell technology node.
+The backend flow for Application-Specific Integrated Circuit (ASIC) design is hosted in the `asic/` directory. This section will contain the synthesis (`synth/`), place and route (`par/`), and physical constraints (`constraints/`) required to map the RTL to a standard cell technology node.
 
 *(Documentation for the ASIC flow is currently under development).*
 
