@@ -66,6 +66,22 @@ To test the processor on the physical board, a Python workflow is provided to se
 5. Once the program finishes, press the **Center Button (BTNC)** on the FPGA to trigger the "Memory Scan".
 6. The Python script will receive the contents of the Data Memory and display the results in your terminal.
 
+### Performance and Power Analysis (Hardware-Level)
+
+The table below summarizes the results obtained by running the **BubbleSort** algorithm, comparing efficiency across different branch decision stages and the impact of the BTB predictor.
+
+| Configuration | Max Frequency | Execution Time | Total Power | Energy Consumption |
+| :--- | :---: | :---: | :---: | :---: |
+| **No Pred - ID** | 40 MHz | 16.6 µs | 0.385 W | 6.39 µJ |
+| **No Pred - EX** | 75 MHz | 10.5 µs | 0.496 W | 5.21 µJ |
+| **BTB - ID** | 40 MHz | 14.6 µs | 0.392 W | 5.72 µJ |
+| **BTB - EX** | 65 MHz | **9.58 µs** | 0.542 W | **5.19 µJ** |
+
+#### Key Insights:
+* **Energy Efficiency:** The **BTB - EX** configuration proved to be the most efficient overall, achieving the lowest execution time and total energy consumption (5.19 µJ), despite having higher instantaneous power.
+* **Frequency vs. IPC Trade-off:** While branch decision in the ID stage theoretically benefits IPC, it strains the critical path, limiting frequency to 40 MHz. Resolving branches in the EX stage allows for significantly higher clock speeds (up to 75 MHz).
+* **Impact of BTB:** The implementation of the Bimodal predictor reduced both execution time and energy consumption in both scenarios, validating the effectiveness of the superscalar architecture with branch prediction.
+
 ---
 ## 3. ASIC Conception
 
