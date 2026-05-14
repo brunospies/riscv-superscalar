@@ -93,7 +93,9 @@ The superscalar control logic and branch redirection significantly increase the 
 
 - VHDL compilation order is important.
 - Packages must be analyzed before architectural blocks.
-- If you want to synthesize the design yourself, you must update the path variables present in the `par/` and `synthesis/` directories.
+- If you want to synthesize the design yourself, you must check the path variables present in the `par/` and `synthesis/` directories.
+- The synthesis Tcl scripts were written using the correct VHDL file compilation order for the project. It is also possible to use automatic dependency resolution with `-autoread`, although this flow was not used in this project.
+- The Odatix environment is already configured and ready to use through the `_settings.yml` configuration file.
 
 ---
 
