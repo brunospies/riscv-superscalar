@@ -67,12 +67,13 @@ To test the processor on the physical board, a Python workflow is provided to se
 6. The Python script will receive the contents of the Data Memory and display the results in your terminal.
 
 ---
-
 ## 3. ASIC Conception
 
-The backend flow for Application-Specific Integrated Circuit (ASIC) design is hosted in the `asic/` directory. This section will contain the synthesis (`synth/`), place and route (`par/`), and physical constraints (`constraints/`) required to map the RTL to a standard cell technology node.
+The backend flow for Application-Specific Integrated Circuit (ASIC) design is hosted in the `asic/` directory. This section contains the synthesis (`synthesis/`), place and route (`par/`), timing analysis, power analysis, and physical constraints required to map the RTL design to a standard-cell technology node.
 
-*(Documentation for the ASIC flow is currently under development).*
+You can check the complete ASIC backend documentation here:
+
+📄 [ASIC Backend Flow Documentation](asic/README.md)
 
 ---
 
