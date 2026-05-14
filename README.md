@@ -62,7 +62,7 @@ To test the processor on the physical board, a Python workflow is provided to se
    python fpga/scripts/test.py
    ```
 3. The script will send the compiled `.txt` code to the FPGA Instruction Memory.
-4. Toggle **Switch 1** to `ON` to release the reset and start processor execution.
+4. Toggle **Switch 1** to `OFF` to release the reset and start processor execution.
 5. Once the program finishes, press the **Center Button (BTNC)** on the FPGA to trigger the "Memory Scan".
 6. The Python script will receive the contents of the Data Memory and display the results in your terminal.
 
@@ -74,6 +74,51 @@ The backend flow for Application-Specific Integrated Circuit (ASIC) design is ho
 You can check the complete ASIC backend documentation here:
 
 📄 [ASIC Backend Flow Documentation](asic/README.md)
+
+---
+
+## Results & Comparison
+
+### Physical Synthesis Results (PAR)
+
+| Metric | Value |
+|---|---|
+| Fmax | ~40 MHz |
+| Total Power | 36.94 mW |
+| Leakage Power | 68.5 µW |
+| Switching Power | 18.55 mW |
+| Total Area | 2.49 mm² |
+| Technology | CMOS C35 (350 nm) |
+
+
+---
+### IPC and Frequency Comparison
+
+| Configuration | IPC (BubbleSort) | FPGA Frequency (Xilinx Artix-7) |
+|---|---|---|
+| Superscalar (ID) | 1.10 | 40 MHz |
+| Superscalar (EX) | 0.93 | 75 MHz |
+| Superscalar (ID) + BTB Bimodal | 1.25 | 40 MHz |
+| Superscalar (EX) + BTB Bimodal | 1.17 | 65 MHz |
+
+The superscalar architecture with branch decision in the ID stage presents the highest IPC values, but with a lower maximum frequency due to the increased critical path complexity.  
+In contrast, the EX-stage branch decision achieves higher operating frequencies at the cost of a slightly lower IPC.
+
+---
+
+### Frequency Comparison with Other Processors
+
+| Processor | Architecture | Technology | Frequency | Particularities |
+|---|---|---|---|---|
+| MIPS R3000 | Scalar, 5 stages | 1 µm / 350 nm | 20–33 MHz | Classical RISC architecture |
+| RVCoreP | RISC-V 5-stage pipeline | Modern FPGA | >100 MHz | FPGA-oriented implementation |
+| Wildcat RISC-V | Educational pipeline | FPGA | ~50–100 MHz | Forwarding and hazard management |
+| Our Work (ASIC) | RISC-V superscalar dual-issue | CMOS C35 (350 nm) | ~37 MHz | BTB, forwarding, branch prediction |
+| Our Work (FPGA) | RISC-V superscalar dual-issue | Artix-7 FPGA | ~70 MHz | FPGA implementation of the same core |
+
+---
+
+The obtained frequencies are coherent with the targeted CMOS C35 technology node and with the increased complexity introduced by the superscalar dual-issue architecture and branch prediction logic.
 
 ---
 
