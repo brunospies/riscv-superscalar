@@ -22,7 +22,7 @@ The core is designed to maximize Instruction Per Cycle (IPC) throughput by fetch
 
 ```text
 riscv-superscalar/
-├── asic/       # ASIC synthesis and physical design flow (Yosys/OpenROAD, etc.)
+├── asic/       # ASIC synthesis and physical design flow (Design Compiler/Encounter)
 ├── docs/       # Project documentation, architecture diagrams, and reports
 ├── fpga/       # FPGA implementation files, XDC constraints, and bitstream deployment
 ├── rtl/        # Core RTL VHDL source files (Frontend)
@@ -31,7 +31,11 @@ riscv-superscalar/
 ```
 
 ---
+## Project Presentation
 
+📄 [Download the presentation](docs/Present_ProjetThematique.pdf)
+
+---
 ## 1. Simulation
 
 Functional verification and waveform analysis are handled in the `tb/` directory.
